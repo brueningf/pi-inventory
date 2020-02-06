@@ -18,16 +18,6 @@ class StorageLocationController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -40,27 +30,6 @@ class StorageLocationController extends Controller
         return response('Ok', 200);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\StorageLocation  $storageLocation
-     * @return \Illuminate\Http\Response
-     */
-    public function show(StorageLocation $storageLocation)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\StorageLocation  $storageLocation
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(StorageLocation $storageLocation)
-    {
-        //
-    }
 
     /**
      * Update the specified resource in storage.
@@ -71,7 +40,10 @@ class StorageLocationController extends Controller
      */
     public function update(Request $request, StorageLocation $storageLocation)
     {
-        //
+        $storageLocation->stock = $request->stock;
+        $storageLocation->save();
+        
+        return response('Updated', 200);
     }
 
     /**
@@ -82,6 +54,8 @@ class StorageLocationController extends Controller
      */
     public function destroy(StorageLocation $storageLocation)
     {
-        //
+        $storageLocation->delete();
+
+        return response('Deleted', 200);
     }
 }
