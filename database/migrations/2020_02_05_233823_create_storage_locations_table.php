@@ -16,8 +16,8 @@ class CreateStorageLocationsTable extends Migration
         Schema::create('storage_locations', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('location');
-            $table->string('column');
-            $table->string('level');
+            $table->string('column')->nullable();
+            $table->string('level')->nullable();
             $table->integer('stock');
             $table->unsignedInteger('item_id');
             $table->timestamps();

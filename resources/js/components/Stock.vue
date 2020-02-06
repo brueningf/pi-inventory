@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="pb-12">
         <table class="table-auto w-full mt-6">
             <thead>
                 <tr>
@@ -26,7 +26,7 @@
                     <th class="w-1/5 h-full text-red-700">-</th>
                 </tr>
             </thead>
-            <tbody v-if="locations.length > 0">
+            <tbody>
                 <stock-location
                     v-for="(storage, index) in locations"
                     :key="index"
@@ -35,22 +35,22 @@
                     @remove="remove(storage.id, index)"
                 ></stock-location>
             </tbody>
-            <tbody v-else>
+            <!-- <tbody v-else>
                 <tr>
                     <td class="flex items-center justify-center p-0">
                         <button
                             class="btn text-white bg-teal-500 hover:bg-green-400 inline-flex px-4 py-3"
                             @click="showAddStockForm = true"
-                            v-if="showAddStockForm"
+                            v-if="!showAddStockForm"
                         >
                             <zondicon icon="add-solid" class="fill-current text-white w-6 mr-2" />ADD STOCK
                         </button>
                         <add-stock @submit="onSubmit" v-else></add-stock>
                     </td>
                 </tr>
-            </tbody>
+            </tbody> -->
         </table>
-        <div class="border" v-if="locations.length > 0">
+        <div class="border">
             <add-stock @submit="onSubmit"></add-stock>
         </div>
     </div>

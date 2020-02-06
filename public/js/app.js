@@ -2777,7 +2777,7 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", [
+  return _c("div", { staticClass: "pb-12" }, [
     _c("table", { staticClass: "table-auto w-full mt-6" }, [
       _c("thead", [
         _c("tr", [
@@ -2845,68 +2845,32 @@ var render = function() {
         ])
       ]),
       _vm._v(" "),
-      _vm.locations.length > 0
-        ? _c(
-            "tbody",
-            _vm._l(_vm.locations, function(storage, index) {
-              return _c("stock-location", {
-                key: index,
-                attrs: { storage: storage },
-                on: {
-                  update: function($event) {
-                    return _vm.update(storage.stock, storage.id)
-                  },
-                  remove: function($event) {
-                    return _vm.remove(storage.id, index)
-                  }
-                }
-              })
-            }),
-            1
-          )
-        : _c("tbody", [
-            _c("tr", [
-              _c(
-                "td",
-                { staticClass: "flex items-center justify-center p-0" },
-                [
-                  _vm.showAddStockForm
-                    ? _c(
-                        "button",
-                        {
-                          staticClass:
-                            "btn text-white bg-teal-500 hover:bg-green-400 inline-flex px-4 py-3",
-                          on: {
-                            click: function($event) {
-                              _vm.showAddStockForm = true
-                            }
-                          }
-                        },
-                        [
-                          _c("zondicon", {
-                            staticClass: "fill-current text-white w-6 mr-2",
-                            attrs: { icon: "add-solid" }
-                          }),
-                          _vm._v("ADD STOCK\n                    ")
-                        ],
-                        1
-                      )
-                    : _c("add-stock", { on: { submit: _vm.onSubmit } })
-                ],
-                1
-              )
-            ])
-          ])
+      _c(
+        "tbody",
+        _vm._l(_vm.locations, function(storage, index) {
+          return _c("stock-location", {
+            key: index,
+            attrs: { storage: storage },
+            on: {
+              update: function($event) {
+                return _vm.update(storage.stock, storage.id)
+              },
+              remove: function($event) {
+                return _vm.remove(storage.id, index)
+              }
+            }
+          })
+        }),
+        1
+      )
     ]),
     _vm._v(" "),
-    _vm.locations.length > 0
-      ? _c(
-          "div",
-          { staticClass: "border" },
-          [_c("add-stock", { on: { submit: _vm.onSubmit } })],
-          1
-        )
-      : _vm._e()
+    _c(
+      "div",
+      { staticClass: "border" },
+      [_c("add-stock", { on: { submit: _vm.onSubmit } })],
+      1
+    )
   ])
 }
 var staticRenderFns = []
