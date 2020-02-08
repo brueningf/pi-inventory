@@ -7,10 +7,9 @@ use Illuminate\Http\Request;
 
 Route::get('/', function () {
     $providers = Provider::all();
-    $categories = Category::all();
     $items = Item::orderBy('id', 'desc')->take(5)->get();
 
-    return view('index', compact('categories', 'providers', 'items'));
+    return view('index', compact( 'providers', 'items'));
 });
 
 Route::post('/search', function (Request $request) {

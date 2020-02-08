@@ -11,7 +11,7 @@
 
     <div class="mb-6">
         <label for="name">Name</label>
-        <input type="text" name="name" placeholder="e.g Example item" required>
+        <input type="text" name="name" placeholder="e.g. Example item" required>
     </div>
     <div class="flex items-start flex-col md:flex-row mb-6">
         <div class="w-1/2 md:w-1/4 md:pr-3 relative">
@@ -20,7 +20,7 @@
             <select name="category_id" class="bg-white shadow px-3 py-2" required>
                 <option disabled selected>Select a category</option>
                 
-                @foreach ($categories as $category)
+                @foreach ($availableCategories as $category)
                     <option value="{{ $category->id }}">
                         {{ $category->name }}
                     </option>
@@ -47,7 +47,7 @@
         </div>
         <div class="w-1/2 md:w-1/4 px-3">
             <label for="provider_code">Provider code</label>
-            <input type="text" name="provider_code" placeholder="e.g STMM001">
+            <input type="text" name="provider_code" placeholder="e.g. STMM001">
         </div>
         <div class="w-1/2 md:w-1/4 px-3">
             <label for="price">Price per unit $</label>
@@ -56,7 +56,7 @@
     </div>
     <div class="mb-6">
         <label for="description">Description</label>
-        <textarea name="description" rows="5" placeholder="e.g Fancy example item"></textarea>
+        <textarea name="description" rows="5" placeholder="e.g. Fancy example item"></textarea>
     </div>
 
     

@@ -27,9 +27,9 @@ class ItemController extends Controller
     public function create()
     {
         $providers = Provider::all();
-        $categories = Category::all();
+        $availableCategories = Category::all();
 
-        return view('items.create', compact('providers', 'categories'));
+        return view('items.create', compact('providers', 'availableCategories'));
     }
 
     /**
