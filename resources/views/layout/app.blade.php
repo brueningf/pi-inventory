@@ -13,9 +13,9 @@
 <body>
     <div id="app">
         <header>
-            <div class="w-full bg-gray-200 flex items-center justify-around mx-auto py-4">
+            <div class="w-full bg-repeat bg-yellow-100 flex items-center justify-around mx-auto py-4" style="background-image: url(/images/circuit-board.svg)">
                 <div class="w-1/2 flex items-center justify-center">
-                    <a href="/" class="text-red-700 text-lg font-bold">
+                    <a href="/" class="text-black bg-yellow-100 px-3 py-2 rounded-full text-4xl font-black">
                         PI | Inventory
                     </a>
                 </div>
@@ -33,15 +33,15 @@
             </div>
             <div class="w-full bg-red-600 flex items-center justify-around mx-auto">
                 <div class="flex items-center justify-center w-1/2">
-                    <a class="flex px-4 py-3 cursor-pointer hover:bg-gray-200" href="/items/create">
+                    <a class="flex px-4 py-3 cursor-pointer text-white hover:bg-gray-200" href="/items/create">
                         <zondicon icon="add-solid" class="fill-current w-5 mr-2"></zondicon>
                         New Item
                     </a>
-                    <a class="flex px-4 py-3 cursor-pointer hover:bg-gray-200" href="/providers/create">
+                    <a class="flex px-4 py-3 cursor-pointer text-white hover:bg-gray-200" href="/providers/create">
                         <zondicon icon="add-solid" class="fill-current w-5 mr-2"></zondicon>
                         New Provider
                     </a>
-                    <a class="flex px-4 py-3 cursor-pointer hover:bg-gray-200" href="/categories">
+                    <a class="flex px-4 py-3 cursor-pointer text-white hover:bg-gray-200" href="/categories">
                         <zondicon icon="bookmark" class="fill-current w-5 mr-2"></zondicon>
                         Categories
                     </a>
@@ -51,10 +51,11 @@
         </header>
 
         <div class="flex min-h-screen">
-            <div class="w-1/5 bg-gray-200">
+            <div class="w-1/5 bg-gray-200 shadow">
+                <h3 class="py-4 pl-4 border-b-2 border-black font-bold text-2xl mb-0">Categories</h3>
                 <sidemenu :categories="{{ json_encode($categories) }}"></sidemenu>
             </div>
-            <div class="w-4/5 bg-red-100">
+            <div class="w-4/5 bg-yellow-100 shadow">
                 @yield('content')
 
             </div>

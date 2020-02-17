@@ -645,6 +645,8 @@ label {
 }
 
 input, textarea {
+  border-width: 1px;
+  border-color: #a0aec0;
   box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
   -webkit-appearance: none;
      -moz-appearance: none;
@@ -668,7 +670,7 @@ input:focus, textarea:focus {
 select {
   display: block;
   border-width: 1px;
-  border-color: #edf2f7;
+  border-color: #e2e8f0;
   -webkit-appearance: none;
      -moz-appearance: none;
           appearance: none;

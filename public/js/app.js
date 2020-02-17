@@ -2886,11 +2886,13 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _vm.category.subcategories.length
-    ? _c("div", { staticClass: "cursor-pointer bg-gray-300" }, [
+    ? _c("div", { staticClass: "cursor-pointer bg-gray-200" }, [
         _c(
           "div",
           {
-            staticClass: "pl-4 py-4 hover:bg-red-600 flex font-semibold",
+            staticClass:
+              "px-6 py-6 hover:bg-red-600 flex justify-between font-semibold hover:text-white",
+            class: { "bg-red-600 text-white": _vm.showSubcategories },
             on: {
               click: function($event) {
                 _vm.showSubcategories = !_vm.showSubcategories
@@ -2909,7 +2911,7 @@ var render = function() {
             _vm._v(" "),
             _vm.category.subcategories.length
               ? _c("zondicon", {
-                  staticClass: "w-3 ml-3",
+                  staticClass: "fill-current w-4",
                   attrs: { icon: "arrow-thick-down" }
                 })
               : _vm._e()
@@ -2946,7 +2948,7 @@ var render = function() {
             "a",
             {
               staticClass:
-                "cursor-pointer bg-gray-300 pl-4 py-4 hover:bg-red-600 flex font-semibold hover:text-white",
+                "cursor-pointer bg-gray-200 px-6 py-6 hover:bg-red-600 flex justify-between font-semibold hover:text-white",
               attrs: { href: _vm.category.path }
             },
             [_vm._v(_vm._s(_vm.category.name))]
@@ -2954,7 +2956,7 @@ var render = function() {
           _vm._v(" "),
           _vm.category.subcategories.length
             ? _c("zondicon", {
-                staticClass: "w-3 ml-3",
+                staticClass: "w-4",
                 attrs: { icon: "arrow-thick-down" }
               })
             : _vm._e()
