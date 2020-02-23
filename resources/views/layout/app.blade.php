@@ -47,7 +47,6 @@
                     </a>
                 </div>
             </div>
-
         </header>
 
         <div class="flex min-h-screen">
@@ -57,14 +56,35 @@
             </div>
             <div class="w-4/5 bg-yellow-100 shadow">
                 @yield('content')
-
             </div>
         </div>
 
-        <footer class="w-full bg-gray-200 flex items-center p-2">
-            Made by <a class="mx-1" href="https://fredesk.com">FB</a> with
-            <zondicon icon="heart" class="fill-current text-red-500 w-5 mx-1"></zondicon>
-            for PI
+        <footer class="relative w-full flex flex-col items-center justify-end bg-repeat" style="background-image: url(/images/circuit-board.svg);background-color: rgba(210,0,0,.5);" >
+            <div class="w-full flex justify-center items-center">
+                <div class="p-12">
+                    <h5 class="text-xl text-left border-b-2 mb-3">Index</h5>
+                    <div>
+                        <a class="block py-2" href="/categories">Categories</a>
+                        <a class="block py-2" href="/manufacturers">Manufacturers</a>
+                        <a class="block py-2" href="/item-cases">Item Cases</a>
+                        <a class="block py-2" href="/storage-locations">Storage</a>
+                    </div>
+                </div>
+                <div class="p-12">
+                    <h5 class="text-xl text-left border-b-2 mb-3">Index</h5>
+                    <div>
+                        <a class="block py-2" href="/categories">Categories</a>
+                        <a class="block py-2" href="/manufacturers">Manufacturers</a>
+                        <a class="block py-2" href="/item-cases">Item Cases</a>
+                        <a class="block py-2" href="/storage-locations">Storage</a>
+                    </div>
+                </div>
+            </div>
+            <div class="w-full flex items-center justify-center bg-gray-100 py-1">
+                Made by <a class="mx-1" href="https://fredesk.com">fb</a> |
+                <zondicon icon="bolt" class="fill-current text-red-500 w-5 mx-1"></zondicon>
+                for PI
+            </div>
         </footer>
     </div>
 

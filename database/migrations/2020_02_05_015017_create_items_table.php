@@ -17,13 +17,11 @@ class CreateItemsTable extends Migration
             $table->bigIncrements('id');
             $table->string('name');
             $table->string('provider_code')->nullable();
-            $table->string('case')->nullable();
             $table->string('marking_code')->nullable();
             $table->text('description')->nullable();
             $table->float('price')->default(0.00);
             $table->string('image')->nullable();
             $table->unsignedInteger('category_id');
-            $table->unsignedInteger('provider_id')->default(1);
             $table->integer('manufacturer_id')->nullable();
             $table->unsignedInteger('item_case_id');
             $table->timestamps();

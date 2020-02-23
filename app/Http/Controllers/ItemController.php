@@ -40,13 +40,16 @@ class ItemController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate(['category_id' => 'required', 'item_case_id' => 'required']);
+
         $item = new Item();
         $item->name = $request->name;
         $item->description = $request->description;
         $item->price = $request->price;
         $item->provider_code = $request->provider_code;
         $item->category_id = $request->category_id;
-        $item->provider_id = $request->provider_id;
+        $item->item_case_id = $request->item_case_id;
+
         $item->save();
 
         return redirect('/items/' . $item->id);

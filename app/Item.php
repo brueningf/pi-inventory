@@ -13,6 +13,15 @@ class Item extends Model
         return '/items/' . $this->id;
     }
 
+    /**
+     * @return string
+     */
+    public function imagePath()
+    {
+        return $this->image ? '/storage/images/' . $this->image : '/images/no-image.svg';
+    }
+
+
     public function category()
     {
         return $this->belongsTo(Category::class);

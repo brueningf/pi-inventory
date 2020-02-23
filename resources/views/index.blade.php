@@ -22,12 +22,12 @@
         @endforeach
     </div>
 
-    <h3 class="text-xl font-bold mt-6">Providers</h3>
+    <h3 class="text-xl font-bold mt-6">Manufacturer</h3>
     <div class="w-full flex flex-wrap mt-6 pb-16 block">
-        @foreach ($providers as $provider)
+        @foreach ($manufacturers as $manufacturer)
         <div class="w-1/5 mt-3 pr-3">
-            <a href="{{ $provider->path() }}" class="w-full block p-2 text-bold text-center border rounded hover:bg-blue-100">
-                {{ $provider->name }}
+            <a href="{{ $manufacturer->path() }}" class="w-full block p-2 font-bold text-center border rounded hover:bg-blue-100">
+                {{ $manufacturer->name }}
             </a>
         </div>
         @endforeach
