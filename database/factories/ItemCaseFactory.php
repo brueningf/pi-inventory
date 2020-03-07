@@ -7,7 +7,7 @@ use Faker\Generator as Faker;
 
 $factory->define(ItemCase::class, function (Faker $faker) {
     return [
-        'name' => $faker->word,
+        'name' => $faker->randomNumber(3) . strtoupper($faker->word),
         'image' => ''
     ];
 });

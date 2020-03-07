@@ -4,8 +4,8 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateItemCasesTable extends Migration
-{
+class CreateItemCasesTable extends Migration {
+
     /**
      * Run the migrations.
      *
@@ -16,6 +16,7 @@ class CreateItemCasesTable extends Migration
         Schema::create('item_cases', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name');
+            $table->string('slug');
             $table->string('image')->nullable();
             $table->timestamps();
         });

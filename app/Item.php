@@ -4,9 +4,9 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Item extends Model
-{
-    protected $with = ['category', 'provider', 'storageLocations'];
+class Item extends Model {
+
+    protected $with = ['category', 'storageLocations', 'itemCase'];
 
     public function path()
     {
@@ -27,13 +27,18 @@ class Item extends Model
         return $this->belongsTo(Category::class);
     }
 
-    public function provider()
-    {
-        return $this->belongsTo(Provider::class);
-    }
-
     public function storageLocations()
     {
         return $this->hasMany(StorageLocation::class);
+    }
+
+    public function itemCase()
+    {
+        return $this->belongsTo(ItemCase::class);
+    }
+
+    public function manufacturer()
+    {
+        return $this->belongsTo(Manufacturer::class);
     }
 }

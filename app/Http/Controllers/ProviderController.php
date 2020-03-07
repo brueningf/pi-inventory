@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Provider;
+use App\Manufacturer;
 use Illuminate\Http\Request;
 
 class ProviderController extends Controller
@@ -35,7 +35,7 @@ class ProviderController extends Controller
      */
     public function store(Request $request)
     {
-        $provider = new Provider();
+        $provider = new Manufacturer();
         $provider->name = $request->name;
         $provider->website = $request->website;
         $provider->save();
@@ -46,10 +46,10 @@ class ProviderController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Provider  $provider
+     * @param  \App\Manufacturer  $provider
      * @return \Illuminate\Http\Response
      */
-    public function show(Provider $provider)
+    public function show(Manufacturer $provider)
     {
         return view('categories.show', compact('provider'));
     }
@@ -57,10 +57,10 @@ class ProviderController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Provider  $provider
+     * @param  \App\Manufacturer  $provider
      * @return \Illuminate\Http\Response
      */
-    public function edit(Provider $provider)
+    public function edit(Manufacturer $provider)
     {
         //
     }
@@ -69,10 +69,10 @@ class ProviderController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Provider  $provider
+     * @param  \App\Manufacturer  $provider
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Provider $provider)
+    public function update(Request $request, Manufacturer $provider)
     {
         //
     }
@@ -80,10 +80,10 @@ class ProviderController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Provider  $provider
+     * @param  \App\Manufacturer  $provider
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Provider $provider)
+    public function destroy(Manufacturer $provider)
     {
         //
     }

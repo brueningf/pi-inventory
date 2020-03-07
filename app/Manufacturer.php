@@ -12,7 +12,7 @@ class Manufacturer extends Model
 
     public function sluggable()
     {
-        return ['source' => 'name'];
+        return ['source' => $this->name];
     }
 
     public function path()

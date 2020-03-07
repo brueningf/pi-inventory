@@ -1,50 +1,53 @@
 @extends('layout.app')
 
 @section('content')
-<div class="w-full">
-    <div class="flex items-center justify-center text-xl font-bold py-6 text-uppercase border -mx-5">
-        {{ $item->name }}
-    </div>
-    <div class="flex mt-6">
-        <div class="w-1/4">
-            <div class="pr-4">
-                <img src="/images/keinBild.gif" alt="Item Picture" class="w-full h-auto border">
-            </div>
-        </div>
-        <div class="w-3/4">
-            <div class="flex mb-6">
-                <div class="w-1/3">
-                    <div class="mb-3"> 
-                        <h3>Price per unit</h3>
-                        {{ $item->price }} $
-                    </div>
-                    <div class="mb-3">
-                        <h3>Category</h3>
-                        <a href="{{ $item->category->path() }}">
-                            {{ $item->category->name }}
-                        </a>
-                    </div>
-                </div>
-        
-                <div class="w-1/3">
-                    <div class="mb-3">
-                        <h3>Provider Code</h3>
-                        {{ $item->provider_code }}
-                    </div>
-                    <div class="mb-3">
-                        <h3>Provider</h3>
-                        <a href="{{ $item->provider->path() }}">
-                            {{ $item->provider->name }}
-                        </a>
-                    </div>
+    <div class="w-full px-8">
+        <h1 class="text-2xl text-left font-bold tracking-wider py-3 text-uppercase">
+            {{ $item->name }}
+        </h1>
+        <div class="w-full flex flex-wrap mb-8 p-5 shadow bg-white">
+            <div class="w-1/6 flex items-center justify-start">
+                <div class="overflow-hidden rounded-lg w-64">
+                    <img src="/images/keinBild.gif" alt="Item Picture" class="object-cover w-full h-auto">
                 </div>
             </div>
-            <div>
-                <h3>Description</h3>
+            <div class="w-5/6 flex">
+                <div class="w-1/4 tracking-wide text-lg font-medium">
+                    <h3 class="text-gray-600 tracking-wide text-sm">Category</h3>
+                    <a href="{{ $item->category->path() }}">
+                        {{ $item->category->name }}
+                    </a>
+
+                    <h3 class="text-gray-600 tracking-wide text-sm mt-6">Manufacturer</h3>
+                    <a href="{{ $item->manufacturer->path() }}">
+                        {{ $item->manufacturer->name }}
+                    </a>
+                </div>
+                <div class="w-1/4 tracking-wide text-lg font-medium">
+                    <h3 class="text-gray-600 tracking-wide text-sm">Provider Code</h3>
+                    {{ $item->provider_code ? $item->provider_code : '(empty)' }}
+
+                    <h3 class="text-gray-600 tracking-wide text-sm mt-6">Item Case</h3>
+                    <a href="{{ $item->itemCase->path() }}">
+                        {{ $item->itemCase->name }}
+                    </a>
+                </div>
+                <div class="w-1/4 tracking-wide text-lg font-medium">
+
+                </div>
+                <div class="w-1/4 tracking-wide text-lg font-medium">
+                    <h3 class="text-gray-600 tracking-wide text-sm">Price per unit</h3>
+                    {{ $item->price }} $
+                </div>
+            </div>
+
+            <div class="mt-8 tracking-wide text-lg font-medium">
+                <h3 class="text-gray-600 tracking-wide text-sm">Description</h3>
                 {{ $item->description }}
             </div>
         </div>
+
+        <stock locations="{{ $item->storageLocations->toJson()}}" item-id="{{ $item->id }}"></stock>
+
     </div>
-<stock locations="{{ $item->storageLocations->toJson()}}" item-id="{{ $item->id }}"></stock>   
-</div>
 @endsection
