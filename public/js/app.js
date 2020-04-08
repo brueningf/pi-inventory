@@ -2093,20 +2093,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -2700,7 +2686,7 @@ var render = function() {
   return _c(
     "form",
     {
-      staticClass: "w-full bg-green-100 flex",
+      staticClass: "w-full bg-gray-100 flex",
       on: {
         submit: function($event) {
           $event.preventDefault()
@@ -2709,7 +2695,7 @@ var render = function() {
       }
     },
     [
-      _c("div", { staticClass: "w-1/5 border py-2 px-3" }, [
+      _c("div", { staticClass: "w-1/5 border-b-2 border-l py-2 px-3" }, [
         _c("input", {
           directives: [
             {
@@ -2719,7 +2705,7 @@ var render = function() {
               expression: "location"
             }
           ],
-          attrs: { type: "text", placeholder: "Location" },
+          attrs: { type: "text", placeholder: "Location", required: "" },
           domProps: { value: _vm.location },
           on: {
             input: function($event) {
@@ -2732,7 +2718,7 @@ var render = function() {
         })
       ]),
       _vm._v(" "),
-      _c("div", { staticClass: "w-1/5 border py-2 px-3" }, [
+      _c("div", { staticClass: "w-1/5 border-b-2 border-l py-2 px-3" }, [
         _c("input", {
           directives: [
             {
@@ -2755,7 +2741,7 @@ var render = function() {
         })
       ]),
       _vm._v(" "),
-      _c("div", { staticClass: "w-1/5 border py-2 px-3" }, [
+      _c("div", { staticClass: "w-1/5 border-b-2 border-l py-2 px-3" }, [
         _c("input", {
           directives: [
             {
@@ -2778,7 +2764,7 @@ var render = function() {
         })
       ]),
       _vm._v(" "),
-      _c("div", { staticClass: "w-1/5 border py-2 px-3" }, [
+      _c("div", { staticClass: "w-1/5 border-b-2 border-l py-2 px-3" }, [
         _c("input", {
           directives: [
             {
@@ -2804,7 +2790,8 @@ var render = function() {
       _c(
         "div",
         {
-          staticClass: "w-1/5 border py-2 px-3 flex items-center justify-center"
+          staticClass:
+            "w-1/5 border-b-2 border-l border-r py-2 px-3 flex items-center justify-center"
         },
         [
           _c(
@@ -2986,7 +2973,7 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "pb-12" }, [
+  return _c("div", { staticClass: "mb-12 bg-white" }, [
     _c("table", { staticClass: "table-auto w-full mt-6" }, [
       _c("thead", [
         _c("tr", [
@@ -3050,7 +3037,7 @@ var render = function() {
             )
           ]),
           _vm._v(" "),
-          _c("th", { staticClass: "w-1/5 h-full text-red-700" }, [_vm._v("-")])
+          _c("th", { staticClass: "w-1/5 h-full" })
         ])
       ]),
       _vm._v(" "),

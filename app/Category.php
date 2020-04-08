@@ -10,6 +10,8 @@ class Category extends Model
 
     protected $appends = ['path'];
 
+    protected $guarded = [];
+
     public function path()
     {
         return '/categories/' . $this->id;

@@ -1,5 +1,5 @@
 <template>
-    <div class="pb-12">
+    <div class="mb-12 bg-white">
         <table class="table-auto w-full mt-6">
             <thead>
                 <tr>
@@ -23,7 +23,7 @@
                             <zondicon icon="shopping-cart" class="fill-current w-6 mr-2" />Stock
                         </div>
                     </th>
-                    <th class="w-1/5 h-full text-red-700">-</th>
+                    <th class="w-1/5 h-full"></th>
                 </tr>
             </thead>
             <tbody>
@@ -35,20 +35,6 @@
                     @remove="remove(storage.id, index)"
                 ></stock-location>
             </tbody>
-            <!-- <tbody v-else>
-                <tr>
-                    <td class="flex items-center justify-center p-0">
-                        <button
-                            class="btn text-white bg-teal-500 hover:bg-green-400 inline-flex px-4 py-3"
-                            @click="showAddStockForm = true"
-                            v-if="!showAddStockForm"
-                        >
-                            <zondicon icon="add-solid" class="fill-current text-white w-6 mr-2" />ADD STOCK
-                        </button>
-                        <add-stock @submit="onSubmit" v-else></add-stock>
-                    </td>
-                </tr>
-            </tbody> -->
         </table>
         <div class="border">
             <add-stock @submit="onSubmit"></add-stock>

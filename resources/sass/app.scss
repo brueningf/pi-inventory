@@ -1,8 +1,7 @@
 @import "tailwindcss/base";
-
 @import "tailwindcss/components";
 
-h3 {
+h1, h2, h3 {
     @apply mb-1 font-bold;
 }
 
@@ -21,6 +20,10 @@ input, textarea {
 
     &:focus {
         @apply outline-none;
+    }
+
+    &:invalid:focus {
+        @apply border-red-500 border-2;
     }
 }
 
@@ -41,15 +44,15 @@ select {
 }
 
 table {
+    th {
+        @apply px-3 py-2 border-b-2 border-l-2 border-r-2 border-gray-100 text-left bg-gray-300 text-black;
+    }
+
+    td {
+        @apply px-3 py-2 border-b-2 border-l-2 border-r-2;
+    }
 
 }
 
-th {
-    @apply px-3 py-2 border text-left bg-red-700 text-white;
-}
-
-td {
-    @apply px-3 py-2 border;
-}
 
 @import "tailwindcss/utilities";

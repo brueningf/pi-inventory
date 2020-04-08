@@ -71,6 +71,6 @@ class CreateItemsTest extends TestCase {
 
         $response = $this->post('/items', $attributes);
 
-        $response->assertSessionHasNoErrors(['item_case_id']);
+        $response->assertSessionHasErrors(['item_case_id']);
     }
 }

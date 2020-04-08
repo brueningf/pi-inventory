@@ -19,4 +19,9 @@ class Manufacturer extends Model
     {
         return '/manufactures/' . $this->slug;
     }
+
+    public function items()
+    {
+        return $this->hasMany(Item::class);
+    }
 }

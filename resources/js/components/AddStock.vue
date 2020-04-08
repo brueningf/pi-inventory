@@ -1,18 +1,18 @@
 <template>
-    <form class="w-full bg-green-100 flex" @submit.prevent="submit">
-        <div class="w-1/5 border py-2 px-3">
-            <input type="text" placeholder="Location" v-model="location" />
+    <form class="w-full bg-gray-100 flex" @submit.prevent="submit">
+        <div class="w-1/5 border-b-2 border-l py-2 px-3">
+            <input type="text" placeholder="Location" v-model="location" required/>
         </div>
-        <div class="w-1/5 border py-2 px-3">
+        <div class="w-1/5 border-b-2 border-l py-2 px-3">
             <input type="text" placeholder="Column" v-model="column" />
         </div>
-        <div class="w-1/5 border py-2 px-3">
+        <div class="w-1/5 border-b-2 border-l py-2 px-3">
             <input type="text" placeholder="Level" v-model="level" />
         </div>
-        <div class="w-1/5 border py-2 px-3">
+        <div class="w-1/5 border-b-2 border-l py-2 px-3">
             <input type="number" step="1" placeholder="Stock" v-model="stock" />
         </div>
-        <div class="w-1/5 border py-2 px-3 flex items-center justify-center">
+        <div class="w-1/5 border-b-2 border-l border-r py-2 px-3 flex items-center justify-center">
             <button class="btn bg-green-500 text-white hover:bg-green-400" type="submit">
                 <div class="flex">
                     <zondicon icon="add-solid" class="fill-current w-6 mr-2" />Add

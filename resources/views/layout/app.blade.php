@@ -37,12 +37,18 @@
                         <zondicon icon="add-solid" class="fill-current w-5 mr-2"></zondicon>
                         New Item
                     </a>
-                    <a class="flex px-4 py-3 cursor-pointer text-white hover:bg-gray-200" href="/providers/create">
-                        <zondicon icon="add-solid" class="fill-current w-5 mr-2"></zondicon>
-                        New Provider
+{{--                    <a class="flex px-4 py-3 cursor-pointer text-white hover:bg-gray-200" href="/providers/create">--}}
+{{--                        <zondicon icon="add-solid" class="fill-current w-5 mr-2"></zondicon>--}}
+{{--                        New Provider--}}
+{{--                    </a>--}}
+
+                    <a class="flex px-4 py-3 cursor-pointer text-white hover:bg-gray-200" href="/item-cases">
+                        Item Cases
+                    </a>
+                    <a class="flex px-4 py-3 cursor-pointer text-white hover:bg-gray-200" href="/manufacturers">
+                        Manufacturers
                     </a>
                     <a class="flex px-4 py-3 cursor-pointer text-white hover:bg-gray-200" href="/categories">
-                        <zondicon icon="bookmark" class="fill-current w-5 mr-2"></zondicon>
                         Categories
                     </a>
                 </div>
