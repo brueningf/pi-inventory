@@ -1,8 +1,8 @@
 <template>
     <tr>
         <td class="w-1/5">{{ storage.location }}</td>
-        <td class="w-1/5">{{ storage.column }}</td>
-        <td class="w-1/5">{{ storage.level }}</td>
+        <td class="w-1/5">{{ storage.column ? storage.column : '-' }}</td>
+        <td class="w-1/5">{{ storage.level ? storage.level : '-' }}</td>
         <td class="w-1/5" v-if="editingStock">
             <form class="flex" @submit.prevent="update">
                 <input

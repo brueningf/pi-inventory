@@ -16,13 +16,13 @@ class CreateCategoriesTest extends TestCase {
     /**  @test */
     public function it_can_create_a_category()
     {
-        $category = factory(Category::class)->raw();
+        $category = factory(Category::class)->make();
 
-        $response = $this->post('/categories', $category);
+        $response = $this->post('/categories', $category->toArray());
 
-        $response->assertRedirect('/categories/1');
+        $response->assertStatus(302);
 
-        $this->get('/categories/1')->assertSee($category['name']);
+        $this->get($category->path())->assertSee($category['name']);
     }
 
     /**  @test */

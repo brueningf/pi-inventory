@@ -20,7 +20,7 @@ class ManufacturerTest extends TestCase {
     }
 
     /** @test */
-    function it_can_have_may_items()
+    function it_can_have_many_items()
     {
         $manufacturer = factory(Manufacturer::class)->create();
 

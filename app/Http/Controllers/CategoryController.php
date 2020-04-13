@@ -42,7 +42,7 @@ class CategoryController extends Controller {
         $request->validate(['name' => 'required', 'description' => 'required']);
 
         $category = new Category();
-        $category->fill($request->except(['_token', '_method']));
+        $category->fill($request->only(['name', 'description', 'image']));
         $category->save();
 
         return redirect('/categories');

@@ -36,7 +36,7 @@ select {
 }
 
 .btn {
-    @apply shadow rounded-full px-3 py-2 font-bold;
+    @apply shadow rounded px-3 py-2 font-bold;
 
     &:focus {
         @apply outline-none border-gray-500;

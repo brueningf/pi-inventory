@@ -2809,7 +2809,7 @@ var render = function() {
                     staticClass: "fill-current w-6 mr-2",
                     attrs: { icon: "add-solid" }
                   }),
-                  _vm._v("Add\n            ")
+                  _vm._v("Add location\n            ")
                 ],
                 1
               )
@@ -3094,9 +3094,13 @@ var render = function() {
   return _c("tr", [
     _c("td", { staticClass: "w-1/5" }, [_vm._v(_vm._s(_vm.storage.location))]),
     _vm._v(" "),
-    _c("td", { staticClass: "w-1/5" }, [_vm._v(_vm._s(_vm.storage.column))]),
+    _c("td", { staticClass: "w-1/5" }, [
+      _vm._v(_vm._s(_vm.storage.column ? _vm.storage.column : "-"))
+    ]),
     _vm._v(" "),
-    _c("td", { staticClass: "w-1/5" }, [_vm._v(_vm._s(_vm.storage.level))]),
+    _c("td", { staticClass: "w-1/5" }, [
+      _vm._v(_vm._s(_vm.storage.level ? _vm.storage.level : "-"))
+    ]),
     _vm._v(" "),
     _vm.editingStock
       ? _c("td", { staticClass: "w-1/5" }, [

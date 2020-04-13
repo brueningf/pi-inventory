@@ -45,7 +45,6 @@ class CreateItemCasesTest extends TestCase {
     /**  @test */
     public function it_can_delete_an_item_case()
     {
-        $this->withoutExceptionHandling();
         $itemCase = factory(ItemCase::class)->create();
 
         $response = $this->delete($itemCase->path());

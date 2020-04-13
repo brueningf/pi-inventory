@@ -15,7 +15,7 @@
         <div class="w-1/5 border-b-2 border-l border-r py-2 px-3 flex items-center justify-center">
             <button class="btn bg-green-500 text-white hover:bg-green-400" type="submit">
                 <div class="flex">
-                    <zondicon icon="add-solid" class="fill-current w-6 mr-2" />Add
+                    <zondicon icon="add-solid" class="fill-current w-6 mr-2" />Add location
                 </div>
             </button>
         </div>
