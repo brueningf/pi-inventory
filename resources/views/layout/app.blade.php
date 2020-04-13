@@ -68,17 +68,8 @@
         <footer class="relative w-full flex flex-col items-center justify-end bg-repeat" style="background-image: url(/images/circuit-board.svg);background-color: rgba(210,0,0,.5);" >
             <div class="w-full flex justify-center items-center">
                 <div class="p-12">
-                    <h5 class="text-xl text-left border-b-2 mb-3">Index</h5>
-                    <div>
-                        <a class="block py-2" href="/categories">Categories</a>
-                        <a class="block py-2" href="/manufacturers">Manufacturers</a>
-                        <a class="block py-2" href="/item-cases">Item Cases</a>
-                        <a class="block py-2" href="/storage-locations">Storage</a>
-                    </div>
-                </div>
-                <div class="p-12">
-                    <h5 class="text-xl text-left border-b-2 mb-3">Index</h5>
-                    <div>
+                    <h5 class="text-xl text-left border-b-2 mb-3 font-bold">Index</h5>
+                    <div class="font-semibold">
                         <a class="block py-2" href="/categories">Categories</a>
                         <a class="block py-2" href="/manufacturers">Manufacturers</a>
                         <a class="block py-2" href="/item-cases">Item Cases</a>

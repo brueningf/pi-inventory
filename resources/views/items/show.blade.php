@@ -4,10 +4,21 @@
     <div class="w-full px-8">
 
         <div class="w-full shadow bg-white my-8">
-            <div class="bg-gray-100 px-5">
+            <div class="flex justify-between items-center bg-gray-100 px-5 ">
                 <h1 class="text-xl text-left font-bold tracking-wider py-3 uppercase">
                     {{ $item->name }}
                 </h1>
+
+                <div class="flex">
+                    <a class="mr-3" href="{{ route('items.edit', $item) }}">Edit</a>
+
+                    <form class="delete-form" action="{{ route('items.destroy', $item) }}" method="POST">
+                        @csrf
+                        @method('DELETE')
+
+                        <button class="hover:color-red-500 hover:underline">Delete</button>
+                    </form>
+                </div>
             </div>
             <div class="w-full flex flex-wrap p-5">
                 <div class="w-1/6 flex items-center justify-start pr-3">
@@ -23,13 +34,13 @@
                         </a>
 
                         <h3 class="text-gray-600 tracking-wide text-sm mt-6">Manufacturer</h3>
-                        <a href="{{ $item->manufacturer->path() }}">
-                            {{ $item->manufacturer->name }}
+                        <a href="{{ optional($item->manufacturer)->path() }}">
+                            {{ optional($item->manufacturer)->name }}
                         </a>
                     </div>
                     <div class="w-1/4 tracking-wide text-lg font-medium">
                         <h3 class="text-gray-600 tracking-wide text-sm">Provider Code</h3>
-                        {{ $item->provider_code ? $item->provider_code : '(empty)' }}
+                        {{ $item->provider_code ? $item->provider_code : '(not specified)' }}
 
                         <h3 class="text-gray-600 tracking-wide text-sm mt-6">Item Case</h3>
                         <a href="{{ $item->itemCase->path() }}">
@@ -47,7 +58,7 @@
 
                 <div class="mt-8 tracking-wide text-lg font-medium">
                     <h3 class="text-gray-600 tracking-wide text-sm">Description</h3>
-                    {{ $item->description }}
+                    {{ $item->description ?? 'No description yet'}}
                 </div>
             </div>
         </div>

@@ -3,6 +3,7 @@
 namespace Tests\Feature;
 
 use App\Category;
+use App\Item;
 use App\ItemCase;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -72,5 +73,34 @@ class CreateItemsTest extends TestCase {
         $response = $this->post('/items', $attributes);
 
         $response->assertSessionHasErrors(['item_case_id']);
+    }
+
+
+    /** @test */
+    public function an_item_can_be_updated()
+    {
+        $item = factory(Item::class)->create();
+
+        $data = $item->toArray();
+
+        $data['name'] = 'Updated Item';
+
+        $response = $this->patch(route('items.update', $item), $data);
+
+        $response->assertStatus(302);
+
+        $this->get($item->path())->assertSee($data['name']);
+    }
+
+    /** @test */
+    public function an_item_can_be_deleted()
+    {
+        $item = factory(Item::class)->create();
+
+        $response = $this->delete(route('items.destroy', $item));
+
+        $response->assertStatus(302);
+
+        $this->assertDeleted('items', $item->toArray());
     }
 }

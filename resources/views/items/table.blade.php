@@ -4,7 +4,7 @@
         <th class="w-1/6">Provider Code</th>
         <th class="w-2/6">Name</th>
         <th class="w-1/6">Price</th>
-        <th class="w-1/6">Provider</th>
+        <th class="w-1/6">Manufacturer</th>
         <th class="w-1/6">Category</th>
     </tr>
     </thead>
@@ -25,8 +25,8 @@
                 {{ $item->price }} $
             </td>
             <td>
-                <a href="{{ $item->manufacturer->path() }}">
-                    {{ $item->manufacturer->name }}
+                <a href="{{ optional($item->manufacturer)->path() }}">
+                    {{ optional($item->manufacturer)->name }}
                 </a>
             </td>
             <td>

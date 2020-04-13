@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Item extends Model {
 
+    protected $guarded = [];
+
     protected $with = ['category', 'storageLocations', 'itemCase'];
 
     public function path()
