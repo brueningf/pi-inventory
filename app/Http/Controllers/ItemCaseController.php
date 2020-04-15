@@ -61,11 +61,11 @@ class ItemCaseController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param  \App\ItemCase  $itemCase
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function edit(ItemCase $itemCase)
     {
-        //
+        return view('item-cases.edit', compact('itemCase'));
     }
 
     /**

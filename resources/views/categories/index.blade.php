@@ -33,15 +33,7 @@
                         {{ $category->parent_id == null ? 'No' : 'Yes' }}
                     </td>
                     <td>
-                        <div class="flex justify-center">
-                            <a class="mr-3 hover:underline" href="{{ $category->path() . '/edit' }}">Edit</a>
-
-                            <form class="delete-form" action="{{ route('categories.destroy', $category) }}" method="POST">
-                                @csrf
-                                @method('DELETE')
-                                <button class="cursor-pointer hover:text-red-500 hover:underline">Delete</button>
-                            </form>
-                        </div>
+                        @include('components.actions', ['model' => $category])
                     </td>
                 </tr>
             @endforeach

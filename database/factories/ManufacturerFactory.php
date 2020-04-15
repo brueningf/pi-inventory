@@ -9,6 +9,6 @@ $factory->define(Manufacturer::class, function (Faker $faker) {
     return [
         'name' => $faker->company,
         'website' => $faker->url,
-        'image' => ''
+        'image' => null
     ];
 });

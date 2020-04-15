@@ -32,15 +32,7 @@
                     <td>
                     </td>
                     <td>
-                        <div class="flex justify-center">
-                            <a class="mr-3 hover:underline" href="{{ $itemCase->path() . '/edit' }}">Edit</a>
-
-                            <form class="delete-form" action="{{ route('item-cases.destroy', $itemCase) }}" method="POST">
-                                @csrf
-                                @method('DELETE')
-                                <button class="cursor-pointer hover:text-red-500 hover:underline">Delete</button>
-                            </form>
-                        </div>
+                        @include('components.actions', ['model' => $itemCase])
                     </td>
                 </tr>
             @endforeach

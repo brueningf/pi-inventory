@@ -17,7 +17,7 @@ class Manufacturer extends Model
 
     public function path()
     {
-        return '/manufactures/' . $this->slug;
+        return '/manufacturers/' . $this->slug;
     }
 
     public function items()

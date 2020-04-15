@@ -16,21 +16,11 @@ class CreateItemsTest extends TestCase {
 
 
     /**  @test */
-    public function an_item_can_be_created()
+    public function it_can_be_created()
     {
-        $category = factory(Category::class)->create();
-        $itemCase = factory(ItemCase::class)->create();
+        $item = factory(Item::class)->make();
 
-        $attributes = [
-            'name' => $this->faker->word,
-            'description' => $this->faker->text,
-            'price' => 10.0,
-            'provider_code' => $this->faker->word,
-            'category_id' => $category->id,
-            'item_case_id' => $itemCase->id
-        ];
-
-        $response = $this->post('/items', $attributes);
+        $response = $this->post('/items', $item->toArray());
 
         $response->assertStatus(302);
 
@@ -38,7 +28,35 @@ class CreateItemsTest extends TestCase {
     }
 
     /** @test */
-    public function a_category_is_required_when_creating_an_item()
+    public function it_can_be_updated()
+    {
+        $item = factory(Item::class)->create();
+
+        $data = $item->toArray();
+
+        $data['name'] = 'Updated Item';
+
+        $response = $this->patch(route('items.update', $item), $data);
+
+        $response->assertStatus(302);
+
+        $this->get($item->path())->assertSee($data['name']);
+    }
+
+    /** @test */
+    public function it_can_be_deleted()
+    {
+        $item = factory(Item::class)->create();
+
+        $response = $this->delete(route('items.destroy', $item));
+
+        $response->assertStatus(302);
+
+        $this->assertDeleted('items', $item->toArray());
+    }
+
+    /** @test */
+    public function a_category_is_required()
     {
         $itemCase = factory(ItemCase::class)->create();
 
@@ -57,7 +75,7 @@ class CreateItemsTest extends TestCase {
     }
 
     /** @test */
-    public function a_item_case_is_required_when_creating_an_item()
+    public function a_item_case_is_required()
     {
         $category = factory(Category::class)->create();
 
@@ -73,34 +91,5 @@ class CreateItemsTest extends TestCase {
         $response = $this->post('/items', $attributes);
 
         $response->assertSessionHasErrors(['item_case_id']);
-    }
-
-
-    /** @test */
-    public function an_item_can_be_updated()
-    {
-        $item = factory(Item::class)->create();
-
-        $data = $item->toArray();
-
-        $data['name'] = 'Updated Item';
-
-        $response = $this->patch(route('items.update', $item), $data);
-
-        $response->assertStatus(302);
-
-        $this->get($item->path())->assertSee($data['name']);
-    }
-
-    /** @test */
-    public function an_item_can_be_deleted()
-    {
-        $item = factory(Item::class)->create();
-
-        $response = $this->delete(route('items.destroy', $item));
-
-        $response->assertStatus(302);
-
-        $this->assertDeleted('items', $item->toArray());
     }
 }

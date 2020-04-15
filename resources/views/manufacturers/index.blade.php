@@ -13,8 +13,8 @@
             <thead>
             <tr>
                 <th class="w-1/6">Name</th>
-                <th class="w-3/6">Description</th>
-                <th class="w-1/6">Website</th>
+                <th class="w-2/6">Description</th>
+                <th class="w-2/6">Website</th>
                 <th class="w-1/6"></th>
             </tr>
             </thead>
@@ -35,15 +35,7 @@
                         </a>
                     </td>
                     <td>
-                        <div class="flex justify-center">
-                            <a class="mr-3 hover:underline" href="{{ route('manufacturers.edit', $manufacturer) }}">Edit</a>
-
-                            <form action="{{ route('manufacturers.destroy', $manufacturer) }}" method="POST">
-                                @csrf
-                                @method('DELETE')
-                                <button class="cursor-pointer hover:text-red-500 hover:underline">Delete</button>
-                            </form>
-                        </div>
+                        @include('components.actions', ['model' => $manufacturer])
                     </td>
                 </tr>
             @endforeach
