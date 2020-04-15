@@ -39,22 +39,22 @@ class ItemController extends Controller {
      * Store a newly created resource in storage.
      *
      * @param \Illuminate\Http\Request $request
-     * @return Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
     public function store(Request $request)
     {
-        $request->validate(['category_id' => 'required', 'item_case_id' => 'required']);
-
-        $item = new Item();
-        $item->name = $request->name;
-        $item->description = $request->description;
-        $item->price = $request->price;
-        $item->provider_code = $request->provider_code;
-        $item->category_id = $request->category_id;
-        $item->manufacturer_id = $request->manufacturer_id;
-        $item->item_case_id = $request->item_case_id;
-
-        $item->save();
+        $item = Item::create($request->validate([
+            'name' => 'required',
+            'description' => 'nullable',
+            'price' => 'required',
+            'provider_code' => 'nullable',
+            'marking_code' => 'nullable',
+            'image' => 'nullable|file',
+            'datasheet' => 'nullable',
+            'category_id' => 'required',
+            'item_case_id' => 'required',
+            'manufacturer_id' => 'required'
+        ]));
 
         return redirect('/items/' . $item->id);
     }

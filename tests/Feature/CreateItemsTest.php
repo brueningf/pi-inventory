@@ -24,7 +24,7 @@ class CreateItemsTest extends TestCase {
 
         $response->assertStatus(302);
 
-        $this->assertDatabaseHas('items', $attributes);
+        $this->assertDatabaseHas('items', $item->toArray());
     }
 
     /** @test */
