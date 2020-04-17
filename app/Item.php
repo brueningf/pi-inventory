@@ -20,7 +20,7 @@ class Item extends Model {
      */
     public function imagePath()
     {
-        return $this->image ? '/storage/images/' . $this->image : '/images/no-image.svg';
+        return $this->image ? asset($this->image) : '/images/default-image.png';
     }
 
 

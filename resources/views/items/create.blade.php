@@ -6,12 +6,16 @@
         Store a new item
     </h3>
 
-    <form action="/items" method="POST" class="w-4/5 mt-6 mx-auto">
+    <form action="/items" method="POST" class="w-4/5 mt-6 mx-auto" enctype="multipart/form-data">
         {{ csrf_field() }}
 
         <div class="mb-6">
             <label for="name">Name</label>
             <input type="text" name="name" placeholder="e.g. Example item" required>
+        </div>
+        <div class="mb-6 w-1/2">
+            <label for="image">Image</label>
+            <input type="file" name="image">
         </div>
         <div class="flex items-start flex-col md:flex-row md:flex-wrap mb-6">
             <div class="w-1/2 md:w-1/4 md:pr-3 relative">
@@ -78,6 +82,11 @@
         <div class="mb-6">
             <label for="description">Description</label>
             <textarea name="description" rows="5" placeholder="e.g. Fancy example item"></textarea>
+        </div>
+
+        <div class="mb-6">
+            <label for="datasheet">Datasheet Path</label>
+            <input type="text" name="datasheet" placeholder="C:/Datasheets/ExampleItemDatasheet.pdf">
         </div>
 
 

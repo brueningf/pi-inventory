@@ -14,7 +14,6 @@ class CreateItemsTest extends TestCase {
 
     use DatabaseMigrations, WithFaker, RefreshDatabase;
 
-
     /**  @test */
     public function it_can_be_created()
     {
@@ -58,18 +57,9 @@ class CreateItemsTest extends TestCase {
     /** @test */
     public function a_category_is_required()
     {
-        $itemCase = factory(ItemCase::class)->create();
+        $item = factory(Item::class)->make(['category_id' => null]);
 
-        $attributes = [
-            'name' => $this->faker->word,
-            'description' => $this->faker->text,
-            'price' => 10.0,
-            'provider_code' => $this->faker->word,
-            'category_id' => null,
-            'item_case_id' => $itemCase->id
-        ];
-
-        $response = $this->post('/items', $attributes);
+        $response = $this->post('/items', $item->toArray());
 
         $response->assertSessionHasErrors(['category_id']);
     }
@@ -77,18 +67,9 @@ class CreateItemsTest extends TestCase {
     /** @test */
     public function a_item_case_is_required()
     {
-        $category = factory(Category::class)->create();
+        $item = factory(Item::class)->make(['item_case_id' => null]);
 
-        $attributes = [
-            'name' => $this->faker->word,
-            'description' => $this->faker->text,
-            'price' => 10.0,
-            'provider_code' => $this->faker->word,
-            'category_id' => $category->id,
-            'item_case_id' => null
-        ];
-
-        $response = $this->post('/items', $attributes);
+        $response = $this->post('/items', $item->toArray());
 
         $response->assertSessionHasErrors(['item_case_id']);
     }

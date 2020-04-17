@@ -8,6 +8,7 @@ use App\ItemCase;
 use App\Manufacturer;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Storage;
 
 class ItemController extends Controller {
 
@@ -43,7 +44,7 @@ class ItemController extends Controller {
      */
     public function store(Request $request)
     {
-        $item = Item::create($request->validate([
+        $attributes = $request->validate([
             'name' => 'required',
             'description' => 'nullable',
             'price' => 'required',
@@ -54,7 +55,13 @@ class ItemController extends Controller {
             'category_id' => 'required',
             'item_case_id' => 'required',
             'manufacturer_id' => 'required'
-        ]));
+        ]);
+
+        if (request('image')) {
+            $attributes['image'] = request('image')->storePublicly('items');
+        }
+
+        $item = Item::create($attributes);
 
         return redirect('/items/' . $item->id);
     }
@@ -96,7 +103,17 @@ class ItemController extends Controller {
      */
     public function update(Request $request, Item $item)
     {
-        $item->update($request->all());
+        $attributes = $request->all();
+
+        if ($request->hasFile('image')) {
+            if ($item->image) {
+                Storage::delete($item->image);
+            }
+
+            $attributes['image'] = request('image')->storePublicly('items');
+        }
+
+        $item->update($attributes);
         $item->save();
 
         return redirect($item->path());

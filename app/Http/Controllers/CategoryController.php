@@ -14,7 +14,7 @@ class CategoryController extends Controller {
      */
     public function index()
     {
-        $availableCategories = Category::all();
+        $availableCategories = Category::with('parentCategory')->get();
 
         return view('categories.index', compact('availableCategories'));
     }

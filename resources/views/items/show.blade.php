@@ -4,26 +4,17 @@
     <div class="w-full px-8">
 
         <div class="w-full shadow bg-white my-8">
-            <div class="flex justify-between items-center bg-gray-100 px-5 ">
+            <div class="flex justify-between items-center bg-gray-100 px-5 py-2 border-b">
                 <h1 class="text-xl text-left font-bold tracking-wider py-3 uppercase">
                     {{ $item->name }}
                 </h1>
 
-                <div class="flex">
-                    <a class="mr-3" href="{{ route('items.edit', $item) }}">Edit</a>
-
-                    <form class="delete-form" action="{{ route('items.destroy', $item) }}" method="POST">
-                        @csrf
-                        @method('DELETE')
-
-                        <button class="hover:color-red-500 hover:underline">Delete</button>
-                    </form>
-                </div>
+                @include('components.actions', ['model' => $item])
             </div>
-            <div class="w-full flex flex-wrap p-5">
+            <div class="w-full flex flex-wrap px-5 py-8">
                 <div class="w-1/6 flex items-center justify-start pr-3">
                     <div class="overflow-hidden rounded-lg w-64">
-                        <img src="/images/keinBild.gif" alt="Item Picture" class="object-cover w-full h-auto">
+                        <img src="{{ $item->imagePath() }}" alt="Item Picture" class="object-cover w-full h-auto">
                     </div>
                 </div>
                 <div class="w-5/6 flex">
@@ -48,7 +39,10 @@
                         </a>
                     </div>
                     <div class="w-1/4 tracking-wide text-lg font-medium">
-
+                        <h3 class="text-gray-600 tracking-wide text-sm">Datasheet</h3>
+                        <a href="{{ 'file:///' . $item->datasheet }}" target='_blank'>
+                            {{ $item->datasheet ?? 'No datasheet' }}
+                        </a>
                     </div>
                     <div class="w-1/4 tracking-wide text-lg font-medium">
                         <h3 class="text-gray-600 tracking-wide text-sm">Price per unit</h3>

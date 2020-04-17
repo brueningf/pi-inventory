@@ -6,13 +6,20 @@
         Update {{ $item->name }}
     </h3>
 
-    <form action="{{ route('items.update', $item) }}" method="POST" class="w-4/5 mt-6 mx-auto">
+    <form action="{{ route('items.update', $item) }}" method="POST" class="w-4/5 mt-6 mx-auto" enctype="multipart/form-data">
         @csrf
         @method('PATCH')
 
         <div class="mb-6">
             <label for="name">Name</label>
             <input type="text" name="name" placeholder="e.g. Example item" required value="{{ $item->name }}">
+        </div>
+        <div class="w-1/2 mb-6">
+            <label for="image">Image</label>
+            <div class="flex items-center justify-start">
+                <input type="file" name="image">
+                <img src="{{ $item->imagePath() }}" alt="" width="60" height="60">
+            </div>
         </div>
         <div class="flex items-start flex-col md:flex-row md:flex-wrap mb-6">
             <div class="w-1/2 md:w-1/4 md:pr-3 relative">
@@ -22,7 +29,8 @@
                     <option value="" disabled>Select a category</option>
 
                     @foreach ($availableCategories as $category)
-                        <option value="{{ $category->id }}" {{ $item->category_id  == $category->id ? 'selected' : '' }}>
+                        <option
+                            value="{{ $category->id }}" {{ $item->category_id  == $category->id ? 'selected' : '' }}>
                             {{ $category->name }}
                         </option>
                     @endforeach
@@ -39,7 +47,8 @@
                     <option value="" disabled class="text-gray-700">Select an case</option>
 
                     @foreach ($itemCases as $itemCase)
-                        <option value="{{ $itemCase->id }}"  {{ $item->item_case_id  == $itemCase->id ? 'selected' : '' }}>
+                        <option
+                            value="{{ $itemCase->id }}" {{ $item->item_case_id  == $itemCase->id ? 'selected' : '' }}>
                             {{ $itemCase->name }}
                         </option>
                     @endforeach
@@ -56,7 +65,8 @@
                     <option value="" disabled class="text-gray-700">Select a manufacturer</option>
 
                     @foreach ($manufacturers as $manufacturer)
-                        <option value="{{ $manufacturer->id }}" {{ $item->manufacturer_id  == $manufacturer->id ? 'selected' : '' }}>
+                        <option
+                            value="{{ $manufacturer->id }}" {{ $item->manufacturer_id  == $manufacturer->id ? 'selected' : '' }}>
                             {{ $manufacturer->name }}
                         </option>
                     @endforeach
@@ -73,12 +83,19 @@
             </div>
             <div class="w-1/2 md:w-1/4 md:px-0 md:mt-6 px-3">
                 <label for="price">Price per unit $</label>
-                <input type="number" min="0.00" max="10000.00" step="0.01" name="price" placeholder="0.00" required value="{{ $item->price }}"/>
+                <input type="number" min="0.00" max="10000.00" step="0.01" name="price" placeholder="0.00" required
+                       value="{{ $item->price }}"/>
             </div>
         </div>
         <div class="mb-6">
             <label for="description">Description</label>
-            <textarea name="description" rows="5" placeholder="e.g. Fancy example item">{{ $item->description }}</textarea>
+            <textarea name="description" rows="5"
+                      placeholder="e.g. Fancy example item">{{ $item->description }}</textarea>
+        </div>
+
+         <div class="mb-6">
+            <label for="datasheet">Datasheet Path</label>
+            <input type="text" name="datasheet" placeholder="C:/Datasheets/ExampleItemDatasheet.pdf" value="{{ $item->datasheet }}">
         </div>
 
 

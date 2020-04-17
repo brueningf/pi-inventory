@@ -14,7 +14,7 @@
             <tr>
                 <th class="w-1/6">Name</th>
                 <th class="w-3/6">Description</th>
-                <th class="w-1/6">Is subcategory</th>
+                <th class="w-1/6">Parent</th>
                 <th class="w-1/6"></th>
             </tr>
             </thead>
@@ -30,7 +30,13 @@
                         {{ $category->description }}
                     </td>
                     <td>
-                        {{ $category->parent_id == null ? 'No' : 'Yes' }}
+                        @if($category->parentCategory)
+                            <a href="{{ $category->parentCategory->path() }}">
+                                {{ $category->parentCategory->name }}
+                            </a>
+                        @else
+                            -
+                        @endif
                     </td>
                     <td>
                         @include('components.actions', ['model' => $category])
