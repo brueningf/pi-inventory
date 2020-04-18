@@ -34,4 +34,9 @@ class Category extends Model
     {
         return $this->path();
     }
+
+    public function hasParent()
+    {
+        return !$this->parent_id == null;
+    }
 }

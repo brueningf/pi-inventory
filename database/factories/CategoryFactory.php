@@ -13,6 +13,3 @@ $factory->define(Category::class, function (Faker $faker) {
     ];
 });
 
-//$factory->state(Category::class, 'subcategory', [
-//    'parent_id' => factory(Category::class)
-//]);

@@ -4,8 +4,8 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateStorageLocationsTable extends Migration
-{
+class CreateStorageLocationsTable extends Migration {
+
     /**
      * Run the migrations.
      *
@@ -15,11 +15,14 @@ class CreateStorageLocationsTable extends Migration
     {
         Schema::create('storage_locations', function (Blueprint $table) {
             $table->bigIncrements('id');
+
             $table->string('location');
             $table->string('column')->nullable();
             $table->string('level')->nullable();
             $table->integer('stock');
-            $table->unsignedInteger('item_id');
+            $table->boolean('new');
+
+            $table->foreignId('item_id')->constrained()->onDelete('cascade');
             $table->timestamps();
         });
     }

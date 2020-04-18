@@ -84,7 +84,7 @@ class CategoryController extends Controller {
         $category->update($request->only(['name', 'description', 'parent_id', 'image']));
         $category->save();
 
-        return redirect()->back();
+        return redirect(route('categories.index'));
     }
 
     /**
