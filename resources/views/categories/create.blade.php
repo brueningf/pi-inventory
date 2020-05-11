@@ -21,8 +21,8 @@
 
     <div class="mb-6">
         <label for="parent_id">Parent Category (only if subcategory)</label>
-        <select name="parent_id" class="bg-white shadow px-3 py-2" required>
-            <option selected disabled>Select a category</option>
+        <select name="parent_id" class="bg-white shadow px-3 py-2">
+            <option selected value="">Select a category</option>
 
             @foreach ($availableCategories as $category)
             <option value="{{ $category->id }}">

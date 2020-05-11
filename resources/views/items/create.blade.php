@@ -10,7 +10,7 @@
         {{ csrf_field() }}
 
         <div class="mb-6">
-            <label for="name">Name</label>
+            <label for="name">Name / Alias</label>
             <input type="text" name="name" placeholder="e.g. Example item" required>
         </div>
         <div class="mb-6 w-1/2">

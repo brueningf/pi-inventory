@@ -9,3 +9,7 @@ Route::resource('/manufacturers', 'ManufacturerController');
 
 Route::resource('/categories', 'CategoryController');
 Route::resource('/providers', 'ProviderController');
+
+Route::get('/datasheet', function () {
+    return response() ->file(request('file'));
+});

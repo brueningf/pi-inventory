@@ -23,6 +23,11 @@ class Item extends Model {
         return $this->image ? asset($this->image) : '/images/default-image.png';
     }
 
+    public function datasheetPath()
+    {
+        return "/datasheet?file=$this->datasheet";
+    }
+
 
     public function category()
     {

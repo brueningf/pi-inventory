@@ -44,7 +44,7 @@
             </td>
             <td>
                 @if($item->datasheet)
-                    <a href="{{ $item->datasheet }}" class="flex justify-center">
+                    <a href="{{ $item->datasheetPath() }}" class="flex justify-center">
                         <zondicon icon="book-reference" class="w-8 h-8 fill-current"></zondicon>
                     </a>
                 @else
