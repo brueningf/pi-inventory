@@ -48,4 +48,9 @@ class Item extends Model {
     {
         return $this->belongsTo(Manufacturer::class);
     }
+
+    public function attributes()
+    {
+        return $this->hasMany(ItemAttribute::class);
+    }
 }

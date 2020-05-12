@@ -19,8 +19,8 @@ class CreateStorageLocationsTable extends Migration {
             $table->string('location');
             $table->string('column')->nullable();
             $table->string('level')->nullable();
+            $table->string('status')->default('-');
             $table->integer('stock');
-            $table->boolean('new');
 
             $table->foreignId('item_id')->constrained()->onDelete('cascade');
             $table->timestamps();
