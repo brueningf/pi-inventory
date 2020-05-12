@@ -15,14 +15,16 @@
                     </div>
                 @endforeach
             </div>
-        @else
-            @if(count($category->items))
+        @endif
+
+        @if(count($category->items))
+            <div class="mt-12">
                 @include('items.table', ['items' => $category->items])
-            @else
-                <div class="text-center text-xl font-bold py-12 uppercase">
-                    No items in this category yet...
-                </div>
-            @endif
+            </div>
+        @else
+            <div class="text-center text-xl font-bold py-12 uppercase mt-12">
+                No items in this category :(
+            </div>
         @endif
 
     </div>

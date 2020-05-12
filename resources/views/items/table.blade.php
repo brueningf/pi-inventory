@@ -2,11 +2,12 @@
     <thead>
     <tr>
         <th class="w-1/12"></th>
-        <th class="w-1/6">Provider Code</th>
         <th class="w-1/6">Name</th>
-        <th class="w-1/6">Price</th>
+        <th class="w-1/12">Case</th>
+        <th class="w-1/12">Price</th>
         <th class="w-1/6">Manufacturer</th>
         <th class="w-1/6">Category</th>
+        <th class="w-1/6">Provider Code</th>
         <th class="w-1/12">Datasheet</th>
 
     </tr>
@@ -21,12 +22,12 @@
             </td>
             <td>
                 <a href="{{ $item->path() }}">
-                    {{ $item->provider_code }}
+                    {{ $item->name }}
                 </a>
             </td>
             <td>
-                <a href="{{ $item->path() }}">
-                    {{ $item->name }}
+                <a href="{{ $item->itemCase->path() }}">
+                    {{ $item->itemCase->name }}
                 </a>
             </td>
             <td>
@@ -40,6 +41,11 @@
             <td>
                 <a href="{{ $item->category->path() }}">
                     {{ $item->category->name }}
+                </a>
+            </td>
+            <td>
+                <a href="{{ $item->path() }}">
+                    {{ $item->provider_code }}
                 </a>
             </td>
             <td>

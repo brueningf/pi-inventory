@@ -3,27 +3,32 @@
         <table class="table-auto w-full mt-6">
             <thead>
                 <tr>
-                    <th class="w-1/5">
+                    <th class="w-1/6">
                         <div class="flex">
-                            <zondicon icon="box" class="fill-current w-6 mr-2" />Location
+                            <zondicon icon="location" class="fill-current w-6 mr-2" />Location
                         </div>
                     </th>
-                    <th class="w-1/5">
+                    <th class="w-1/6">
                         <div class="flex">
                             <zondicon icon="view-column" class="fill-current w-6 mr-2" />Column
                         </div>
                     </th>
-                    <th class="w-1/5">
+                    <th class="w-1/6">
                         <div class="flex">
                             <zondicon icon="border-all" class="fill-current w-6 mr-2" />Row
                         </div>
                     </th>
-                    <th class="w-1/5">
+                    <th class="w-1/6">
                         <div class="flex">
                             <zondicon icon="shopping-cart" class="fill-current w-6 mr-2" />Stock
                         </div>
                     </th>
-                    <th class="w-1/5 h-full"></th>
+                    <th class="w-1/6">
+                        <div class="flex">
+                            <zondicon icon="flag" class="fill-current w-6 mr-2" />Status
+                        </div>
+                    </th>
+                    <th class="w-1/6 h-full"></th>
                 </tr>
             </thead>
             <tbody>

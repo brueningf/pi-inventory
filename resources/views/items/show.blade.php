@@ -2,7 +2,6 @@
 
 @section('content')
     <div class="w-full px-8">
-
         <div class="w-full shadow bg-white my-8">
             <div class="flex justify-between items-center bg-gray-100 px-5 py-2 border-b">
                 <h1 class="text-xl text-left font-bold tracking-wider py-3 uppercase">
@@ -56,6 +55,23 @@
                 </div>
             </div>
         </div>
+
+        @if($item->attributes->count())
+            <div class="w-full shadow bg-white my-8">
+            <div class="flex justify-between items-center bg-gray-100 px-5 py-2 border-b">
+                <h1 class="text-xl text-left font-bold tracking-wider py-3 uppercase">
+                    Attributes
+                </h1>
+            </div>
+
+            <div class="w-full flex flex-wrap px-5 py-8">
+                @foreach($item->attributes as $attribute)
+                    {{ $attribute->name }} : {{ $attribute->value }}
+                @endforeach
+            </div>
+        </div>
+        @endif
+
 
         <div>
             <h3 class="text-xl font-semibold">Storage</h3>
