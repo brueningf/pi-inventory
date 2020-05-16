@@ -10,7 +10,7 @@
         {{ csrf_field() }}
 
         <div class="mb-6">
-            <label for="name">Name / Alias</label>
+            <label for="name">Name / Alias *</label>
             <input type="text" name="name" placeholder="e.g. Example item" required>
         </div>
         <div class="mb-6 w-1/2">
@@ -19,9 +19,9 @@
         </div>
         <div class="flex items-start flex-col md:flex-row md:flex-wrap mb-6">
             <div class="w-1/2 md:w-1/4 md:pr-3 relative">
-                <label for="category_id">Category</label>
+                <label for="category_id">Category *</label>
 
-                <select name="category_id" class="bg-white shadow px-3 py-2" required>
+                <select name="category_id" class="shadow px-3 py-2" required>
                     <option value="" disabled selected>Select a category</option>
 
                     @foreach ($availableCategories as $category)
@@ -37,8 +37,8 @@
                 </div>
             </div>
             <div class="w-1/2 md:w-1/4 px-3 relative">
-                <label for="manufacturer_id">Item Case</label>
-                <select name="item_case_id" class="bg-white shadow px-3 py-2" required>
+                <label for="manufacturer_id">Item Case *</label>
+                <select name="item_case_id" class="shadow px-3 py-2" required>
                     <option value="" disabled selected class="text-gray-700">Select an case</option>
 
                     @foreach ($itemCases as $itemCase)
@@ -55,7 +55,7 @@
             </div>
             <div class="w-1/2 md:w-1/4 px-3 relative">
                 <label for="manufacturer_id">Manufacturer</label>
-                <select name="manufacturer_id" class="bg-white shadow px-3 py-2" required>
+                <select name="manufacturer_id" class="shadow px-3 py-2">
                     <option value="" disabled selected class="text-gray-700">Select a manufacturer</option>
 
                     @foreach ($manufacturers as $manufacturer)
@@ -75,7 +75,7 @@
                 <input type="text" name="provider_code" placeholder="e.g. STMM001">
             </div>
             <div class="w-1/2 md:w-1/4 md:px-0 md:mt-6 px-3">
-                <label for="price">Price per unit $</label>
+                <label for="price">$ Price per unit *</label>
                 <input type="number" min="0.00" max="10000.00" step="0.01" name="price" placeholder="0.00" required/>
             </div>
         </div>

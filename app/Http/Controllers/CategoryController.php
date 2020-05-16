@@ -14,7 +14,7 @@ class CategoryController extends Controller {
      */
     public function index()
     {
-        $availableCategories = Category::with('parentCategory')->get();
+        $availableCategories = Category::with('parentCategory')->orderBy('name')->get();
 
         return view('categories.index', compact('availableCategories'));
     }
@@ -39,13 +39,13 @@ class CategoryController extends Controller {
      */
     public function store(Request $request)
     {
-        $request->validate(['name' => 'required', 'description' => 'required']);
+        $request->validate(['name' => 'required', 'description' => 'nullable']);
 
         $category = new Category();
         $category->fill($request->only(['name', 'description', 'image']));
         $category->save();
 
-        return redirect('/categories');
+        return redirect('/categories')->with('success', 'The ' . $category->name .' category was created.');
     }
 
     /**

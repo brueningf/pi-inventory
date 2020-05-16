@@ -29,9 +29,9 @@ class ItemController extends Controller {
      */
     public function create()
     {
-        $manufacturers = Manufacturer::all();
-        $availableCategories = Category::all();
-        $itemCases = ItemCase::all();
+        $manufacturers = Manufacturer::orderBy('name')->get();
+        $availableCategories = Category::orderBy('name')->get();
+        $itemCases = ItemCase::orderBy('name')->get();
 
         return view('items.create', compact('manufacturers', 'availableCategories', 'itemCases'));
     }
@@ -54,7 +54,7 @@ class ItemController extends Controller {
             'datasheet' => 'nullable',
             'category_id' => 'required',
             'item_case_id' => 'required',
-            'manufacturer_id' => 'required'
+            'manufacturer_id' => 'nullable'
         ]);
 
         if (request('image')) {
@@ -63,7 +63,7 @@ class ItemController extends Controller {
 
         $item = Item::create($attributes);
 
-        return redirect('/items/' . $item->id);
+        return redirect('/items/' . $item->id)->with('success', 'Item was created.');
     }
 
     /**
@@ -116,7 +116,7 @@ class ItemController extends Controller {
         $item->update($attributes);
         $item->save();
 
-        return redirect($item->path());
+        return redirect()->back()->with('success', 'Item was updated.');
     }
 
     /**
@@ -127,8 +127,9 @@ class ItemController extends Controller {
      */
     public function destroy(Item $item)
     {
+        $category = $item->category->path();
         $item->delete();
 
-        return redirect('/');
+        return redirect($category)->with('success', 'Item was deleted.');
     }
 }

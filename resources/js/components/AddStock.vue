@@ -33,7 +33,7 @@
                 column: '',
                 level: '',
                 stock: 0,
-                status: ''
+                status: '-'
             }
         },
         methods: {

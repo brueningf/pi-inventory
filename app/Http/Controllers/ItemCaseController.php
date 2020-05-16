@@ -15,7 +15,7 @@ class ItemCaseController extends Controller
      */
     public function index()
     {
-        $itemCases = ItemCase::all();
+        $itemCases = ItemCase::orderBy('name')->get();
         return view('item-cases.index', compact('itemCases'));
     }
 
@@ -33,7 +33,7 @@ class ItemCaseController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
     public function store(Request $request)
     {
@@ -41,7 +41,7 @@ class ItemCaseController extends Controller
 
         ItemCase::create($request->only(['name','image']));
 
-        return redirect()->back();
+        return redirect(route('item-cases.index'))->with('success', 'Item case was created.');
     }
 
     /**
@@ -80,7 +80,7 @@ class ItemCaseController extends Controller
         $itemCase->update($request->only(['name', 'image']));
         $itemCase->save();
 
-        return redirect('/item-cases');
+        return redirect('/item-cases')->with('success', 'Item case was updated.');
     }
 
     /**
@@ -93,6 +93,6 @@ class ItemCaseController extends Controller
     {
         $itemCase->delete();
 
-        return redirect()->back();
+        return redirect()->back()->with('success', 'Item case was deleted.');
     }
 }

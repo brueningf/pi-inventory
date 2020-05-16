@@ -6,7 +6,7 @@
     Create a new manufacturer
 </h3>
 
-<form action="/manufacturer" method="POST" class="w-4/5 mt-6 mx-auto">
+<form action="{{ route('manufacturers.store') }}" method="POST" class="w-4/5 mt-6 mx-auto">
     {{ csrf_field() }}
     {{ method_field('POST') }}
 
@@ -17,7 +17,7 @@
 
     <div class="mb-6">
         <label for="website">Website</label>
-        <input type="url" name="website" placeholder="e.g http://example.com" required>
+        <input type="url" name="website" placeholder="e.g http://example.com">
     </div>
 
     <button class="btn bg-green-500 text-white hover:bg-green-400" type="submit">Submit</button>

@@ -12,11 +12,11 @@ a {
 }
 
 label {
-    @apply block text-gray-700 text-sm font-bold mb-2;
+    @apply block text-gray-300 text-sm font-bold mb-2;
 }
 
 input, textarea {
-    @apply border border-gray-500 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight rounded;
+    @apply border border-gray-500 bg-gray-400 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight rounded;
 
     &:focus {
         @apply outline-none;
@@ -28,10 +28,14 @@ input, textarea {
 }
 
 select {
-    @apply block border border-gray-300 appearance-none w-full bg-white shadow px-3 py-2 rounded leading-tight cursor-pointer;
+    @apply block border border-gray-500 appearance-none w-full bg-gray-400 text-gray-700  shadow px-3 py-2 rounded leading-tight cursor-pointer;
+
+    option {
+        @apply text-black;
+    }
 
     &:focus {
-        @apply outline-none bg-white border-gray-500;
+        @apply outline-none bg-gray-300 border-gray-500;
     }
 }
 
@@ -45,11 +49,11 @@ select {
 
 table {
     th {
-        @apply px-3 py-2 border-b-2 border-l-2 border-r-2 border-gray-100 text-left bg-gray-300 text-black;
+        @apply px-3 py-2 border-b-2 border-l-2 border-r-2 border-gray-100 text-left bg-gray-400 text-black;
     }
 
     td {
-        @apply px-3 py-2 border-b-2 border-l-2 border-r-2;
+        @apply px-3 py-2 border-b-2 border-l-2 border-r-2 bg-gray-600;
     }
 
 }

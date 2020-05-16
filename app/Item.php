@@ -28,7 +28,10 @@ class Item extends Model {
         return "/datasheet?file=$this->datasheet";
     }
 
-
+    public function total()
+    {
+        return $this->storageLocations()->pluck('stock')->sum();
+    }
     public function category()
     {
         return $this->belongsTo(Category::class);

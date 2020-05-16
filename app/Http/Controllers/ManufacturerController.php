@@ -41,7 +41,7 @@ class ManufacturerController extends Controller {
 
         Manufacturer::create($attributes);
 
-        return redirect(route('manufacturers.index'), 201);
+        return redirect(route('manufacturers.index'), 201)->with('success', 'Manufacturer was created.');
     }
 
     /**
