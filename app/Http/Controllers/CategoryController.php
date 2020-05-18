@@ -26,7 +26,7 @@ class CategoryController extends Controller {
      */
     public function create()
     {
-        $availableCategories = Category::all();
+        $availableCategories = Category::orderBy('name')->get();
 
         return view('categories.create', compact('availableCategories'));
     }

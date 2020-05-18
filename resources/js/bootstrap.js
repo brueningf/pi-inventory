@@ -14,7 +14,7 @@ window.swal = require('sweetalert2')
 
 window.toast = swal.mixin({
     toast: true,
-    position: 'top',
+    position: 'bottom',
     showConfirmButton: false,
     timer: 3000,
     timerProgressBar: true,

@@ -28,6 +28,13 @@ class Item extends Model {
         return "/datasheet?file=$this->datasheet";
     }
 
+    public function status()
+    {
+        return $this->storageLocations()->firstOr(['status'], function () {
+            return '-';
+        })->status;
+    }
+
     public function total()
     {
         return $this->storageLocations()->pluck('stock')->sum();
