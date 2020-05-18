@@ -48,7 +48,7 @@
                         <zondicon icon="book-reference" class="w-8 h-8 fill-current"></zondicon>
                     </a>
                 @else
-                    No datasheet
+                    <div class="text-center">No datasheet</div>
                 @endif
             </td>
             <td>

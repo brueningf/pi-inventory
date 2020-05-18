@@ -15,6 +15,6 @@ class Controller extends BaseController
 
     public function __construct()
     {
-        View::share('categories', Category::whereNull('parent_id')->orderBy('name')->get());
+        View::share('categories', Category::whereNull('parent_id')->get());
     }
 }

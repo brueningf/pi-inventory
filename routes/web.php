@@ -1,7 +1,5 @@
 <?php
 
-use Response;
-
 Route::get('/', 'MainController@index');
 Route::post('/search', 'SearchController@search');
 

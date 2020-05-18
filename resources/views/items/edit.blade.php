@@ -1,12 +1,14 @@
 @extends('layout.app')
 
 @section('content')
+    <x-previous/>
 
     <h3 class="text-xl font-bold text-center my-6">
         Update {{ $item->name }}
     </h3>
 
-    <form action="{{ route('items.update', $item) }}" method="POST" class="w-4/5 mt-6 mx-auto" enctype="multipart/form-data">
+    <form action="{{ route('items.update', $item) }}" method="POST" class="w-4/5 mt-6 mx-auto"
+          enctype="multipart/form-data">
         @csrf
         @method('PATCH')
 
@@ -93,13 +95,16 @@
                       placeholder="e.g. Fancy example item">{{ $item->description }}</textarea>
         </div>
 
-         <div class="mb-6">
+        <div class="mb-6">
             <label for="datasheet">Datasheet Path</label>
-            <input type="text" name="datasheet" placeholder="C:/Datasheets/ExampleItemDatasheet.pdf" value="{{ $item->datasheet }}">
+            <input type="text" name="datasheet" placeholder="C:/Datasheets/ExampleItemDatasheet.pdf"
+                   value="{{ $item->datasheet }}">
         </div>
 
 
-        <button class="btn bg-green-500 text-white hover:bg-green-400" type="submit">Update item</button>
+        <div>
+            <button class="btn bg-green-500 text-white hover:bg-green-400 mr-5" type="submit">Update item</button>
+        </div>
     </form>
 
 @endsection
