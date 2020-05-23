@@ -16,6 +16,12 @@
     </div>
 
     <div class="mb-6">
+        <label for="description">Abbreviation</label>
+        <input type="text" name="description" placeholder="e.g EM">
+    </div>
+
+
+    <div class="mb-6">
         <label for="website">Website</label>
         <input type="url" name="website" placeholder="e.g http://example.com">
     </div>

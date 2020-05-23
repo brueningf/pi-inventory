@@ -57,12 +57,9 @@
         </div>
     </header>
 
-    <div class="flex min-h-screen">
-        <div class="w-1/5 bg-gray-600 shadow">
-            <h3 class="py-4 pl-4 border-b-2 border-black font-bold text-2xl mb-0">Categories</h3>
-            <sidemenu :categories="{{ json_encode($categories) }}"></sidemenu>
-        </div>
-        <div class="w-4/5 bg-gray-800 shadow">
+    <div class="w-full max-w-full flex min-h-screen">
+        <sidemenu :categories="{{ json_encode($categories) }}"></sidemenu>
+        <div class="flex-1 bg-gray-800 shadow px-4 mb-6">
             @yield('content')
         </div>
     </div>
@@ -111,6 +108,14 @@
         })
     </script>
 @endif
+
+<script>
+        let table = document.querySelector('#items-table');
+
+        if (table) {
+            const dt = new DataTable(table, { paging: false });
+        }
+</script>
 
 </body>
 

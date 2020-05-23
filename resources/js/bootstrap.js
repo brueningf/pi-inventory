@@ -23,6 +23,10 @@ window.toast = swal.mixin({
         toast.addEventListener('mouseleave', Swal.resumeTimer)
     }
 })
+
+import { DataTable } from "simple-datatables"
+
+window.DataTable = DataTable
 /**
  * Echo exposes an expressive API for subscribing to channels and listening
  * for events that are broadcast by Laravel. Echo and event broadcasting

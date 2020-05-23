@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="p-6">
-        <div class="flex mb-6">
+        <div class="flex justify-end mb-6">
             <a class="flex px-4 py-3 cursor-pointer border border-green-300 hover:bg-gray-200"
                href="{{ route('categories.create') }}">
                 <zondicon icon="add-solid" class="fill-current w-5 mr-2"></zondicon>
@@ -12,8 +12,8 @@
         <table class="table-auto w-full">
             <thead>
             <tr>
-                <th class="w-1/6">Name</th>
-                <th class="w-3/6">Description</th>
+                <th class="w-2/6">Name</th>
+                <th class="w-2/6">Description</th>
                 <th class="w-1/6">Parent</th>
                 <th class="w-1/6"></th>
             </tr>

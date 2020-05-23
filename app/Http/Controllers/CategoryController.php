@@ -45,7 +45,7 @@ class CategoryController extends Controller {
         $category->fill($request->only(['name', 'description', 'image']));
         $category->save();
 
-        return redirect('/categories')->with('success', 'The ' . $category->name .' category was created.');
+        return redirect('/categories')->with('success', 'The ' . $category->name . ' category was created.');
     }
 
     /**
@@ -95,8 +95,12 @@ class CategoryController extends Controller {
      */
     public function destroy(Category $category)
     {
+        if ($category->items()->count()) {
+            return redirect()->back()->with('error', 'Category cannot be deleted, move the items to another category or delete them first.');
+        }
+
         $category->delete();
 
-        return redirect()->back();
+        return redirect()->back()->with('success', 'Category deleted');
     }
 }

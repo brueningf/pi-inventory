@@ -1,19 +1,18 @@
 <div class="w-full overflow-x-scroll">
-    <table class="table-auto w-full">
+    <table class="table-fixed w-full" id="items-table">
         <thead>
         <tr>
-            <th></th>
-            <th>Name</th>
-            <th>Description</th>
-            <th>Status</th>
-            <th>Stock</th>
-            <th>Price</th>
-            <th>Marking</th>
-            <th>Case</th>
-            <th>Attributes</th>
-            <th>Datasheet</th>
-            <th></th>
-
+            <th class="w-1/12"></th>
+            <th class="w-1/12">Name</th>
+            <th class="w-1/6">Description</th>
+            <th class="w-1/12">Status</th>
+            <th class="w-1/12">Stock</th>
+            <th class="w-1/12">Price</th>
+            <th class="w-1/12">Marking</th>
+            <th class="w-1/12">Case</th>
+            <th class="w-1/12">Attributes</th>
+            <th class="w-1/12">Datasheet</th>
+            <th class="w-1/12"></th>
         </tr>
         </thead>
         <tbody>
@@ -54,7 +53,7 @@
                 <td>
                     @foreach($item->attributes as $attribute)
                         <div>
-                            {{ $attribute->name }} : {{ $attribute->value }}
+                            {{ $attribute->value }}
                         </div>
                     @endforeach
                 </td>

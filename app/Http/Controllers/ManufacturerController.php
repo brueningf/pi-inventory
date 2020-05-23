@@ -14,7 +14,7 @@ class ManufacturerController extends Controller {
      */
     public function index()
     {
-        $manufacturers = Manufacturer::all();
+        $manufacturers = Manufacturer::orderBy('name')->get();
 
         return view('manufacturers.index', compact('manufacturers'));
     }
@@ -37,7 +37,7 @@ class ManufacturerController extends Controller {
      */
     public function store(Request $request)
     {
-        $attributes = $request->validate(['name' => 'required', 'website' => 'nullable', 'image' => 'file|nullable']);
+        $attributes = $request->validate(['name' => 'required', 'description' => 'nullable', 'website' => 'nullable', 'image' => 'file|nullable']);
 
         Manufacturer::create($attributes);
 
@@ -75,10 +75,10 @@ class ManufacturerController extends Controller {
      */
     public function update(Request $request, Manufacturer $manufacturer)
     {
-        $manufacturer->update($request->validate(['name' => 'required', 'website' => 'nullable', 'image' => 'file|nullable']));
+        $manufacturer->update($request->validate(['name' => 'required', 'description' => 'nullable', 'website' => 'nullable', 'image' => 'file|nullable']));
         $manufacturer->save();
 
-        return redirect($manufacturer->path());
+        return redirect()->back()->with('success', 'Manufacturer was updated.');
     }
 
     /**
@@ -91,6 +91,6 @@ class ManufacturerController extends Controller {
     {
         $manufacturer->delete();
 
-        return redirect(route('manufacturers.index'));
+        return redirect(route('manufacturers.index'))->with('success', 'Manufacturer deleted.');
     }
 }

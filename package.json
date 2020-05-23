@@ -23,6 +23,7 @@
     },
     "dependencies": {
         "node-sass": "^4.13.1",
+        "simple-datatables": "^2.1.10",
         "sweetalert2": "^9.10.13",
         "tailwindcss": "^1.1.4",
         "vue": "^2.6.11",

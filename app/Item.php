@@ -10,6 +10,11 @@ class Item extends Model {
 
     protected $with = ['category', 'storageLocations', 'itemCase'];
 
+    public function getPriceAttribute($value)
+    {
+        return number_format((float)$value, 2, '.', '');;
+    }
+
     public function path()
     {
         return '/items/' . $this->id;
