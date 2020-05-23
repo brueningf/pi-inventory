@@ -59,7 +59,7 @@
 
     <div class="w-full max-w-full flex min-h-screen">
         <sidemenu :categories="{{ json_encode($categories) }}"></sidemenu>
-        <div class="flex-1 bg-gray-800 shadow px-4 mb-6">
+        <div class="flex-1 bg-gray-800 shadow px-4 pb-6">
             @yield('content')
         </div>
     </div>
