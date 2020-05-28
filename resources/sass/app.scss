@@ -48,27 +48,27 @@ select {
 }
 
 table {
-    th {
-        @apply px-3 py-1 border-b border-l border-r border-gray-300 text-left bg-gray-400 text-black;
-
-        &.desc {
-            @apply text-red-500;
-        }
-
-        &.asc {
-            @apply text-blue-500;
-        }
-    }
+    //th {
+    //    @apply px-3 py-1 border-b border-l border-r border-gray-300 text-left bg-gray-400 text-black;
+    //
+    //    &.desc {
+    //        @apply text-red-500;
+    //    }
+    //
+    //    &.asc {
+    //        @apply text-blue-500;
+    //    }
+    //}
 
     td {
-        @apply px-3 py-1 border-b border-l border-r bg-gray-700;
+        @apply align-middle;
     }
 
 }
-
-.dataTable-input {
-    @apply mb-5 w-64;
-}
+//
+//.dataTable-input {
+//    @apply mb-5 w-64;
+//}
 
 
 @import "tailwindcss/utilities";

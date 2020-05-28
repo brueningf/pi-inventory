@@ -4,11 +4,20 @@ import Vue from 'vue/dist/vue.js'
 import Zondicon from 'vue-zondicons'
 import Stock from './components/Stock.vue'
 import Sidemenu from './components/Sidemenu.vue'
+import ItemsTable from './components/ItemsTable'
+import { ConfigProgrammatic, Table } from 'buefy'
+import 'buefy/dist/buefy.css'
 
+ConfigProgrammatic.setOptions({
+    defaultIconPack: 'fas'
+})
+
+Vue.use(Table)
 
 Vue.component('zondicon', Zondicon)
 Vue.component('stock', Stock)
 Vue.component('sidemenu', Sidemenu)
+Vue.component('items-table', ItemsTable)
 
 
 let app = new Vue({

@@ -8,6 +8,8 @@
     <title>PI - Inventory</title>
 
     <link rel="stylesheet" href="{{ mix('/css/app.css') }}">
+    <link rel="stylesheet" href="{{ asset('/css/fontawesome.css') }}">
+
 </head>
 
 <body>
@@ -86,8 +88,8 @@
 
 
 </div>
-
 <script src="{{ mix('/js/app.js') }}"></script>
+
 
 @if(session()->has('success'))
     <script>
@@ -110,11 +112,11 @@
 @endif
 
 <script>
-        let table = document.querySelector('#items-table');
+    let table = document.querySelector('#items-table')
 
-        if (table) {
-            const dt = new DataTable(table, { paging: false });
-        }
+    if (table) {
+        const dt = new DataTable(table, { paging: false })
+    }
 </script>
 
 </body>

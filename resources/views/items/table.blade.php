@@ -1,4 +1,5 @@
 <div class="w-full overflow-x-scroll">
+{{--
     <table class="table-fixed w-full" id="items-table">
         <thead>
         <tr>
@@ -12,10 +13,11 @@
             <th class="w-1/12">Case</th>
             <th class="w-1/12">Attributes</th>
             <th class="w-1/12">Datasheet</th>
-            <th class="w-1/12"></th>
+            <th class="w-1/12"></th>1
         </tr>
         </thead>
         <tbody>
+
         @foreach($items as $item)
             <tr>
                 <td>
@@ -74,4 +76,7 @@
         @endforeach
         </tbody>
     </table>
+--}}
+    <items-table :items="{{ $items->toJson() }}"></items-table>
+
 </div>

@@ -8,39 +8,48 @@ class Item extends Model {
 
     protected $guarded = [];
 
-    protected $with = ['category', 'storageLocations', 'itemCase'];
+    protected $with = ['category', 'storageLocations', 'itemCase', 'attributes'];
 
-    public function getPriceAttribute($value)
-    {
-        return number_format((float)$value, 2, '.', '');;
-    }
+    protected $appends = ['total_stock', 'status', 'image_path', 'datasheet_path', 'path'];
 
     public function path()
     {
         return '/items/' . $this->id;
     }
 
-    /**
-     * @return string
-     */
     public function imagePath()
     {
         return $this->image ? asset($this->image) : '/images/default-image.png';
     }
 
-    public function datasheetPath()
+    public function getPriceAttribute($value)
+    {
+        return number_format((float)$value, 2, '.', '');
+    }
+
+    public function getPathAttribute()
+    {
+        return $this->path();
+    }
+
+    public function getImagePathAttribute()
+    {
+        return $this->imagePath();
+    }
+
+    public function getDatasheetPathAttribute()
     {
         return "/datasheet?file=$this->datasheet";
     }
 
-    public function status()
+    public function getStatusAttribute()
     {
         return $this->storageLocations()->firstOr(['status'], function () {
             return '-';
         })->status;
     }
 
-    public function total()
+    public function getTotalStockAttribute()
     {
         return $this->storageLocations()->pluck('stock')->sum();
     }

@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class ItemCase extends Model {
 
     protected $guarded = [];
+    protected $appends = ['path'];
 
     use Sluggable;
 
@@ -23,5 +24,10 @@ class ItemCase extends Model {
     public function sluggable()
     {
         return ['source' => $this->name];
+    }
+
+    public function getPathAttribute()
+    {
+        return $this->path();
     }
 }

@@ -130,6 +130,10 @@ class ItemController extends Controller {
         $category = $item->category->path();
         $item->delete();
 
+        if (request()->wantsJson()) {
+            return response('Deleted', Response::HTTP_NO_CONTENT);
+        }
+
         return redirect($category)->with('success', 'Item was deleted.');
     }
 }
