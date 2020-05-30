@@ -8,12 +8,12 @@
             </button>
 
             <div class="flex-1 flex justify-end">
-                <button class="button field is-info mr-3" @click="editSelected"
+                <button class="button field is-info" style="margin-right: 1rem" @click="editSelected"
                         :disabled="!selected">
                     <zondicon icon="edit-pencil" class="w-4 fill-current text-white mr-1"></zondicon>
                     <span>Edit</span>
                 </button>
-                <button class="button field is-danger mr-3" @click="removeSelected"
+                <button class="button field is-danger" @click="removeSelected"
                         :disabled="!selected">
                     <zondicon icon="trash" class="w-4 fill-current text-white mr-1"></zondicon>
                     <span>Delete</span>
@@ -28,15 +28,22 @@
             :default-sort="['name', 'asc']"
             custom-row-key="id"
             detail-key="id"
+            @details-open="(row, index) => $root.toast.fire({ title: `Expanded ${row.name}`, icon: 'info' })"
             height="600"
+            detailed
             focusable
             sticky-header
         >
 
             <template slot-scope="props">
                 <b-table-column field="image" label="Image">
-                    <img :src="props.row.image_path" alt="" class="h-12 object-cover"
-                         :class="{ 'h-24': selected === props.row }">
+                    <div @click="openImageModal" class="cursor-pointer">
+                        <img :src="props.row.image_path" alt="" class="w-12 h-12 object-cover"
+                             :class="{ 'w-16 h-16': selected === props.row }">
+                    </div>
+                    <modal name="item-image">
+                        <img :src="props.row.image_path" alt="" class="w-full h-auto">
+                    </modal>
                 </b-table-column>
                 <b-table-column field="name" label="Name / Alias" sortable>
                     <a :href="props.row.path">
@@ -85,7 +92,9 @@
             </template>
 
             <template slot="detail" slot-scope="props">
-                {{ props.name }}
+                <div class="storage-details">
+                    <stock :locations="props.row.storage_locations" :item-id="props.row.id" @stock-change="stockChange(props.index)"></stock>
+                </div>
             </template>
             <template slot="empty">
                 <section class="section">
@@ -99,51 +108,57 @@
 </template>
 
 <script>
-    export default {
-        name: 'ItemsTable',
-        props: ['items'],
-        data() {
-            return {
-                tableItems: [],
-                checkedRows: [],
-                selected: null
-            }
+export default {
+    name: 'ItemsTable',
+    props: ['items'],
+    data() {
+        return {
+            tableItems: [],
+            checkedRows: [],
+            selected: null
+        }
+    },
+    mounted() {
+        this.tableItems = this.items
+    },
+    methods: {
+        openDatasheet(path) {
+            window.open(path, '_blank', 'width=800,height=600')
         },
-        mounted() {
-            this.tableItems = this.items
+        openImageModal() {
+            this.$modal.show('item-image')
         },
-        methods: {
-            openDatasheet(path) {
-                window.open(path, '_blank', 'width=800,height=600')
-            },
-            editSelected() {
+        editSelected() {
+            window.open(this.selected.path + '/edit', '_blank', 'width=800,height=600')
+        },
+        stockChange(index) {
+            console.log(index)
+        },
+        removeSelected(index) {
+            swal.fire({
+                icon: 'warning',
+                title: 'Are you sure?',
+                text: 'You will not be able to recover this element!',
+                cancelButtonText: 'No, cancel it!',
+                confirmButtonText: 'Yes, I am sure!',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+            }).then(result => {
+                if (result.value) {
+                    let index = this.tableItems.findIndex(item => item.id === this.selected.id)
+                    this.tableItems.splice(index, 1)
 
-            },
-            removeSelected(index) {
-                swal.fire({
-                    icon: 'warning',
-                    title: 'Are you sure?',
-                    text: 'You will not be able to recover this element!',
-                    cancelButtonText: 'No, cancel it!',
-                    confirmButtonText: 'Yes, I am sure!',
-                    showCancelButton: true,
-                    confirmButtonColor: '#3085d6',
-                    cancelButtonColor: '#d33',
-                }).then(result => {
-                    if (result.value) {
-                        let index = this.tableItems.findIndex(item => item.id === this.selected.id)
-                        this.tableItems.splice(index, 1)
+                    axios.delete('/items/' + this.selected.id).then(() => {
+                        toast.fire({ title: 'Item ' + this.selected.name + ' was deleted', icon: 'success' })
+                        this.selected = null
 
-                        axios.delete('/items/' + this.selected.id).then(() => {
-                            toast.fire({ title: 'Item ' + this.selected.name + ' was deleted', icon: 'success' })
-                            this.selected = null
-
-                        })
-                    }
-                })
-            }
+                    })
+                }
+            })
         }
     }
+}
 </script>
 
 <style scoped>

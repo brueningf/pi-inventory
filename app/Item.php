@@ -22,9 +22,26 @@ class Item extends Model {
         return $this->image ? asset($this->image) : '/images/default-image.png';
     }
 
+    public function datasheetPath()
+    {
+        return $this->image ? asset($this->image) : '/images/default-image.png';
+    }
+
+    public function status()
+    {
+        return $this->storageLocations()->firstOr(['status'], function () {
+            return '-';
+        })->status;
+    }
+
+    public function total()
+    {
+        return $this->storageLocations()->pluck('stock')->sum();
+    }
+
     public function getPriceAttribute($value)
     {
-        return number_format((float)$value, 2, '.', '');
+        return number_format((float) $value, 2, '.', '');
     }
 
     public function getPathAttribute()
@@ -39,20 +56,19 @@ class Item extends Model {
 
     public function getDatasheetPathAttribute()
     {
-        return "/datasheet?file=$this->datasheet";
+        return $this->datasheetPath();
     }
 
     public function getStatusAttribute()
     {
-        return $this->storageLocations()->firstOr(['status'], function () {
-            return '-';
-        })->status;
+        return $this->status();
     }
 
     public function getTotalStockAttribute()
     {
-        return $this->storageLocations()->pluck('stock')->sum();
+        return $this->total();
     }
+
     public function category()
     {
         return $this->belongsTo(Category::class);

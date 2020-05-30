@@ -6,13 +6,14 @@ import Stock from './components/Stock.vue'
 import Sidemenu from './components/Sidemenu.vue'
 import ItemsTable from './components/ItemsTable'
 import { ConfigProgrammatic, Table } from 'buefy'
-import 'buefy/dist/buefy.css'
+import Modal from './plugins/modal/ModalPlugin'
 
 ConfigProgrammatic.setOptions({
     defaultIconPack: 'fas'
 })
 
 Vue.use(Table)
+Vue.use(Modal)
 
 Vue.component('zondicon', Zondicon)
 Vue.component('stock', Stock)
@@ -21,7 +22,10 @@ Vue.component('items-table', ItemsTable)
 
 
 let app = new Vue({
-    el: '#app'
+    el: '#app',
+    data: {
+        toast: window.toast
+    }
 })
 
 

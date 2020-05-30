@@ -86,7 +86,9 @@
         </div>
     </footer>
 
-
+    <modal name="item-edit">
+        hey hey
+    </modal>
 </div>
 <script src="{{ mix('/js/app.js') }}"></script>
 
