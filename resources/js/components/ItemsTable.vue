@@ -36,19 +36,19 @@
         >
 
             <template slot-scope="props">
+
                 <b-table-column field="image" label="Image">
-                    <a @click.prevent="openImageModal" class="cursor-pointer">
+                    <a @click.prevent="openImageModal(`item-image-${props.row.id}`)" class="cursor-pointer">
                         <img :src="props.row.image_path" alt="" class="w-12 h-12 object-cover"
                              :class="{ 'w-16 h-16': selected === props.row }">
                     </a>
-
+                    <modal :name="`item-image-${props.row.id}`">
+                    <img :src="props.row.image_path" alt="" class="w-full h-auto">
+                </modal>
                 </b-table-column>
                 <b-table-column field="name" label="Name / Alias" sortable>
                     <a :href="props.row.path">
                         {{ props.row.name }}
-                        <modal name="item-image">
-                            <img :src="props.row.image_path" alt="" class="w-full h-auto">
-                        </modal>
                     </a>
                 </b-table-column>
 
@@ -127,8 +127,8 @@ export default {
         openDatasheet(path) {
             window.open(path, '_blank', 'width=800,height=600')
         },
-        openImageModal() {
-            this.$modal.show('item-image')
+        openImageModal(name) {
+            this.$modal.show(name)
         },
         editSelected() {
             window.open(this.selected.path + '/edit', '_blank', 'width=800,height=600')

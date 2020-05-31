@@ -15,7 +15,18 @@
 </template>
 <script>
 export default {
-    props: ['name']
+    props: ['name'],
+    mounted() {
+        document.addEventListener('keyup', this.close)
+    },
+    beforeDestroy() {
+        document.removeEventListener('keyup', this.close)
+    },
+    methods: {
+        close(e) {
+            if (e.keyCode === 27) this.$modal.hide(this.name)
+        }
+    }
 }
 </script>
 <style>
@@ -32,7 +43,7 @@ export default {
     background: rgba(0, 0, 0, .4);
     transition: opacity .3s;
     opacity: 0;
-    z-index: 99;
+    z-index: 100;
 }
 
 .overlay:target {
@@ -61,6 +72,7 @@ export default {
     right: 15px;
     color: grey;
     text-decoration: none;
+    z-index: 100;
 }
 
 .modal-component footer:empty {
