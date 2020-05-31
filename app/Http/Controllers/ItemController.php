@@ -87,9 +87,9 @@ class ItemController extends Controller {
      */
     public function edit(Item $item)
     {
-        $manufacturers = Manufacturer::all();
-        $availableCategories = Category::all();
-        $itemCases = ItemCase::all();
+        $manufacturers = Manufacturer::orderBy('name')->get();
+        $availableCategories = Category::orderBy('name')->get();
+        $itemCases = ItemCase::orderBy('name')->get();
 
         return view('items.edit', compact('item', 'manufacturers', 'availableCategories', 'itemCases'));
     }
