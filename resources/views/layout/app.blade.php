@@ -8,7 +8,7 @@
     <title>PI - Inventory</title>
 
     <link rel="stylesheet" href="{{ mix('/css/app.css') }}">
-    <link rel="stylesheet" href="{{ asset('/css/fontawesome.css') }}">
+    <link rel="stylesheet" href="/css/fontawesome.css">
 
 </head>
 
