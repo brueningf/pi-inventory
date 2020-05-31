@@ -37,13 +37,11 @@
 
             <template slot-scope="props">
                 <b-table-column field="image" label="Image">
-                    <div @click="openImageModal" class="cursor-pointer">
+                    <a @click.prevent="openImageModal" class="cursor-pointer">
                         <img :src="props.row.image_path" alt="" class="w-12 h-12 object-cover"
                              :class="{ 'w-16 h-16': selected === props.row }">
-                    </div>
-                    <modal name="item-image">
-                        <img :src="props.row.image_path" alt="" class="w-full h-auto">
-                    </modal>
+                    </a>
+
                 </b-table-column>
                 <b-table-column field="name" label="Name / Alias" sortable>
                     <a :href="props.row.path">
@@ -93,7 +91,8 @@
 
             <template slot="detail" slot-scope="props">
                 <div class="storage-details">
-                    <stock :locations="props.row.storage_locations" :item-id="props.row.id" @stock-change="stockChange(props.index)"></stock>
+                    <stock :locations="props.row.storage_locations" :item-id="props.row.id"
+                           @stock-change="stockChange(props.index)"></stock>
                 </div>
             </template>
             <template slot="empty">
@@ -104,6 +103,10 @@
                 </section>
             </template>
         </b-table>
+
+        <modal name="item-image">
+            <img :src="props.row.image_path" alt="" class="w-full h-auto">
+        </modal>
     </div>
 </template>
 

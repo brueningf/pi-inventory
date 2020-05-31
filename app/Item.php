@@ -24,13 +24,13 @@ class Item extends Model {
 
     public function datasheetPath()
     {
-        return $this->image ? asset($this->image) : '/images/default-image.png';
+        return "/datasheet?file=$this->datasheet";
     }
 
     public function status()
     {
         return $this->storageLocations()->firstOr(['status'], function () {
-            return '-';
+            return (object) ['status' => '-'];
         })->status;
     }
 
