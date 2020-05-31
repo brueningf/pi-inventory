@@ -14,7 +14,7 @@ class AddDescriptionToManufacturersTable extends Migration
     public function up()
     {
         Schema::table('manufacturers', function (Blueprint $table) {
-            $table->text('description');
+            $table->text('description')->nullable();
         });
     }
 

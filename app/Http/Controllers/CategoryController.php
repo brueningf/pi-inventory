@@ -67,7 +67,7 @@ class CategoryController extends Controller {
      */
     public function edit(Category $category)
     {
-        $availableCategories = Category::where('id', '!=', $category->id)->get();
+        $availableCategories = Category::where('id', '!=', $category->id)->orderBy('name')->get();
 
         return view('categories.edit', compact('category', 'availableCategories'));
     }
