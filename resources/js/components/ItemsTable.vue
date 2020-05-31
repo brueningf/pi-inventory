@@ -46,6 +46,9 @@
                 <b-table-column field="name" label="Name / Alias" sortable>
                     <a :href="props.row.path">
                         {{ props.row.name }}
+                        <modal name="item-image">
+                            <img :src="props.row.image_path" alt="" class="w-full h-auto">
+                        </modal>
                     </a>
                 </b-table-column>
 
@@ -103,10 +106,6 @@
                 </section>
             </template>
         </b-table>
-
-        <modal name="item-image">
-            <img :src="props.row.image_path" alt="" class="w-full h-auto">
-        </modal>
     </div>
 </template>
 
