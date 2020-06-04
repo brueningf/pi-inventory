@@ -38,7 +38,7 @@ class ItemCaseController extends Controller {
      */
     public function store(Request $request)
     {
-        $request->validate(['name' => 'required']);
+        $request->validate(['name' => 'required|unique:item_cases']);
 
         ItemCase::create($request->only(['name', 'image']));
 

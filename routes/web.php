@@ -10,6 +10,8 @@ Route::resource('/manufacturers', 'ManufacturerController');
 Route::resource('/categories', 'CategoryController');
 Route::resource('/providers', 'ProviderController');
 
+Route::get('/storage-locations', 'StorageLocationController@index');
+
 Route::get('/datasheet', function () {
 
     $path = request('file');

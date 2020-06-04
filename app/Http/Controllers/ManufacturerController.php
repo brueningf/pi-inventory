@@ -37,7 +37,7 @@ class ManufacturerController extends Controller {
      */
     public function store(Request $request)
     {
-        $attributes = $request->validate(['name' => 'required', 'description' => 'nullable', 'website' => 'nullable', 'image' => 'file|nullable']);
+        $attributes = $request->validate(['name' => 'required|unique:manufacturers', 'description' => 'nullable', 'website' => 'nullable', 'image' => 'file|nullable']);
 
         Manufacturer::create($attributes);
 

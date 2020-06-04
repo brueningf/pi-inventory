@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="p-6">
-        <div class="flex mb-6">
+        <div class="flex justify-end mb-6">
             <a class="flex px-4 py-3 cursor-pointer border border-green-300 hover:bg-gray-200"
                href="{{ route('item-cases.create') }}">
                 <zondicon icon="add-solid" class="fill-current w-5 mr-2"></zondicon>

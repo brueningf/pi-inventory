@@ -45,7 +45,7 @@ class ItemController extends Controller {
     public function store(Request $request)
     {
         $attributes = $request->validate([
-            'name' => 'required',
+            'name' => 'required|unique:items',
             'description' => 'nullable',
             'price' => 'required',
             'provider_code' => 'nullable',

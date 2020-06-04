@@ -20,7 +20,8 @@
         <td class="w-1/6">
             <div class="flex items-center justify-center">
                 <button
-                    class="btn bg-blue-700 text-white mr-2"
+                    class="btn bg-blue-700 text-white"
+                    style="margin-right: 1rem"
                     @click.prevent="editingStock = !editingStock"
                     title="Edit stock"
                 >

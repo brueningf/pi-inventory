@@ -14,7 +14,9 @@ class StorageLocationController extends Controller
      */
     public function index()
     {
-        //
+        $locations = StorageLocation::select('location')->distinct()->orderBy('location')->get();
+
+        return view('storage-locations.index', compact('locations'));
     }
 
     /**
@@ -42,7 +44,7 @@ class StorageLocationController extends Controller
     {
         $storageLocation->stock = $request->stock;
         $storageLocation->save();
-        
+
         return response('Updated', 200);
     }
 

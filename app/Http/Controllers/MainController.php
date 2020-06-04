@@ -10,9 +10,9 @@ class MainController extends Controller
 {
     public function index()
     {
-        $manufacturers = Manufacturer::latest()->take(10)->get();
+        $manufacturers = Manufacturer::orderBy('id', 'desc')->take(10)->get();
         $items = Item::orderBy('id', 'desc')->take(5)->get();
 
-        return view('index', compact('items', 'manufacturers'));
+        return view('index', compact(['items', 'manufacturers']));
     }
 }

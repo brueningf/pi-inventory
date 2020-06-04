@@ -36,15 +36,14 @@
         >
 
             <template slot-scope="props">
-
                 <b-table-column field="image" label="Image">
                     <a @click.prevent="openImageModal(`item-image-${props.row.id}`)" class="cursor-pointer">
                         <img :src="props.row.image_path" alt="" class="w-12 h-12 object-cover"
                              :class="{ 'w-16 h-16': selected === props.row }">
                     </a>
                     <modal :name="`item-image-${props.row.id}`">
-                    <img :src="props.row.image_path" alt="" class="w-full h-auto">
-                </modal>
+                        <img :src="props.row.image_path" alt="" class="w-full h-auto">
+                    </modal>
                 </b-table-column>
                 <b-table-column field="name" label="Name / Alias" sortable>
                     <a :href="props.row.path">
@@ -56,16 +55,6 @@
                     {{ props.row.description }}
                 </b-table-column>
 
-                <b-table-column field="status" label="Status" sortable>
-                    {{ props.row.status }}
-                </b-table-column>
-                <b-table-column field="total_stock" label="Stock" sortable>
-                    {{ props.row.total_stock }}
-                </b-table-column>
-                <b-table-column field="price" label="Price" sortable numeric>
-                    {{ props.row.price }}
-                </b-table-column>
-
                 <b-table-column field="marking_code" label="Marking" sortable>
                     {{ props.row.marking_code }}
                 </b-table-column>
@@ -74,6 +63,21 @@
                         {{ props.row.item_case.name }}
                     </a>
                 </b-table-column>
+                <b-table-column field="attributes" label="Attributes">
+                    <div>
+                        <span v-for="attribute in props.row.attributes">
+                            {{ attribute.value }}
+                        </span>
+                    </div>
+                </b-table-column>
+
+                <b-table-column field="total_stock" label="Stock" width="20" sortable>
+                    {{ props.row.status }} / {{ props.row.total_stock }}
+                </b-table-column>
+                <b-table-column field="price" label="Price" sortable numeric>
+                    {{ props.row.price }}
+                </b-table-column>
+
                 <b-table-column field="datasheet" label="Datasheet">
                     <a :href="props.row.datasheet_path" target="_blank"
                        @click.prevent="openDatasheet(props.row.datasheet_path)" v-if="props.row.datasheet">
@@ -82,13 +86,6 @@
                     </a>
                     <zondicon icon="close"
                               class="w-5 h-5 fill-current" v-else></zondicon>
-                </b-table-column>
-                <b-table-column field="attributes" label="Attributes">
-                    <div>
-                        <span v-for="attribute in props.row.attributes">
-                            {{ attribute.value }}
-                        </span>
-                    </div>
                 </b-table-column>
             </template>
 

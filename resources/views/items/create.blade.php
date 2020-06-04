@@ -91,6 +91,8 @@
 
 
         <button class="btn bg-green-500 text-white hover:bg-green-400" type="submit">Create item</button>
+
+        @include('partials.errors')
     </form>
 
 @endsection
