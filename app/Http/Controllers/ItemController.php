@@ -29,11 +29,7 @@ class ItemController extends Controller {
      */
     public function create()
     {
-        $manufacturers = Manufacturer::orderBy('name')->get();
-        $availableCategories = Category::orderBy('name')->get();
-        $itemCases = ItemCase::orderBy('name')->get();
-
-        return view('items.create', compact('manufacturers', 'availableCategories', 'itemCases'));
+        return view('items.create');
     }
 
     /**
@@ -87,11 +83,7 @@ class ItemController extends Controller {
      */
     public function edit(Item $item)
     {
-        $manufacturers = Manufacturer::orderBy('name')->get();
-        $availableCategories = Category::orderBy('name')->get();
-        $itemCases = ItemCase::orderBy('name')->get();
-
-        return view('items.edit', compact('item', 'manufacturers', 'availableCategories', 'itemCases'));
+        return view('items.edit', compact('item'));
     }
 
     /**

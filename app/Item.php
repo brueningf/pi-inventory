@@ -24,7 +24,7 @@ class Item extends Model {
 
     public function datasheetPath()
     {
-        return "/datasheet?file=$this->datasheet";
+        return "/datasheet?file=" . urlencode($this->datasheet);
     }
 
     public function status()
