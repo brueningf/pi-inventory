@@ -5,6 +5,7 @@ import Zondicon from 'vue-zondicons'
 import Stock from './components/Stock.vue'
 import Sidemenu from './components/Sidemenu.vue'
 import ItemsTable from './components/ItemsTable'
+import EditItem from './components/EditItem'
 import { ConfigProgrammatic, Table } from 'buefy'
 import Modal from './plugins/modal/ModalPlugin'
 
@@ -15,6 +16,7 @@ ConfigProgrammatic.setOptions({
 Vue.use(Table)
 Vue.use(Modal)
 
+Vue.component('edit-item', EditItem)
 Vue.component('zondicon', Zondicon)
 Vue.component('stock', Stock)
 Vue.component('sidemenu', Sidemenu)

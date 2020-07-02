@@ -30,9 +30,14 @@
             detail-key="id"
             @details-open="(row, index) => $root.toast.fire({ title: `Expanded ${row.name}`, icon: 'info' })"
             height="600"
+            @dragstart="dragstart"
+            @drop="drop"
+            @dragover="dragover"
+            @dragleave="dragleave"
             detailed
             focusable
             sticky-header
+            draggable
         >
 
             <template slot-scope="props">
@@ -43,6 +48,14 @@
                     </a>
                     <modal :name="`item-image-${props.row.id}`">
                         <img :src="props.row.image_path" alt="" class="w-full h-auto">
+                    </modal>
+                    <modal :name="`edit-item-${props.row.id}`">
+                        <edit-item
+                            :data="props.row"
+                            :manufacturers="manufacturers"
+                            :item-cases="cases"
+                            :available-categories="categories"
+                        ></edit-item>
                     </modal>
                 </b-table-column>
                 <b-table-column field="name" label="Name / Alias" sortable>
@@ -77,7 +90,6 @@
                 <b-table-column field="price" label="Price" sortable numeric>
                     {{ props.row.price }}
                 </b-table-column>
-
                 <b-table-column field="datasheet" label="Datasheet">
                     <a :href="props.row.datasheet_path" target="_blank"
                        @click.prevent="openDatasheet(props.row.datasheet_path)" v-if="props.row.datasheet">
@@ -87,6 +99,7 @@
                     <zondicon icon="close"
                               class="w-5 h-5 fill-current" v-else></zondicon>
                 </b-table-column>
+
             </template>
 
             <template slot="detail" slot-scope="props">
@@ -109,12 +122,14 @@
 <script>
 export default {
     name: 'ItemsTable',
-    props: ['items'],
+    props: ['items', 'categories', 'cases', 'manufacturers'],
     data() {
         return {
             tableItems: [],
             checkedRows: [],
-            selected: null
+            selected: null,
+            draggingRow: null,
+            draggingRowIndex: null
         }
     },
     mounted() {
@@ -128,7 +143,7 @@ export default {
             this.$modal.show(name)
         },
         editSelected() {
-            window.open(this.selected.path + '/edit', '_blank', 'width=800,height=600')
+            this.$modal.show(`edit-item-${this.selected.id}`)
         },
         stockChange(index) {
             console.log(index)
@@ -155,7 +170,28 @@ export default {
                     })
                 }
             })
+        },
+        dragstart(payload) {
+            this.draggingRow = payload.row
+            this.draggingRowIndex = payload.index
+            payload.event.dataTransfer.effectAllowed = 'copy'
+        },
+        dragover(payload) {
+            payload.event.dataTransfer.dropEffect = 'copy'
+            payload.event.target.closest('tr').classList.add('is-selected')
+            payload.event.preventDefault()
+        },
+        dragleave(payload){
+            payload.event.target.closest('tr').classList.remove('is-selected')
+            payload.event.preventDefault()
+        },
+        drop(payload) {
+            payload.event.target.closest('tr').classList.remove('is-selected')
+            const droppedOnRowIndex = payload.index
+            this.tableItems[this.draggingRowIndex].sort_number = this.tableItems[droppedOnRowIndex].sort_number + 1
+            window.toast.fire({ title:`Moved ${this.draggingRow.name} from row ${this.draggingRowIndex + 1} to ${droppedOnRowIndex + 1}`, icon: 'info'})
         }
+
     }
 }
 </script>
