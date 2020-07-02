@@ -15,36 +15,9 @@
 <body>
 <div id="app" class="text-gray-400">
     <header>
-        <div class="w-full bg-repeat bg-gray-300 flex items-center justify-around mx-auto py-4"
-             style="background-image: url(/images/circuit-board.svg)">
-            <div class="w-1/2 flex items-center justify-center">
-                <a href="/" class="text-black bg-gray-500 px-3 py-2 rounded-full text-4xl font-black">
-                    PI | Inventory
-                </a>
-            </div>
-            <div class="flex items-center justify-center w-1/2">
-                <div class="w-64 relative">
-                    <form action="/search" method="POST" class="flex items-center justify-center">
-                        {{ csrf_field() }}
-                        <input class="pl-8" type="search" name="q" placeholder="Search items">
-                        <button type="submit">
-                            <zondicon icon="search"
-                                      class="fill-current text-red-700 w-4 pointer-events-none absolute inset-y-0 left-0 mt-3 ml-2"></zondicon>
-                        </button>
-                    </form>
-                </div>
-            </div>
-        </div>
-        <div class="w-full bg-red-800 flex items-center justify-around mx-auto">
-            <div class="flex items-center justify-center w-1/2">
-                <a class="flex px-4 py-3 cursor-pointer text-gray-300 hover:bg-gray-400" href="/items/create">
-                    <zondicon icon="add-solid" class="fill-current w-5 mr-2"></zondicon>
-                    New Item
-                </a>
-                {{--                    <a class="flex px-4 py-3 cursor-pointer text-gray-300 hover:bg-gray-400" href="/providers/create">--}}
-                {{--                        <zondicon icon="add-solid" class="fill-current w-5 mr-2"></zondicon>--}}
-                {{--                        New Provider--}}
-                {{--                    </a>--}}
+        <div class="w-full bg-red-800 flex items-center justify-between mx-auto">
+            <div class="flex items-center justify-center">
+                <a class="flex px-4 py-3 cursor-pointer text-gray-300 hover:bg-gray-400" href="/">Home</a>
 
                 <a class="flex px-4 py-3 cursor-pointer text-gray-300 hover:bg-gray-400" href="/item-cases">
                     Item Cases
@@ -55,6 +28,22 @@
                 <a class="flex px-4 py-3 cursor-pointer text-gray-300 hover:bg-gray-400" href="/categories">
                     Categories
                 </a>
+            </div>
+            <div>
+                <a class="flex px-4 py-3 cursor-pointer text-gray-300 hover:bg-gray-400" href="#add-menu">
+                    <zondicon icon="add-solid" class="fill-current w-5 mr-2"></zondicon>
+                    Create
+                </a>
+            </div>
+            <div class="w-64 relative mx-3">
+                <form action="/search" method="POST" class="flex items-center justify-center">
+                    {{ csrf_field() }}
+                    <input class="pl-8" type="search" name="q" placeholder="Search items">
+                    <button type="submit">
+                        <zondicon icon="search"
+                                  class="fill-current text-red-700 w-4 pointer-events-none absolute inset-y-0 left-0 mt-3 ml-2"></zondicon>
+                    </button>
+                </form>
             </div>
         </div>
     </header>
@@ -86,9 +75,15 @@
         </div>
     </footer>
 
-    <modal name="item-edit">
-        hey hey
+    <modal name="add-menu">
+        <div>
+            <a class="block px-3 py-2 bg-gray-100 text-black hover:bg-red-500 hover:text-white" href="/items/create">Item</a>
+            <a class="block px-3 py-2 bg-gray-100 text-black hover:bg-red-500 hover:text-white" href="/categories/create">Category</a>
+            <a class="block px-3 py-2 bg-gray-100 text-black hover:bg-red-500 hover:text-white" href="/manufacturers/create">Manufacturer</a>
+            <a class="block px-3 py-2 bg-gray-100 text-black hover:bg-red-500 hover:text-white" href="/item-cases/create">Item Case</a>
+        </div>
     </modal>
+
 </div>
 <script src="{{ mix('/js/app.js') }}"></script>
 

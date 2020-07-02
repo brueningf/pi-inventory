@@ -27,7 +27,7 @@ $link: $primary;
 $link-invert: $primary-invert;
 $link-focus-border: $primary;
 
-.bulma {
+.bulma  {
     // Import Bulma and Buefy styles
     @import "~bulma";
     @import "~buefy/src/scss/components/table";
@@ -118,6 +118,10 @@ table {
 }
 
 .bulma {
+    textarea {
+        @apply px-3 py-2;
+    }
+
     a {
         @apply text-gray-100;
     }

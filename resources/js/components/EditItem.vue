@@ -1,5 +1,5 @@
 <template>
-    <form class="px-5 py-8 bg-gray-600" @submit.prevent="submit" v-if="item">
+    <form class="tw-only px-5 py-8 bg-gray-600" :action="'/items/'+item.id" @submit.prevent="submit" v-if="item">
         <div class="mb-6">
             <label>Name</label>
             <input type="text" v-model="item.name" placeholder="e.g. Example item" required>
@@ -104,15 +104,21 @@ export default {
         }
     },
     methods: {
-        submit() {
-            axios.post('/api/storage-locations', {
-                location: this.location,
-                column: this.column,
-                level: this.level,
-                stock: this.stock,
-                status: this.status,
-                item_id: this.$parent.$attrs['item-id']
+        async submit() {
+            axios.patch('/items/' + this.item.id, {
+                name: this.item.name,
+                'provider_code': this.item.provider_code,
+                'marking_code': this.item.marking_code,
+                'price': this.item.price,
+                'description': this.item.description,
+                'datasheet': this.item.datasheet,
+            }).then((response) => {
+                toast.fire({ title: 'Item ' + this.item.name + ' was updated.', icon: 'success'})
+            }).catch((error) => {
+                toast.fire({ title: 'Request failed.', icon: 'error'})
             })
+
+            this.$modal.hide('edit-item-' + this.item.id)
         }
     }
 }

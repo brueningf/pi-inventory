@@ -8,10 +8,15 @@
             </button>
 
             <div class="flex-1 flex justify-end">
-                <button class="button field is-info" style="margin-right: 1rem" @click="editSelected"
+                <a class="button field is-info" style="margin-right: 1rem" :href="selected ? `/items/${selected.id}/edit` : '#'"
                         :disabled="!selected">
                     <zondicon icon="edit-pencil" class="w-4 fill-current text-white mr-1"></zondicon>
                     <span>Edit</span>
+                </a>
+                <button class="button field is-info" style="margin-right: 1rem" @click="editSelected"
+                        :disabled="!selected">
+                    <zondicon icon="edit-pencil" class="w-4 fill-current text-white mr-1"></zondicon>
+                    <span>Quick Edit</span>
                 </button>
                 <button class="button field is-danger" @click="removeSelected"
                         :disabled="!selected">
@@ -181,7 +186,7 @@ export default {
             payload.event.target.closest('tr').classList.add('is-selected')
             payload.event.preventDefault()
         },
-        dragleave(payload){
+        dragleave(payload) {
             payload.event.target.closest('tr').classList.remove('is-selected')
             payload.event.preventDefault()
         },
@@ -189,7 +194,10 @@ export default {
             payload.event.target.closest('tr').classList.remove('is-selected')
             const droppedOnRowIndex = payload.index
             this.tableItems[this.draggingRowIndex].sort_number = this.tableItems[droppedOnRowIndex].sort_number + 1
-            window.toast.fire({ title:`Moved ${this.draggingRow.name} from row ${this.draggingRowIndex + 1} to ${droppedOnRowIndex + 1}`, icon: 'info'})
+            window.toast.fire({
+                title: `Moved ${this.draggingRow.name} from row ${this.draggingRowIndex + 1} to ${droppedOnRowIndex + 1}`,
+                icon: 'info'
+            })
         }
 
     }

@@ -91,7 +91,7 @@ class ItemController extends Controller {
      *
      * @param \Illuminate\Http\Request $request
      * @param \App\Item $item
-     * @return \Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\RedirectResponse|Response
      */
     public function update(Request $request, Item $item)
     {
@@ -107,6 +107,10 @@ class ItemController extends Controller {
 
         $item->update($attributes);
         $item->save();
+
+        if ($request->wantsJson()) {
+            return response('Ok, updated');
+        }
 
         return redirect()->back()->with('success', 'Item was updated.');
     }
