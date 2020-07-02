@@ -74,6 +74,10 @@
                 <label>Marking Code</label>
                 <input type="text" v-model="item.marking_code">
             </div>
+            <div class="w-1/2 pr-3 pb-3">
+                <label>Reference</label>
+                <input type="text" v-model="item.reference">
+            </div>
         </div>
         <div class="mb-6">
             <label>Description</label>
