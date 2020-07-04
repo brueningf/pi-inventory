@@ -38,7 +38,7 @@
             <div class="w-64 relative mx-3">
                 <form action="/search" method="POST" class="flex items-center justify-center">
                     {{ csrf_field() }}
-                    <input class="pl-8" type="search" name="q" placeholder="Search items">
+                    <input  type="search" name="q" placeholder="Search items">
                     <button type="submit">
                         <zondicon icon="search"
                                   class="fill-current text-red-700 w-4 pointer-events-none absolute inset-y-0 left-0 mt-3 ml-2"></zondicon>

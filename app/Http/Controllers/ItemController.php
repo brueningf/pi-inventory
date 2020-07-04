@@ -106,7 +106,6 @@ class ItemController extends Controller {
         }
 
         $item->update($attributes);
-        $item->save();
 
         if ($request->wantsJson()) {
             return response('Ok, updated');

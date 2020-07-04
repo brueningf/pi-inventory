@@ -1,102 +1,150 @@
 <template>
-    <form class="tw-only px-5 py-8 bg-gray-600" :action="'/items/'+item.id" @submit.prevent="submit" v-if="item">
-        <div class="mb-6">
-            <label>Name</label>
-            <input type="text" v-model="item.name" placeholder="e.g. Example item" required>
+    <div class="px-5 py-8 bg-gray-600">
+        <button class="px-3 py-2" :class="{ 'bg-blue-500 text-white': currentTab === 'general'}"
+                @click="currentTab = 'general'">General
+        </button>
+        <button class="px-3 py-2" :class="{ 'bg-blue-500 text-white': currentTab === 'attributes'}"
+                @click="currentTab = 'attributes'">Attributes
+        </button>
+        <div v-show="currentTab === 'general'">
+            <form class="w-full tw-only" @submit.prevent="submit" v-if="item">
+                <div class="mb-3 text-center font-bold text-3xl" v-text="item.name"></div>
+                <div class="flex flex-wrap mb-6">
+                    <div class="w-1/2 pr-3 pb-3">
+                        <label>Name</label>
+                        <input type="text" v-model="item.name" placeholder="e.g. Example item" required>
+                    </div>
+                    <div class="w-1/2 pr-3 pb-3">
+                        <label>Image</label>
+                        <div class="flex items-center justify-start h-10 relative">
+                            <input type="file" @change="setNewImage">
+                            <img :src="item.image_path" alt="" style="height:100%;width:auto;">
+                        </div>
+                    </div>
+                    <div class="w-1/3 pr-3 pb-3 relative">
+                        <label>Category</label>
+                        <select v-model="item.category_id" class="bg-white shadow px-3 py-2" required>
+                            <option value="" disabled>Select a category</option>
+
+                            <option v-for="category in availableCategories"
+                                    :value="category.id" v-text="category.name"
+                                    :selected="category.id === item.category_id">
+                            </option>
+                        </select>
+                        <div
+                            class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-5 pt-8 text-gray-700">
+                            <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                                <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/>
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="w-1/3 pr-3 pb-3 relative">
+                        <label>Item Case</label>
+                        <select v-model="item.item_case_id" class="bg-white shadow px-3 py-2" required>
+                            <option value="" disabled>Select an case</option>
+
+                            <option v-for="itemCase in itemCases"
+                                    :value="itemCase.id" v-text="itemCase.name"
+                                    :selected="itemCase.id === item.item_case_id">
+                            </option>
+                        </select>
+                        <div
+                            class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-5 pt-8 text-gray-700">
+                            <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                                <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/>
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="w-1/3 pr-3 pb-3 relative">
+                        <label>Manufacturer</label>
+                        <select v-model="item.manufacturer_id" class="bg-white shadow px-3 py-2" required>
+                            <option value="" disabled>Select an case</option>
+
+                            <option v-for="manufacturer in manufacturers"
+                                    :value="manufacturer.id" v-text="manufacturer.name"
+                                    :selected="manufacturer.id === item.manufacturer_id">
+                            </option>
+                        </select>
+                        <div
+                            class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-5 pt-8 text-gray-700">
+                            <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                                <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/>
+                            </svg>
+                        </div>
+                    </div>
+
+                    <div class="w-1/3 pr-3 pb-3">
+                        <label>Provider code</label>
+                        <input type="text" placeholder="e.g. STMM001" v-model="item.provider_code">
+                    </div>
+                    <div class="w-1/3 pr-3 pb-3">
+                        <label>Marking Code</label>
+                        <input type="text" v-model="item.marking_code">
+                    </div>
+                    <div class="w-1/3 pr-3 pb-3">
+                        <label>Reference</label>
+                        <input type="text" v-model="item.reference">
+                    </div>
+                    <div class="w-1/3 pr-3 pb-3">
+                        <label>Price per unit $</label>
+                        <input type="number" min="0.00" max="10000.00" step="0.01" placeholder="0.00"
+                               v-model="item.price" required>
+                    </div>
+                    <div class="w-1/3 pr-3 pb-3">
+                        <label>Weight</label>
+                        <input type="number" min="0.00" max="10000.00" step="0.01" placeholder="0.00"
+                               v-model="item.weight" required>
+                    </div>
+                </div>
+                <div class="mb-6">
+                    <label>Description</label>
+                    <textarea v-model="item.description" rows="4"
+                              placeholder="e.g. Fancy example item">item->description</textarea>
+                </div>
+
+                <div class="mb-6">
+                    <label>Datasheet Path</label>
+                    <input type="text" placeholder="C:/Datasheets/ExampleItemDatasheet.pdf"
+                           v-model="item.datasheet">
+                </div>
+
+                <div class="flex items-center mb-6">
+                    <input style="margin-right: .5rem" type="checkbox" v-model="item.valid">
+                    <label>Reviewed (Valid record)</label>
+                </div>
+
+                <div class="my-6">
+                    <button class="btn bg-green-500 text-white hover:bg-green-400 mr-5" type="submit">Update item
+                    </button>
+                </div>
+            </form>
         </div>
-<!--        <div class="w-1/2 mb-6">-->
-<!--            <label>Image</label>-->
-<!--            <div class="flex items-center justify-start">-->
-<!--                <input type="file" >-->
-<!--                <img :src="item.image_path" alt="" width="60" height="60">-->
-<!--            </div>-->
-<!--        </div>-->
-        <div class="flex flex-wrap mb-6">
-            <!--            <div class="w-1/2 md:w-1/4 md:pr-3 relative">-->
-            <!--                <label>Category</label>-->
+        <div style="min-height: 300px" v-show="currentTab === 'attributes'">
+            <div class="mb-3 text-center font-bold text-3xl">Attributes of {{ item.name }}</div>
 
-            <!--                <select v-model="item.category_id" class="bg-white shadow px-3 py-2" required>-->
-            <!--                    <option value="" disabled>Select a category</option>-->
-
-            <!--                    <option v-for="category in availableCategories"-->
-            <!--                        :value="category.id">-->
-            <!--                    </option>-->
-            <!--                </select>-->
-            <!--                <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-5 pt-8 text-gray-700">-->
-            <!--                    <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">-->
-            <!--                        <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/>-->
-            <!--                    </svg>-->
-            <!--                </div>-->
-            <!--            </div>-->
-            <!--            <div class="w-1/2 md:w-1/4 px-3 relative">-->
-            <!--                <label>Item Case</label>-->
-            <!--                <select name="item_case_id" class="bg-white shadow px-3 py-2" required>-->
-            <!--                    <option value="" disabled class="text-gray-700">Select an case</option>-->
-
-            <!--                    <option>-->
-            <!--                    </option>-->
-            <!--                </select>-->
-            <!--                <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-5 pt-8 text-gray-700">-->
-            <!--                    <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">-->
-            <!--                        <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/>-->
-            <!--                    </svg>-->
-            <!--                </div>-->
-            <!--            </div>-->
-            <!--            <div class="w-1/2 md:w-1/4 px-3 relative">-->
-            <!--                <label for="manufacturer_id">Manufacturer</label>-->
-            <!--                <select name="manufacturer_id" class="bg-white shadow px-3 py-2" required>-->
-            <!--                    <option value="" disabled class="text-gray-700">Select a manufacturer</option>-->
-
-            <!--                    @foreach ($manufacturers as $manufacturer)-->
-            <!--                    <option-->
-            <!--                        value="manufacturer->id" item->manufacturer_id  == $manufacturer->id ? 'selected' : ''>-->
-            <!--                        manufacturer->name-->
-            <!--                    </option>-->
-            <!--                    @endforeach-->
-            <!--                </select>-->
-            <!--                <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-5 pt-8 text-gray-700">-->
-            <!--                    <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">-->
-            <!--                        <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/>-->
-            <!--                    </svg>-->
-            <!--                </div>-->
-            <!--            </div>-->
-            <div class="w-1/2 pr-3 pb-3">
-                <label>Provider code</label>
-                <input type="text" placeholder="e.g. STMM001" v-model="item.provider_code">
+            <div class="w-1/2">
+                <div class="flex items-center mb-2"
+                    v-for="(attribute, index) in item.attributes">
+                    <div class="flex items-center bg-gray-300 text-black px-3 py-2">
+                        <span v-text="attribute.name"></span>:
+                        <span class="ml-2" v-text="attribute.value"></span>
+                    </div>
+                    <span @click="removeAttribute(attribute, index)" title="Remove attribute" class="cursor-pointer font-bold mx-3 text-2xl">&times;</span>
+                </div>
             </div>
+            <hr>
+            <div>
+                <div class="font-bold text-white text-xl">
+                    Add attribute
+                </div>
 
-            <div class="w-1/2 pr-3 pb-3">
-                <label>Price per unit $</label>
-                <input type="number" min="0.00" max="10000.00" step="0.01" placeholder="0.00"
-                       v-model="item.price" required>
-            </div>
-            <div class="w-1/2 pr-3 pb-3">
-                <label>Marking Code</label>
-                <input type="text" v-model="item.marking_code">
-            </div>
-            <div class="w-1/2 pr-3 pb-3">
-                <label>Reference</label>
-                <input type="text" v-model="item.reference">
+                <add-attribute @attribute-added="attributeAdded"></add-attribute>
             </div>
         </div>
-        <div class="mb-6">
-            <label>Description</label>
-            <textarea v-model="item.description" rows="4"
-                      placeholder="e.g. Fancy example item">item->description</textarea>
-        </div>
-
-        <div class="mb-6">
-            <label>Datasheet Path</label>
-            <input type="text" placeholder="C:/Datasheets/ExampleItemDatasheet.pdf"
-                   v-model="item.datasheet">
-        </div>
-
-        <div class="my-6">
-            <button class="btn bg-green-500 text-white hover:bg-green-400 mr-5" type="submit">Update item</button>
-        </div>
-    </form>
+    </div>
 </template>
 <script>
+import AddAttribute from './AddAttribute'
 export default {
     props: ['data', 'availableCategories', 'itemCases', 'manufacturers'],
     mounted() {
@@ -104,9 +152,12 @@ export default {
     },
     data() {
         return {
-            item: null
+            currentTab: 'general',
+            item: null,
+            newImage: null
         }
     },
+    components: { AddAttribute },
     methods: {
         async submit() {
             axios.patch('/items/' + this.item.id, {
@@ -116,14 +167,46 @@ export default {
                 'price': this.item.price,
                 'description': this.item.description,
                 'datasheet': this.item.datasheet,
+                'valid': this.item.valid,
+                'category_id': this.item.category_id,
+                'item_case_id': this.item.item_case_id,
+                'manufacturer_id': this.item.manufacturer_id,
             }).then((response) => {
-                toast.fire({ title: 'Item ' + this.item.name + ' was updated.', icon: 'success'})
+                toast.fire({ title: 'Item ' + this.item.name + ' was updated.', icon: 'success' })
             }).catch((error) => {
-                toast.fire({ title: 'Request failed.', icon: 'error'})
+                toast.fire({ title: 'Request failed.', icon: 'error' })
             })
 
+            if (this.newImage) {
+                let data = new FormData()
+                data.append('image', this.newImage)
+                data.append('_method', 'PATCH')
+
+                axios.post('/items/' + this.item.id, data).then(response => console.log(response))
+            }
+
             this.$modal.hide('edit-item-' + this.item.id)
+        },
+        removeAttribute(attribute, index) {
+            this.item.attributes.splice(index, 1)
+
+            axios.delete('/api/attributes/'+ attribute.id)
+        },
+        setNewImage(e) {
+            let files = e.target.files || e.dataTransfer.files
+
+            if (!files.length) return
+
+            this.newImage = files[0]
+        },
+        attributeAdded(payload) {
+           this.item.attributes.push(payload)
         }
     }
 }
 </script>
+<style>
+.modal-component {
+    width: 60% !important;
+}
+</style>

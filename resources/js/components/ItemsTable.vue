@@ -8,8 +8,9 @@
             </button>
 
             <div class="flex-1 flex justify-end">
-                <a class="button field is-info" style="margin-right: 1rem" :href="selected ? `/items/${selected.id}/edit` : '#'"
-                        :disabled="!selected">
+                <a class="button field is-info" style="margin-right: 1rem"
+                   :href="selected ? `/items/${selected.id}/edit` : '#'"
+                   :disabled="!selected">
                     <zondicon icon="browser-window-open" class="w-4 fill-current text-white mr-1"></zondicon>
                     <span>Edit</span>
                 </a>
@@ -18,9 +19,11 @@
                     <zondicon icon="edit-pencil" class="w-4 fill-current text-white mr-1"></zondicon>
                     <span>Quick Edit</span>
                 </button>
-                <button class="button field" :class="{ 'is-success': isRecordValid, 'is-warning': !isRecordValid }" style="margin-right: 1rem" @click="toggleValidateRecord"
+                <button class="button field" :class="{ 'is-success': isRecordValid, 'is-warning': !isRecordValid }"
+                        style="margin-right: 1rem" @click="toggleValidateRecord"
                         :disabled="!selected">
-                    <zondicon :icon="isRecordValid ? 'checkmark-outline' : 'exclamation-outline'" class="w-4 fill-current text-white mr-1"></zondicon>
+                    <zondicon :icon="isRecordValid ? 'checkmark-outline' : 'exclamation-outline'"
+                              class="w-4 fill-current text-white mr-1"></zondicon>
                     <span v-text="isRecordValid ? 'Approved' : 'Mark as valid'"></span>
                 </button>
                 <button class="button field is-danger" @click="removeSelected"
@@ -47,11 +50,10 @@
             detailed
             focusable
             sticky-header
-            draggable
         >
 
             <template slot-scope="props">
-                <b-table-column field="image" label="Image">
+                <b-table-column field="image" label="Image" class="flex">
                     <a @click.prevent="openImageModal(`item-image-${props.row.id}`)" class="cursor-pointer">
                         <img :src="props.row.image_path" alt="" class="w-12 h-12 object-cover"
                              :class="{ 'w-16 h-16': selected === props.row }">
@@ -69,8 +71,12 @@
                     </modal>
                 </b-table-column>
                 <b-table-column field="name" label="Name / Alias" sortable>
-                    <a :href="props.row.path">
-                        {{ props.row.name }}
+                    <a :href="props.row.path" class="flex items-center justify-between">
+                        <span>{{ props.row.name }}</span>
+
+                        <zondicon :icon="props.row.valid ? 'checkmark-outline' : 'exclamation-outline'"
+                                  class="w-5 h-5 fill-current mr-1"
+                                  :class="{'text-green-500': props.row.valid, 'text-yellow-500': ! props.row.valid}"></zondicon>
                     </a>
                 </b-table-column>
 
@@ -108,12 +114,6 @@
                     </a>
                     <zondicon icon="close"
                               class="w-5 h-5 fill-current" v-else></zondicon>
-                </b-table-column>
-
-                <b-table-column field="valid" label="Record state" sortable>
-                    <div>
-                        <zondicon :icon="props.row.valid ? 'checkmark-outline' : 'exclamation-outline'" class="w-5 h-5 fill-current mr-1" :class="{'text-green-500': props.row.valid, 'text-yellow-500': ! props.row.valid}"></zondicon>
-                    </div>
                 </b-table-column>
 
             </template>
@@ -167,8 +167,8 @@ export default {
             this.$modal.show(`edit-item-${this.selected.id}`)
         },
         toggleValidateRecord() {
-            this.selected.valid = ! this.selected.valid
-            axios.patch('/items/' + this.selected.id, { valid: ! this.selected.valid })
+            this.selected.valid = !this.selected.valid
+            axios.patch('/items/' + this.selected.id, { valid: this.selected.valid })
 
             window.toast.fire({
                 title: `Record valid state is now set to ${this.selected.valid}`,

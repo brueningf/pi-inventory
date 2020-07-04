@@ -12,9 +12,9 @@
             </div>
             <div class="w-full flex flex-wrap px-5 py-8">
                 <div class="w-1/6 flex items-center justify-start pr-3">
-                    <div class="overflow-hidden rounded-lg w-64">
+                    <a class="overflow-hidden rounded-lg w-64" href="#item-image-{{ $item->id }}">
                         <img src="{{ $item->imagePath() }}" alt="Item Picture" class="object-cover w-full h-auto">
-                    </div>
+                    </a>
                 </div>
                 <div class="w-5/6 flex">
                     <div class="w-1/4 tracking-wide text-lg font-medium">
@@ -39,7 +39,7 @@
                     </div>
                     <div class="w-1/4 tracking-wide text-lg font-medium">
                         <h3 class="text-gray-300 tracking-wide text-sm">Datasheet</h3>
-                        <a href="{{ 'file:///' . $item->datasheet }}" target='_blank'>
+                        <a @click.prevent="window.open('{{ $item->datasheet_path }}', '_blank', 'width=800,height=600')" target='_blank'>
                             {{ $item->datasheet ?? 'No datasheet' }}
                         </a>
                     </div>
@@ -80,4 +80,8 @@
         </div>
 
     </div>
+
+    <modal name="item-image-{{ $item->id }}">
+        <img src="{{ $item->image_path }}" alt="" class="w-full h-auto">
+    </modal>
 @endsection

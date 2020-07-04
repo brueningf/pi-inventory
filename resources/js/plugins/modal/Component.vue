@@ -40,7 +40,7 @@ export default {
     display: flex;
     align-items: center;
     justify-content: center;
-    background: rgba(0, 0, 0, .4);
+    background: rgba(0, 0, 0, .8);
     transition: opacity .3s;
     opacity: 0;
     z-index: 100;
@@ -70,7 +70,7 @@ export default {
     position: absolute;
     top: 15px;
     right: 15px;
-    color: grey;
+    color: white;
     text-decoration: none;
     z-index: 100;
 }
