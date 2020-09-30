@@ -4,9 +4,11 @@ namespace App\Console;
 
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
+use Illuminate\Support\Facades\File;
+use function foo\func;
 
-class Kernel extends ConsoleKernel
-{
+class Kernel extends ConsoleKernel {
+
     /**
      * The Artisan commands provided by your application.
      *
@@ -19,13 +21,23 @@ class Kernel extends ConsoleKernel
     /**
      * Define the application's command schedule.
      *
-     * @param  \Illuminate\Console\Scheduling\Schedule  $schedule
+     * @param \Illuminate\Console\Scheduling\Schedule $schedule
      * @return void
      */
     protected function schedule(Schedule $schedule)
     {
-        // $schedule->command('inspire')
-        //          ->hourly();
+        $schedule->command('backup:clean')->daily()->at('13:00');
+        $schedule->command('backup:run')->daily()->at('13:05')
+            ->onFailure(function () {
+                $data = var_export(['checked' => false], 1);
+                File::put(config_path() . '/backup_health.php', "<?php\n return $data;");
+
+            })
+            ->onSuccess(function () {
+                $data = var_export(['checked' => true], 1);
+                File::put(config_path() . '/backup_health.php', "<?php\n return $data;");
+            });
+
     }
 
     /**
@@ -35,7 +47,7 @@ class Kernel extends ConsoleKernel
      */
     protected function commands()
     {
-        $this->load(__DIR__.'/Commands');
+        $this->load(__DIR__ . '/Commands');
 
         require base_path('routes/console.php');
     }

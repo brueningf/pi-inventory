@@ -28,6 +28,11 @@
                 <a class="flex px-4 py-3 cursor-pointer text-gray-300 hover:bg-gray-400" href="/categories">
                     Categories
                 </a>
+                <div class="flex items-center justify-between px-4 py-3 text-gray-300 bg-gray-700">
+                    <span class="mr-2">Backup</span>
+                        <zondicon @if(config('backup_health.checked')) icon="checkmark-outline" @else icon="exclamation-outline" @endif
+                                  class="w-5 h-5 fill-current mr-1 @if(config('backup_health.checked')) text-green-500 @else text-yellow-500 @endif"></zondicon>
+                </div>
             </div>
             <div>
                 <a class="flex px-4 py-3 cursor-pointer text-gray-300 hover:bg-gray-400" href="#add-menu">
@@ -38,7 +43,7 @@
             <div class="w-64 relative mx-3">
                 <form action="/search" method="POST" class="flex items-center justify-center">
                     {{ csrf_field() }}
-                    <input  type="search" name="q" placeholder="Search items">
+                    <input type="search" name="q" placeholder="Search items">
                     <button type="submit">
                         <zondicon icon="search"
                                   class="fill-current text-red-700 w-4 pointer-events-none absolute inset-y-0 left-0 mt-3 ml-2"></zondicon>
@@ -78,9 +83,12 @@
     <modal name="add-menu">
         <div>
             <a class="block px-3 py-2 bg-gray-100 text-black hover:bg-red-500 hover:text-white" href="/items/create">Item</a>
-            <a class="block px-3 py-2 bg-gray-100 text-black hover:bg-red-500 hover:text-white" href="/categories/create">Category</a>
-            <a class="block px-3 py-2 bg-gray-100 text-black hover:bg-red-500 hover:text-white" href="/manufacturers/create">Manufacturer</a>
-            <a class="block px-3 py-2 bg-gray-100 text-black hover:bg-red-500 hover:text-white" href="/item-cases/create">Item Case</a>
+            <a class="block px-3 py-2 bg-gray-100 text-black hover:bg-red-500 hover:text-white"
+               href="/categories/create">Category</a>
+            <a class="block px-3 py-2 bg-gray-100 text-black hover:bg-red-500 hover:text-white"
+               href="/manufacturers/create">Manufacturer</a>
+            <a class="block px-3 py-2 bg-gray-100 text-black hover:bg-red-500 hover:text-white"
+               href="/item-cases/create">Item Case</a>
         </div>
     </modal>
 
