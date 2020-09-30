@@ -42,7 +42,7 @@
             custom-row-key="id"
             detail-key="id"
             @details-open="(row, index) => $root.toast.fire({ title: `Expanded ${row.name}`, icon: 'info' })"
-            height="600"
+            height="700"
             @dragstart="dragstart"
             @drop="drop"
             @dragover="dragover"
@@ -53,22 +53,26 @@
         >
 
             <template slot-scope="props">
-                <b-table-column field="image" label="Image" class="flex">
-                    <a @click.prevent="openImageModal(`item-image-${props.row.id}`)" class="cursor-pointer">
-                        <img :src="props.row.image_path" alt="" class="w-12 h-12 object-cover"
-                             :class="{ 'w-16 h-16': selected === props.row }">
-                    </a>
-                    <modal :name="`item-image-${props.row.id}`">
-                        <img :src="props.row.image_path" alt="" class="w-full h-auto">
-                    </modal>
-                    <modal :name="`edit-item-${props.row.id}`">
-                        <edit-item
-                            :data="props.row"
-                            :manufacturers="manufacturers"
-                            :item-cases="cases"
-                            :available-categories="categories"
-                        ></edit-item>
-                    </modal>
+                <b-table-column field="image" label="Image">
+                    <div>
+                        <a @click.prevent="openImageModal(`item-image-${props.row.id}`)" class="cursor-pointer">
+                            <img :src="props.row.image_path" alt="" class="w-12 h-12 object-cover"
+                                 :class="{ 'w-16 h-16': selected === props.row }">
+                        </a>
+                        <modal :name="`item-image-${props.row.id}`">
+                            <div>
+                                <img :src="props.row.image_path" alt="" width="400" height="auto" class="block mx-auto my-0">
+                            </div>
+                        </modal>
+                        <modal :name="`edit-item-${props.row.id}`">
+                            <edit-item
+                                :data="props.row"
+                                :manufacturers="manufacturers"
+                                :item-cases="cases"
+                                :available-categories="categories"
+                            ></edit-item>
+                        </modal>
+                    </div>
                 </b-table-column>
                 <b-table-column field="name" label="Name / Alias" sortable>
                     <a :href="props.row.path" class="flex items-center justify-between">
@@ -81,7 +85,9 @@
                 </b-table-column>
 
                 <b-table-column field="description" label="Description" sortable>
-                    {{ props.row.description }}
+                   <div>
+                       {{ props.row.description }}
+                   </div>
                 </b-table-column>
 
                 <b-table-column field="marking_code" label="Marking" sortable>

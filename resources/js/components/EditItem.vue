@@ -153,7 +153,7 @@ export default {
     data() {
         return {
             currentTab: 'general',
-            item: null,
+            item: false,
             newImage: null
         }
     },
