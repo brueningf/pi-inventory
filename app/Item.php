@@ -29,14 +29,12 @@ class Item extends Model {
 
     public function status()
     {
-        return $this->storageLocations()->firstOr(['status'], function () {
-            return (object) ['status' => '-'];
-        })->status;
+        return $this->storageLocations->count() ? $this->storageLocations[0]->status :  '-';
     }
 
     public function total()
     {
-        return $this->storageLocations()->pluck('stock')->sum();
+        return $this->storageLocations->pluck('stock')->sum();
     }
 
     public function getPriceAttribute($value)

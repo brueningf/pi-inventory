@@ -18,7 +18,7 @@
                 <th class="w-1/6">
                     <div class="flex">
                         <zondicon icon="border-all" class="fill-current w-6 mr-2"/>
-                        Row
+                        Packing Type
                     </div>
                 </th>
                 <th class="w-1/6">

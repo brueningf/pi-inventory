@@ -42,7 +42,7 @@
             custom-row-key="id"
             detail-key="id"
             @details-open="(row, index) => $root.toast.fire({ title: `Expanded ${row.name}`, icon: 'info' })"
-            height="700"
+            height="600"
             @dragstart="dragstart"
             @drop="drop"
             @dragover="dragover"
@@ -77,7 +77,6 @@
                 <b-table-column field="name" label="Name / Alias" sortable>
                     <a :href="props.row.path" class="flex items-center justify-between">
                         <span>{{ props.row.name }}</span>
-
                         <zondicon :icon="props.row.valid ? 'checkmark-outline' : 'exclamation-outline'"
                                   class="w-5 h-5 fill-current mr-1"
                                   :class="{'text-green-500': props.row.valid, 'text-yellow-500': ! props.row.valid}"></zondicon>
@@ -138,6 +137,15 @@
                 </section>
             </template>
         </b-table>
+
+       <div class="flex items-center justify-between mt-2 p-2 bg-gray-600">
+           <div>
+               <a href="#top">Back to top of page</a>
+           </div>
+           <div>
+              Items: {{ tableItems.length }}
+           </div>
+       </div>
     </div>
 </template>
 

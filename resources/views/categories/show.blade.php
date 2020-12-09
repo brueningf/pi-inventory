@@ -5,6 +5,11 @@
         <h3 class="text-center text-2xl font-bold mb-6">
             {{ $category->name }}
         </h3>
+        @if(count($category->items))
+            <h5 class="text-center -mt-4">
+                Items: {{ count($category->items) }}
+            </h5>
+        @endif
         @if(count($category->subcategories))
             <div class="w-full flex flex-wrap">
                 @foreach($category->subcategories as $subcategory)
@@ -17,7 +22,7 @@
             </div>
         @endif
 
-        @if(count($category->items))
+        @if($category->items->count())
             <div class="mt-12">
                 @include('items.table', ['items' => $category->items])
             </div>
@@ -28,4 +33,12 @@
         @endif
 
     </div>
+
+
+@endsection
+
+@section('footer')
+    <script>
+        window.currentCategory = {!! $category->toJson() !!}
+    </script>
 @endsection

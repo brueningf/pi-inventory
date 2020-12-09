@@ -7,7 +7,7 @@
             <input type="text" placeholder="Column" v-model="column"/>
         </div>
         <div class="w-1/6 border-b-2 border-l py-2 px-3">
-            <input type="text" placeholder="Level" v-model="level"/>
+            <input type="text" placeholder="Type" v-model="level"/>
         </div>
         <div class="w-1/6 border-b-2 border-l py-2 px-3">
             <input type="number" step="1" placeholder="Stock" v-model="stock"/>
@@ -35,6 +35,9 @@
                 stock: 0,
                 status: '-'
             }
+        },
+        mounted() {
+            if (window.currentCategory) this.column = window.currentCategory.name
         },
         methods: {
             submit() {

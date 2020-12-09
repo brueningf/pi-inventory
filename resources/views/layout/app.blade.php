@@ -13,6 +13,7 @@
 </head>
 
 <body>
+<a name="top"></a>
 <div id="app" class="text-gray-400">
     <header>
         <div class="w-full bg-red-800 flex items-center justify-between mx-auto">
@@ -95,7 +96,7 @@
 </div>
 <script src="{{ mix('/js/app.js') }}"></script>
 
-
+@yield('footer')
 @if(session()->has('success'))
     <script>
         toast.fire({
