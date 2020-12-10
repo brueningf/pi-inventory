@@ -32,7 +32,7 @@ export default {
 <style>
 .overlay {
     visibility: hidden;
-    position: absolute;
+    position: fixed;
     top: 0;
     right: 0;
     bottom: 0;
@@ -63,7 +63,9 @@ export default {
     max-width: 80%;
     background: white;
     border-radius: 4px;
-    box-shadow: 0 5px 11px rgba(36, 37, 38, 0.08)
+    box-shadow: 0 5px 11px rgba(36, 37, 38, 0.08);
+    overflow-y: scroll;
+    z-index: 20;
 }
 
 .modal-component .close {

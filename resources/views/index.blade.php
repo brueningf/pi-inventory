@@ -2,11 +2,11 @@
 
 @section('content')
 
-<div class="p-6">
+<div class="p-2 sm:p-6 mt-5">
     <h3 class="text-xl font-bold mt-6">Recently updated items</h3>
     <div class="w-full flex flex-wrap my-6">
         @foreach ($recentEditedItems as $item)
-            <div class="w-1/5 pr-3 pb-3">
+            <div class="w-1/2 sm:w-1/5 pr-3 pb-3">
                 <a href="{{ $item->path() }}" class="flex relative border rounded-lg overflow-hidden h-32">
                     <div class="w-1/3">
                         <img class="object-cover h-full w-full" src="{{ $item->imagePath() }}" alt="Item">
@@ -27,7 +27,7 @@
     <h3 class="text-xl font-bold mt-6">Recently added items</h3>
     <div class="w-full flex flex-wrap my-6">
         @foreach ($items as $item)
-        <div class="w-1/5 pr-3 pb-3">
+        <div class="w-1/2 sm:w-1/5 pr-3 pb-3">
             <a href="{{ $item->path() }}" class="flex relative border rounded-lg overflow-hidden h-32">
                 <div class="w-1/3">
                     <img class="object-cover h-full w-full" src="{{ $item->imagePath() }}" alt="Item">
@@ -48,7 +48,7 @@
     <h3 class="text-xl font-bold mt-6">Manufacturer</h3>
     <div class="w-full flex flex-wrap mt-6 pb-16 block">
         @foreach ($manufacturers as $manufacturer)
-        <div class="w-1/5 mt-3 pr-3">
+        <div class="w-1/2 sm:w-1/5 mt-3 pr-3">
             <a href="{{ $manufacturer->path() }}" class="w-full block p-2 font-bold text-center border rounded hover:bg-blue-100">
                 {{ $manufacturer->name }}
             </a>

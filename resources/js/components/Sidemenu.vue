@@ -1,12 +1,14 @@
 <template>
-    <div :class="{ 'w-1/5': isOpen, 'bg-gray-600 shadow relative': true }">
-        <div class="bg-gray-500 hover:bg-gray-400 absolute top-0 w-8 h-8 cursor-pointer" style="right: -2rem" @click="isOpen = !isOpen">
-            <zondicon :icon="isOpen ? 'cheveron-left': 'cheveron-right'" class="w-8 h-8 fill-current text-white"
-                      ></zondicon>
-        </div>
-        <div v-show="isOpen">
-            <h3 class="py-4 pl-4 border-b-2 border-black font-bold text-2xl mb-0">Categories</h3>
-            <div>
+    <div :class="{ 'absolute w-3/4 sm:w-1/5 z-10': isOpen, 'bg-gray-600 shadow': true }">
+
+        <div>
+            <div class="flex font-bold text-white items-center px-4 justify-center bg-gray-500 hover:bg-gray-400 h-10 cursor-pointer" :class="{ 'absolute bg-red-700': ! isOpen }"
+                 @click="isOpen = !isOpen">
+                <span v-text="isOpen ? 'Hide' : 'Show'"></span>&nbsp;categories
+                <zondicon :icon="isOpen ? 'cheveron-left': 'cheveron-right'" class="w-8 h-8 fill-current text-white"
+                ></zondicon>
+            </div>
+            <div v-show="isOpen">
                 <sidemenu-item v-for="(category, index) in categories" :key="index" :category="category"
                                @show="isShowingMenu"></sidemenu-item>
             </div>
@@ -24,7 +26,7 @@
         data() {
             return {
                 categories: [],
-                isOpen: true
+                isOpen: false
             }
         },
         methods: {

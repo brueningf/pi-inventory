@@ -91,4 +91,9 @@ class Item extends Model {
     {
         return $this->hasMany(ItemAttribute::class);
     }
+
+    public function project()
+    {
+       return $this->belongsToMany(Project::class);
+    }
 }

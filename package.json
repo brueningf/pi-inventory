@@ -23,6 +23,7 @@
     },
     "dependencies": {
         "buefy": "^0.8.19",
+        "in-viewport": "^3.6.0",
         "node-sass": "^4.13.1",
         "simple-datatables": "^2.1.10",
         "sweetalert2": "^9.10.13",

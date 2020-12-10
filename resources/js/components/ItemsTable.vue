@@ -1,13 +1,13 @@
 <template>
     <div>
-        <div class="flex">
+        <div id="table-menu" class="relative flex">
             <button class="button field is-danger" @click="selected = null"
                     :disabled="!selected">
                 <zondicon icon="close" class="w-4 fill-current text-white mr-1"></zondicon>
                 <span>Clear selected</span>
             </button>
 
-            <div class="flex-1 flex justify-end">
+            <div class="hidden flex-1 sm:flex justify-end">
                 <a class="button field is-info" style="margin-right: 1rem"
                    :href="selected ? `/items/${selected.id}/edit` : '#'"
                    :disabled="!selected">
@@ -40,9 +40,10 @@
             :checked-rows.sync="checkedRows"
             :default-sort="['name', 'asc']"
             custom-row-key="id"
+            :row-class="(row, index) => 'item-row'"
             detail-key="id"
             @details-open="(row, index) => $root.toast.fire({ title: `Expanded ${row.name}`, icon: 'info' })"
-            height="600"
+            height="800"
             @dragstart="dragstart"
             @drop="drop"
             @dragover="dragover"
@@ -61,7 +62,8 @@
                         </a>
                         <modal :name="`item-image-${props.row.id}`">
                             <div>
-                                <img :src="props.row.image_path" alt="" width="400" height="auto" class="block mx-auto my-0">
+                                <img :src="props.row.image_path" alt="" width="400" height="auto"
+                                     class="block mx-auto my-0">
                             </div>
                         </modal>
                         <modal :name="`edit-item-${props.row.id}`">
@@ -72,11 +74,32 @@
                                 :available-categories="categories"
                             ></edit-item>
                         </modal>
+                        <nav class="w-48 context-menu bg-gray-100 rounded overflow-hidden">
+                            <a :href="props.row.path"
+                               class="flex items-center justify-between px-3 py-2 hover:bg-blue-300"
+                               style="color: black">
+                                <zondicon class="w-8 h-8" icon="view-show"></zondicon>
+                                View Item
+                            </a>
+
+                            <a href="#" class="flex items-center justify-between px-3 py-2 hover:bg-blue-300"
+                               style="color: black"
+                               @click.prevent="editSelected(props.row.id)">
+                                <zondicon class="w-8 h-8" icon="edit-pencil"></zondicon>
+                                Edit Item
+                            </a>
+                            <a href="#" class="flex items-center justify-between px-3 py-2 hover:bg-blue-300"
+                               style="color: black"
+                                @click.prevent="removeSelected(props.index)">
+                                <zondicon class="w-8 h-8" icon="trash"></zondicon>
+                                Delete Item
+                            </a>
+                        </nav>
                     </div>
                 </b-table-column>
                 <b-table-column field="name" label="Name / Alias" sortable>
                     <a :href="props.row.path" class="flex items-center justify-between">
-                        <span>{{ props.row.name }}</span>
+                        <span class="mr-1 sm:mr-0">{{ props.row.name }}</span>
                         <zondicon :icon="props.row.valid ? 'checkmark-outline' : 'exclamation-outline'"
                                   class="w-5 h-5 fill-current mr-1"
                                   :class="{'text-green-500': props.row.valid, 'text-yellow-500': ! props.row.valid}"></zondicon>
@@ -84,9 +107,9 @@
                 </b-table-column>
 
                 <b-table-column field="description" label="Description" sortable>
-                   <div>
-                       {{ props.row.description }}
-                   </div>
+                    <div>
+                        {{ props.row.description }}
+                    </div>
                 </b-table-column>
 
                 <b-table-column field="marking_code" label="Marking" sortable>
@@ -121,6 +144,28 @@
                               class="w-5 h-5 fill-current" v-else></zondicon>
                 </b-table-column>
 
+                <b-table-column v-if="$root.isMobile()" class="sm:hidden h-12">
+                   <div class="absolute z-10 w-full flex items-center justify-between">
+                       <a class="w-1/3 flex flex-col items-center justify-center" @click="editSelected(props.row.id)"
+                               :disabled="!selected">
+                           <zondicon icon="edit-pencil" class="w-4 fill-current text-white"></zondicon>
+                           <span class="text-xs">Quick Edit</span>
+                       </a>
+                       <a class="w-1/3 flex flex-col items-center justify-center" :class="{ 'is-success': isRecordValid, 'is-warning': !isRecordValid }"
+                               @click="toggleValidateRecord"
+                               :disabled="!selected">
+                           <zondicon :icon="isRecordValid ? 'checkmark-outline' : 'exclamation-outline'"
+                                     class="w-4 fill-current text-white"></zondicon>
+                           <span class="text-xs" v-text="isRecordValid ? 'Approved' : 'Check stock'"></span>
+                       </a>
+                       <a class="w-1/3 flex flex-col items-center justify-center" @click="removeSelected(props.index)"
+                               :disabled="!selected">
+                           <zondicon icon="trash" class="w-4 fill-current text-white"></zondicon>
+                           <span class="text-xs">Delete</span>
+                       </a>
+                   </div>
+                </b-table-column>
+
             </template>
 
             <template slot="detail" slot-scope="props">
@@ -138,14 +183,49 @@
             </template>
         </b-table>
 
-       <div class="flex items-center justify-between mt-2 p-2 bg-gray-600">
-           <div>
-               <a href="#top">Back to top of page</a>
-           </div>
-           <div>
-              Items: {{ tableItems.length }}
-           </div>
-       </div>
+        <visible class="hidden sm:block" when-hidden="#table-menu">
+            <div class="flex items-center mt-4">
+                <button class="button field is-danger" @click="selected = null"
+                        :disabled="!selected">
+                    <zondicon icon="close" class="w-4 fill-current text-white mr-1"></zondicon>
+                    <span>Clear selected</span>
+                </button>
+
+                <div class="flex-1 flex justify-end">
+                    <a class="button field is-info" style="margin-right: 1rem"
+                       :href="selected ? `/items/${selected.id}/edit` : '#'"
+                       :disabled="!selected">
+                        <zondicon icon="browser-window-open" class="w-4 fill-current text-white mr-1"></zondicon>
+                        <span>Edit</span>
+                    </a>
+                    <button class="button field is-info" style="margin-right: 1rem" @click="editSelected"
+                            :disabled="!selected">
+                        <zondicon icon="edit-pencil" class="w-4 fill-current text-white mr-1"></zondicon>
+                        <span>Quick Edit</span>
+                    </button>
+                    <button class="button field" :class="{ 'is-success': isRecordValid, 'is-warning': !isRecordValid }"
+                            style="margin-right: 1rem" @click="toggleValidateRecord"
+                            :disabled="!selected">
+                        <zondicon :icon="isRecordValid ? 'checkmark-outline' : 'exclamation-outline'"
+                                  class="w-4 fill-current text-white mr-1"></zondicon>
+                        <span v-text="isRecordValid ? 'Approved' : 'Mark as valid'"></span>
+                    </button>
+                    <button class="button field is-danger" @click="removeSelected"
+                            :disabled="!selected">
+                        <zondicon icon="trash" class="w-4 fill-current text-white mr-1"></zondicon>
+                        <span>Delete</span>
+                    </button>
+                </div>
+            </div>
+        </visible>
+        <div class="flex items-center justify-between mt-2 p-2 bg-gray-700 rounded">
+            <div>
+                <a href="#top">Back to top of page</a>
+            </div>
+            <div>
+                Items: {{ tableItems.length }}
+            </div>
+        </div>
     </div>
 </template>
 
@@ -169,6 +249,33 @@ export default {
     },
     mounted() {
         this.tableItems = this.items
+        document.addEventListener('keyup', this.closeContextMenu)
+
+        document.addEventListener('click', (e) => {
+            let button = e.which || e.button
+            if (button === 1) {
+                this.$el.querySelectorAll('.item-row .context-menu').forEach((item) => item.style.display = 'none')
+            }
+        })
+
+        setTimeout(() => {
+            this.$el.querySelectorAll('.item-row').forEach((item) => {
+                item.addEventListener('contextmenu', (e) => {
+                    e.preventDefault()
+
+                    let menu = item.querySelector('.context-menu')
+
+                    this.$el.querySelectorAll('.item-row .context-menu').forEach((item) => item.style.display = 'none')
+
+                    menu.style.top = e.clientY + 'px'
+                    menu.style.left = e.clientX + 'px'
+                    menu.style.display = 'block'
+                })
+            })
+        }, 1000)
+    },
+    beforeDestroy() {
+        document.removeEventListener('keyup', this.close)
     },
     methods: {
         openDatasheet(path) {
@@ -177,8 +284,10 @@ export default {
         openImageModal(name) {
             this.$modal.show(name)
         },
-        editSelected() {
-            this.$modal.show(`edit-item-${this.selected.id}`)
+        editSelected(id = this.selected.id) {
+            if (isNaN(id)) id = this.selected.id
+
+            this.$modal.show(`edit-item-${id}`)
         },
         toggleValidateRecord() {
             this.selected.valid = !this.selected.valid
@@ -204,7 +313,9 @@ export default {
                 cancelButtonColor: '#d33',
             }).then(result => {
                 if (result.value) {
-                    let index = this.tableItems.findIndex(item => item.id === this.selected.id)
+                    if (!index) {
+                        index = this.tableItems.findIndex(item => item.id === this.selected.id)
+                    }
                     this.tableItems.splice(index, 1)
 
                     axios.delete('/items/' + this.selected.id).then(() => {
@@ -237,6 +348,9 @@ export default {
                 title: `Moved ${this.draggingRow.name} from row ${this.draggingRowIndex + 1} to ${droppedOnRowIndex + 1}`,
                 icon: 'info'
             })
+        },
+        closeContextMenu(e) {
+            if (e.keyCode === 27) this.$modal.hide(this.name)
         }
 
     }
@@ -244,5 +358,15 @@ export default {
 </script>
 
 <style scoped>
+.context-menu {
+    display: none;
+    position: absolute;
+    z-index: 10;
+}
+
+.context-menu .active {
+    display: block;
+}
+
 
 </style>

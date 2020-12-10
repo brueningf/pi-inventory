@@ -1,5 +1,5 @@
 <template>
-    <div class="px-5 py-8 bg-gray-600">
+    <div class="px-5 py-4 bg-gray-600">
         <button class="px-3 py-2" :class="{ 'bg-blue-500 text-white': currentTab === 'general'}"
                 @click="currentTab = 'general'">General
         </button>
@@ -8,20 +8,20 @@
         </button>
         <div v-show="currentTab === 'general'">
             <form class="w-full tw-only" @submit.prevent="submit" v-if="item">
-                <div class="mb-3 text-center font-bold text-3xl" v-text="item.name"></div>
+                <div class="hidden sm:block mb-3 text-center font-bold text-3xl" v-text="item.name"></div>
                 <div class="flex flex-wrap mb-6">
-                    <div class="w-1/2 pr-3 pb-3">
+                    <div class="w-full sm:w-1/2 pr-3 pb-2 text-left sm:pb-3">
                         <label>Name</label>
                         <input type="text" v-model="item.name" placeholder="e.g. Example item" required>
                     </div>
-                    <div class="w-1/2 pr-3 pb-3">
+                    <div class="w-full sm:w-1/2 pr-3 pb-2 text-left sm:pb-3">
                         <label>Image</label>
                         <div class="flex items-center justify-start h-10 relative">
                             <input type="file" @change="setNewImage">
                             <img :src="item.image_path" alt="" style="height:100%;width:auto;">
                         </div>
                     </div>
-                    <div class="w-1/3 pr-3 pb-3 relative">
+                    <div class="w-1/2 sm:w-1/3 pr-3 pb-2 text-left sm:pb-3 relative">
                         <label>Category</label>
                         <select v-model="item.category_id" class="bg-white shadow px-3 py-2" required>
                             <option value="" disabled>Select a category</option>
@@ -38,7 +38,7 @@
                             </svg>
                         </div>
                     </div>
-                    <div class="w-1/3 pr-3 pb-3 relative">
+                    <div class="w-1/2 sm:w-1/3 pr-3 pb-2 text-left sm:pb-3 relative">
                         <label>Item Case</label>
                         <select v-model="item.item_case_id" class="bg-white shadow px-3 py-2" required>
                             <option value="" disabled>Select an case</option>
@@ -55,7 +55,7 @@
                             </svg>
                         </div>
                     </div>
-                    <div class="w-1/3 pr-3 pb-3 relative">
+                    <div class="w-1/2 sm:w-1/3 pr-3 pb-2 text-left sm:pb-3 relative">
                         <label>Manufacturer</label>
                         <select v-model="item.manufacturer_id" class="bg-white shadow px-3 py-2" required>
                             <option value="" disabled>Select an case</option>
@@ -73,24 +73,24 @@
                         </div>
                     </div>
 
-                    <div class="w-1/3 pr-3 pb-3">
+                    <div class="w-1/2 sm:w-1/3 pr-3 pb-2 text-left sm:pb-3">
                         <label>Provider code</label>
                         <input type="text" placeholder="e.g. STMM001" v-model="item.provider_code">
                     </div>
-                    <div class="w-1/3 pr-3 pb-3">
+                    <div class="w-1/2 sm:w-1/3 pr-3 pb-2 text-left sm:pb-3">
                         <label>Marking Code</label>
                         <input type="text" v-model="item.marking_code">
                     </div>
-                    <div class="w-1/3 pr-3 pb-3">
+                    <div class="w-1/2 sm:w-1/3 pr-3 pb-2 text-left sm:pb-3">
                         <label>Reference</label>
                         <input type="text" v-model="item.reference">
                     </div>
-                    <div class="w-1/3 pr-3 pb-3">
+                    <div class="w-1/2 sm:w-1/3 pr-3 pb-2 text-left sm:pb-3">
                         <label>Price per unit $</label>
                         <input type="number" min="0.00" max="10000.00" step="0.01" placeholder="0.00"
                                v-model="item.price" required>
                     </div>
-                    <div class="w-1/3 pr-3 pb-3">
+                    <div class="w-1/2 sm:w-1/3 pr-3 pb-2 text-left sm:pb-3">
                         <label>Weight</label>
                         <input type="number" min="0.00" max="10000.00" step="0.01" placeholder="0.00"
                                v-model="item.weight" required>
@@ -134,7 +134,7 @@
             </div>
             <hr>
             <div>
-                <div class="font-bold text-white text-xl">
+                <div class="font-bold text-white text-normal sm:text-xl">
                     Add attribute
                 </div>
 
@@ -207,6 +207,17 @@ export default {
 </script>
 <style>
 .modal-component {
-    width: 60% !important;
+    width: 70% !important;
+}
+
+@media (max-width: 768px) {
+    .modal-component {
+        width: 80% !important;
+    }
+
+    label {
+        font-size: .6rem;
+        margin-bottom: .1rem;
+    }
 }
 </style>

@@ -8,6 +8,7 @@ import ItemsTable from './components/ItemsTable'
 import EditItem from './components/EditItem'
 import { ConfigProgrammatic, Table } from 'buefy'
 import Modal from './plugins/modal/ModalPlugin'
+import Visible from './components/Visible'
 
 ConfigProgrammatic.setOptions({
     defaultIconPack: 'fas'
@@ -21,12 +22,25 @@ Vue.component('zondicon', Zondicon)
 Vue.component('stock', Stock)
 Vue.component('sidemenu', Sidemenu)
 Vue.component('items-table', ItemsTable)
+Vue.component('visible', Visible)
 
 
 let app = new Vue({
     el: '#app',
     data: {
-        toast: window.toast
+        toast: window.toast,
+        showMenu: true
+    },
+    mounted() {
+        if (this.isMobile()) this.showMenu = false
+    },
+    methods: {
+        toggleMenu() {
+           this.showMenu = !this.showMenu
+        },
+        isMobile() {
+            return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+        }
     }
 })
 

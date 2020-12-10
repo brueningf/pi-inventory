@@ -1,6 +1,6 @@
 <?php
 
-Route::get('/', 'MainController@index');
+Route::get('/', 'MainController@index')->name('home');
 Route::post('/search', 'SearchController@search');
 
 Route::resource('/items', 'ItemController');
@@ -11,6 +11,8 @@ Route::resource('/categories', 'CategoryController');
 Route::resource('/providers', 'ProviderController');
 
 Route::get('/storage-locations', 'StorageLocationController@index');
+
+Route::resource('/projects', 'ProjectController');
 
 Route::get('/datasheet', function () {
 
