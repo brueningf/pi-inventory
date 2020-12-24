@@ -8,7 +8,7 @@
         </button>
         <div v-show="currentTab === 'general'">
             <form class="w-full tw-only" @submit.prevent="submit" v-if="item">
-                <div class="hidden sm:block mb-3 text-center font-bold text-3xl" v-text="item.name"></div>
+                <div class="hidden sm:block mb-3 text-center font-bold text-xl" v-text="item.name"></div>
                 <div class="flex flex-wrap mb-6">
                     <div class="w-full sm:w-1/2 pr-3 pb-2 text-left sm:pb-3">
                         <label>Name</label>
@@ -21,7 +21,7 @@
                             <img :src="item.image_path" alt="" style="height:100%;width:auto;">
                         </div>
                     </div>
-                    <div class="w-1/2 sm:w-1/3 pr-3 pb-2 text-left sm:pb-3 relative">
+                    <div class="w-1/2 sm:w-1/4 pr-3 pb-2 text-left sm:pb-3 relative">
                         <label>Category</label>
                         <select v-model="item.category_id" class="bg-white shadow px-3 py-2" required>
                             <option value="" disabled>Select a category</option>
@@ -38,7 +38,7 @@
                             </svg>
                         </div>
                     </div>
-                    <div class="w-1/2 sm:w-1/3 pr-3 pb-2 text-left sm:pb-3 relative">
+                    <div class="w-1/2 sm:w-1/4 pr-3 pb-2 text-left sm:pb-3 relative">
                         <label>Item Case</label>
                         <select v-model="item.item_case_id" class="bg-white shadow px-3 py-2" required>
                             <option value="" disabled>Select an case</option>
@@ -55,7 +55,7 @@
                             </svg>
                         </div>
                     </div>
-                    <div class="w-1/2 sm:w-1/3 pr-3 pb-2 text-left sm:pb-3 relative">
+                    <div class="w-1/2 sm:w-1/4 pr-3 pb-2 text-left sm:pb-3 relative">
                         <label>Manufacturer</label>
                         <select v-model="item.manufacturer_id" class="bg-white shadow px-3 py-2" required>
                             <option value="" disabled>Select an case</option>
@@ -73,33 +73,40 @@
                         </div>
                     </div>
 
-                    <div class="w-1/2 sm:w-1/3 pr-3 pb-2 text-left sm:pb-3">
+                    <div class="w-1/2 sm:w-1/4 pr-3 pb-2 text-left sm:pb-3">
                         <label>Provider code</label>
                         <input type="text" placeholder="e.g. STMM001" v-model="item.provider_code">
                     </div>
-                    <div class="w-1/2 sm:w-1/3 pr-3 pb-2 text-left sm:pb-3">
+                    <div class="w-1/2 sm:w-1/4 pr-3 pb-2 text-left sm:pb-3">
                         <label>Marking Code</label>
                         <input type="text" v-model="item.marking_code">
                     </div>
-                    <div class="w-1/2 sm:w-1/3 pr-3 pb-2 text-left sm:pb-3">
+                    <div class="w-1/2 sm:w-1/4 pr-3 pb-2 text-left sm:pb-3">
                         <label>Reference</label>
                         <input type="text" v-model="item.reference">
                     </div>
-                    <div class="w-1/2 sm:w-1/3 pr-3 pb-2 text-left sm:pb-3">
+                    <div class="w-1/2 sm:w-1/4 pr-3 pb-2 text-left sm:pb-3">
                         <label>Price per unit $</label>
                         <input type="number" min="0.00" max="10000.00" step="0.01" placeholder="0.00"
                                v-model="item.price" required>
                     </div>
-                    <div class="w-1/2 sm:w-1/3 pr-3 pb-2 text-left sm:pb-3">
+                    <div class="w-1/2 sm:w-1/4 pr-3 pb-2 text-left sm:pb-3">
                         <label>Weight</label>
                         <input type="number" min="0.00" max="10000.00" step="0.01" placeholder="0.00"
                                v-model="item.weight" required>
                     </div>
                 </div>
+                <div>
+                    <label>Projects associated
+                        <select v-model="item.active_projects" multiple size="3">
+                            <option @mousedown="setProject" v-for="project in projects" :value="project.id" v-text="project.name"></option>
+                        </select>
+                    </label>
+                </div>
                 <div class="mb-6">
                     <label>Description</label>
                     <textarea v-model="item.description" rows="4"
-                              placeholder="e.g. Fancy example item">item->description</textarea>
+                              placeholder="e.g. Fancy example item"></textarea>
                 </div>
 
                 <div class="mb-6">
@@ -124,12 +131,13 @@
 
             <div class="w-1/2">
                 <div class="flex items-center mb-2"
-                    v-for="(attribute, index) in item.attributes">
+                     v-for="(attribute, index) in item.attributes">
                     <div class="flex items-center bg-gray-300 text-black px-3 py-2">
                         <span v-text="attribute.name"></span>:
                         <span class="ml-2" v-text="attribute.value"></span>
                     </div>
-                    <span @click="removeAttribute(attribute, index)" title="Remove attribute" class="cursor-pointer font-bold mx-3 text-2xl">&times;</span>
+                    <span @click="removeAttribute(attribute, index)" title="Remove attribute"
+                          class="cursor-pointer font-bold mx-3 text-2xl">&times;</span>
                 </div>
             </div>
             <hr>
@@ -145,8 +153,9 @@
 </template>
 <script>
 import AddAttribute from './AddAttribute'
+
 export default {
-    props: ['data', 'availableCategories', 'itemCases', 'manufacturers'],
+    props: ['data', 'availableCategories', 'itemCases', 'manufacturers', 'projects'],
     mounted() {
         this.item = this.data
     },
@@ -190,7 +199,7 @@ export default {
         removeAttribute(attribute, index) {
             this.item.attributes.splice(index, 1)
 
-            axios.delete('/api/attributes/'+ attribute.id)
+            axios.delete('/api/attributes/' + attribute.id)
         },
         setNewImage(e) {
             let files = e.target.files || e.dataTransfer.files
@@ -200,7 +209,13 @@ export default {
             this.newImage = files[0]
         },
         attributeAdded(payload) {
-           this.item.attributes.push(payload)
+            this.item.attributes.push(payload)
+        },
+
+        setProject(event) {
+            event.preventDefault()
+
+            event.target.toggleAttribute('selected')
         }
     }
 }

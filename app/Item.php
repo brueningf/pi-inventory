@@ -8,9 +8,9 @@ class Item extends Model {
 
     protected $guarded = [];
 
-    protected $with = ['category', 'storageLocations', 'itemCase', 'attributes'];
+    protected $with = ['category', 'storageLocations', 'itemCase', 'attributes', 'projects'];
 
-    protected $appends = ['total_stock', 'status', 'image_path', 'datasheet_path', 'path'];
+    protected $appends = ['total_stock', 'status', 'image_path', 'datasheet_path', 'path', 'active_projects'];
 
     public function path()
     {
@@ -27,9 +27,14 @@ class Item extends Model {
         return "/datasheet?file=" . urlencode($this->datasheet);
     }
 
+    public function getActiveProjectsAttribute()
+    {
+        return $this->projects->pluck('id');
+    }
+
     public function status()
     {
-        return $this->storageLocations->count() ? $this->storageLocations[0]->status :  '-';
+        return $this->storageLocations->count() ? $this->storageLocations[0]->status : '-';
     }
 
     public function total()
@@ -92,8 +97,8 @@ class Item extends Model {
         return $this->hasMany(ItemAttribute::class);
     }
 
-    public function project()
+    public function projects()
     {
-       return $this->belongsToMany(Project::class);
+        return $this->belongsToMany(Project::class);
     }
 }

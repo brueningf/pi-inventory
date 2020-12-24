@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Category;
 use App\ItemCase;
 use App\Manufacturer;
+use App\Project;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
@@ -18,8 +19,9 @@ class Controller extends BaseController
     public function __construct()
     {
         View::share('manufacturers', Manufacturer::orderBy('name')->get());
-        View::share('availableCategories', Category::orderBy('name')->get());
+        View::share('availableCategories', Category::whereNotNull('parent_id')->orderBy('name')->get());
         View::share('itemCases', ItemCase::orderBy('name')->get());
         View::share('categories', Category::whereNull('parent_id')->get());
+        View::share('projects', Project::orderBy('name')->get());
     }
 }
