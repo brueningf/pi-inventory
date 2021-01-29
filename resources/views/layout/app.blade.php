@@ -26,16 +26,27 @@
                    href="/item-cases">Item Cases</a>
                 <a class="flex px-4 py-3 sm:py-2 cursor-pointer text-gray-300 focus:bg-blue-400 hover:bg-gray-400 {{ ! request()->is('manufacturers') ?: 'text-gray-700 bg-gray-400' }}"
                    href="/manufacturers">Manufacturers</a>
-                <a class="flex px-4 py-3 sm:py-2 cursor-pointer text-gray-300 focus:bg-blue-400 hover:bg-gray-400 {{ ! request()->is('categories') ?: 'text-gray-700 bg-gray-400' }}"
-                   href="/categories">Categories</a>
+                <div class="relative flex px-4 py-3 sm:py-2 cursor-pointer text-gray-300 focus:bg-blue-400 hover:bg-gray-400 hover:text-gray-800 {{ ! request()->is('categories') ?: 'text-gray-700 bg-gray-400' }}"
+                    @click.prevent="showCategoriesDropdown = !showCategoriesDropdown"
+                    @mouseleave="showCategoriesDropdown = false"
+                >
+                    Categories
+                    <zondicon :icon="showCategoriesDropdown ? 'cheveron-up': 'cheveron-down'" class="w-6 h-6 fill-current text-white"></zondicon>
+                    <div v-show="showCategoriesDropdown"
+                         class="absolute z-10 flex flex-wrap items-center justify-between mt-10 top-0 left-0 bg-gray-800 shadow-lg border border-white hover:text-white text-white" style="width: 500px">
+                        <a onclick="window.location = this.href" href="/categories" class="block w-full border-b-2 border-white px-3 py-2 hover:bg-gray-400 hover:text-gray-800">All categories</a>
+                        @foreach($categories as $category)
+                            <a href="{{ $category->path() }}"
+                               onclick="window.location = this.href"
+                                   class="w-1/3 block border-r border-white px-3 py-2 hover:bg-gray-400 hover:text-gray-800">
+                                    {{ $category->name }}
+                            </a>
+                        @endforeach
+                    </div>
+                </div>
+
                 <a class="flex px-4 py-3 sm:py-2 cursor-pointer text-gray-300 focus:bg-blue-400 hover:bg-gray-400 {{ ! request()->is('projects') ?: 'text-gray-700 bg-gray-400' }}"
                    href="/projects">Projects</a>
-                <a class="flex px-4 py-3 sm:py-2 cursor-pointer text-gray-300 focus:bg-blue-400 hover:bg-gray-400"
-                   href="#add-menu">
-                    <zondicon icon="add-solid" class="fill-current w-5 mr-2"></zondicon>
-                    Create
-                </a>
-
             </div>
             <div class="sm:hidden px-5 py-2 max-w-24" @click="toggleMenu">
                 <zondicon icon="menu" class="w-6 h-8"></zondicon>
@@ -48,23 +59,21 @@
                     </div>
                 @endif
             </div>
-            <a class="block px-4 py-3" href="#search" @click="$modal.show('search')">
+            <a class="block px-4 py-3" href="#search" @click="$modal.show('search');">
                 <zondicon icon="search"
                           class="fill-current w-6 h-6"></zondicon>
             </a>
-            <div>
-                <div class="flex items-center justify-between px-4 py-3 text-gray-300 bg-gray-700">
-                    <span class="hidden sm:block mr-2">Backup</span>
-                    <zondicon @if(config('backup_health.checked')) icon="checkmark-outline"
-                              @else icon="exclamation-outline" @endif
-                              class="w-5 h-5 fill-current mr-1 @if(config('backup_health.checked')) text-green-500 @else text-yellow-500 @endif"></zondicon>
-                </div>
-            </div>
+            <a class="flex px-4 py-3 sm:py-2 cursor-pointer bg-red-700 border-l-2 border-green-500 text-gray-300 focus:bg-blue-400 hover:bg-gray-400"
+               href="#add-menu">
+                <zondicon icon="add-solid" class="fill-current w-5 mr-2"></zondicon>
+                <span class="hidden font-bold sm:block">Create</span>
+            </a>
+
         </div>
     </header>
 
     <div class="w-full max-w-full flex min-h-screen">
-        <sidemenu :categories="{{ json_encode($categories) }}"></sidemenu>
+        <sidemenu :categories="{{ json_encode($categories) }}" class="sm:hidden"></sidemenu>
         <div class="flex-1 bg-gray-800 shadow px-4 pb-6">
             @yield('content')
         </div>
@@ -106,7 +115,8 @@
         <div class="text-black p-8">
             <form action="/search" method="POST" class="flex items-center justify-center py-1 relative">
                 {{ csrf_field() }}
-                <input style="padding: 1rem 1rem 1rem 2rem" type="search" name="q" placeholder="Search items">
+                <input id="search" style="padding: 1rem 1rem 1rem 2rem" type="search" name="q"
+                       placeholder="Search items" autofocus>
                 <button type="submit">
                     <zondicon icon="search"
                               class="fill-current text-red-700 w-5 pointer-events-none absolute inset-y-0 left-0 mt-5 ml-2"></zondicon>

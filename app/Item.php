@@ -14,7 +14,7 @@ class Item extends Model {
 
     public function path()
     {
-        return '/items/' . $this->id;
+        return $this->category->path() . '?item=' .  $this->id;
     }
 
     public function imagePath()

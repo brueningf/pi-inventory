@@ -96,13 +96,13 @@
                                v-model="item.weight" required>
                     </div>
                 </div>
-                <div>
-                    <label>Projects associated
-                        <select v-model="item.active_projects" multiple size="3">
-                            <option @mousedown="setProject" v-for="project in projects" :value="project.id" v-text="project.name"></option>
-                        </select>
-                    </label>
-                </div>
+<!--                <div>-->
+<!--                    <label>Projects associated-->
+<!--                        <select v-model="item.active_projects" multiple size="3">-->
+<!--                            <option @mousedown="setProject" v-for="project in projects" :value="project.id" v-text="project.name"></option>-->
+<!--                        </select>-->
+<!--                    </label>-->
+<!--                </div>-->
                 <div class="mb-6">
                     <label>Description</label>
                     <textarea v-model="item.description" rows="4"

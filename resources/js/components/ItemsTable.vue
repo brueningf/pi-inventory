@@ -90,7 +90,7 @@
                             </a>
                             <a href="#" class="flex items-center justify-between px-3 py-2 hover:bg-blue-300"
                                style="color: black"
-                                @click.prevent="removeSelected(props.index)">
+                               @click.prevent="removeSelected(props.index)">
                                 <zondicon class="w-8 h-8" icon="trash"></zondicon>
                                 Delete Item
                             </a>
@@ -145,25 +145,26 @@
                 </b-table-column>
 
                 <b-table-column v-if="$root.isMobile()" class="sm:hidden h-12">
-                   <div class="absolute z-10 w-full flex items-center justify-between">
-                       <a class="w-1/3 flex flex-col items-center justify-center" @click="editSelected(props.row.id)"
-                               :disabled="!selected">
-                           <zondicon icon="edit-pencil" class="w-4 fill-current text-white"></zondicon>
-                           <span class="text-xs">Quick Edit</span>
-                       </a>
-                       <a class="w-1/3 flex flex-col items-center justify-center" :class="{ 'is-success': isRecordValid, 'is-warning': !isRecordValid }"
-                               @click="toggleValidateRecord"
-                               :disabled="!selected">
-                           <zondicon :icon="isRecordValid ? 'checkmark-outline' : 'exclamation-outline'"
-                                     class="w-4 fill-current text-white"></zondicon>
-                           <span class="text-xs" v-text="isRecordValid ? 'Approved' : 'Check stock'"></span>
-                       </a>
-                       <a class="w-1/3 flex flex-col items-center justify-center" @click="removeSelected(props.index)"
-                               :disabled="!selected">
-                           <zondicon icon="trash" class="w-4 fill-current text-white"></zondicon>
-                           <span class="text-xs">Delete</span>
-                       </a>
-                   </div>
+                    <div class="absolute z-10 w-full flex items-center justify-between">
+                        <a class="w-1/3 flex flex-col items-center justify-center" @click="editSelected(props.row.id)"
+                           :disabled="!selected">
+                            <zondicon icon="edit-pencil" class="w-4 fill-current text-white"></zondicon>
+                            <span class="text-xs">Quick Edit</span>
+                        </a>
+                        <a class="w-1/3 flex flex-col items-center justify-center"
+                           :class="{ 'is-success': isRecordValid, 'is-warning': !isRecordValid }"
+                           @click="toggleValidateRecord"
+                           :disabled="!selected">
+                            <zondicon :icon="isRecordValid ? 'checkmark-outline' : 'exclamation-outline'"
+                                      class="w-4 fill-current text-white"></zondicon>
+                            <span class="text-xs" v-text="isRecordValid ? 'Approved' : 'Check stock'"></span>
+                        </a>
+                        <a class="w-1/3 flex flex-col items-center justify-center" @click="removeSelected(props.index)"
+                           :disabled="!selected">
+                            <zondicon icon="trash" class="w-4 fill-current text-white"></zondicon>
+                            <span class="text-xs">Delete</span>
+                        </a>
+                    </div>
                 </b-table-column>
 
             </template>
@@ -258,6 +259,14 @@ export default {
             }
         })
 
+        const selectedItem = this.findGetParameter('item')
+
+        if(selectedItem) {
+            const itemInTable = this.items.find(el => el.id == selectedItem)
+            console.log(selectedItem, itemInTable)
+            if(itemInTable) this.selected = itemInTable
+        }
+
         setTimeout(() => {
             this.$el.querySelectorAll('.item-row').forEach((item) => {
                 item.addEventListener('contextmenu', (e) => {
@@ -351,6 +360,18 @@ export default {
         },
         closeContextMenu(e) {
             if (e.keyCode === 27) this.$modal.hide(this.name)
+        },
+        findGetParameter(parameterName) {
+            let result = null,
+                tmp = []
+            location.search
+                    .substr(1)
+                    .split('&')
+                    .forEach(function (item) {
+                        tmp = item.split('=')
+                        if (tmp[0] === parameterName) result = decodeURIComponent(tmp[1])
+                    })
+            return result
         }
 
     }

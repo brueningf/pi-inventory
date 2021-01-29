@@ -29,7 +29,8 @@ let app = new Vue({
     el: '#app',
     data: {
         toast: window.toast,
-        showMenu: true
+        showMenu: true,
+        showCategoriesDropdown: false
     },
     mounted() {
         if (this.isMobile()) this.showMenu = false

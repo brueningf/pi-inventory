@@ -85,3 +85,4 @@
         <img src="{{ $item->image_path }}" alt="" class="w-full h-auto">
     </modal>
 @endsection
+

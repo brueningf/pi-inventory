@@ -10,6 +10,8 @@ let Plugin = {
             show(name, params = {}) {
                 location.hash = name
 
+                setTimeout(() => document.getElementById(name).querySelector('[autofocus]').focus(), 200)
+
                 Plugin.events.$emit('show', params)
             },
 

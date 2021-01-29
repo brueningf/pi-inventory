@@ -6,7 +6,8 @@
             <div class="w-full flex flex-wrap">
                 @foreach($category->subcategories as $subcategory)
                     <div class="w-1/6 pr-3 pb-3 flex">
-                        <a class="bg-gray-400 p-4 w-full text-black text-center text-xl" href="{{ $subcategory->path }}">
+                        <a class="bg-gray-400 p-4 w-full text-black text-center text-xl"
+                           href="{{ $subcategory->path }}">
                             {{ $subcategory->name }}
                         </a>
                     </div>
@@ -32,5 +33,6 @@
 @section('footer')
     <script>
         window.currentCategory = {!! $category->toJson() !!}
+        window.addEventListener('load', () => window.scrollTo(0, 0))
     </script>
 @endsection
