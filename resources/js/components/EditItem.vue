@@ -6,6 +6,9 @@
         <button class="px-3 py-2" :class="{ 'bg-blue-500 text-white': currentTab === 'attributes'}"
                 @click="currentTab = 'attributes'">Attributes
         </button>
+        <button class="px-3 py-2" :class="{ 'bg-blue-500 text-white': currentTab === 'projects'}"
+                @click="currentTab = 'projects'">Projects
+        </button>
         <div v-show="currentTab === 'general'">
             <form class="w-full tw-only" @submit.prevent="submit" v-if="item">
                 <div class="hidden sm:block mb-3 text-center font-bold text-xl" v-text="item.name"></div>
@@ -96,13 +99,6 @@
                                v-model="item.weight" required>
                     </div>
                 </div>
-<!--                <div>-->
-<!--                    <label>Projects associated-->
-<!--                        <select v-model="item.active_projects" multiple size="3">-->
-<!--                            <option @mousedown="setProject" v-for="project in projects" :value="project.id" v-text="project.name"></option>-->
-<!--                        </select>-->
-<!--                    </label>-->
-<!--                </div>-->
                 <div class="mb-6">
                     <label>Description</label>
                     <textarea v-model="item.description" rows="4"
@@ -149,6 +145,35 @@
                 <add-attribute @attribute-added="attributeAdded"></add-attribute>
             </div>
         </div>
+        <div style="min-height: 300px" v-show="currentTab === 'projects'">
+            <div class="mb-3 text-center font-bold text-3xl">Projects associated with {{ item.name }}</div>
+            <div class="flex items-center justify-start flex-wrap mb-2">
+                <div class="flex items-center bg-gray-300 text-black px-3 py-2 mr-2 max-w-1/2"
+                     v-for="(p, index) in item.projects"
+                >
+                    <span v-text="p.name"></span> <span @click="removeProject(p, index)"
+                                                              title="Remove project"
+                                                              class="cursor-pointer text-red-500 font-bold ml-3 text-2xl">&times;</span>
+                </div>
+            </div>
+            <hr>
+            <div>
+                <div class="font-bold text-white text-normal sm:text-xl">
+                    Associate with project
+                </div>
+
+                <form @submit.prevent="associateProject">
+                    <label>
+                        <select title="Project" class="w-1/2" v-model="project" required>
+                            <option value="" selected disabled hidden>Choose a project</option>
+                            <option v-for="p in availableProjects" :value="p.id" v-text="p.name"></option>
+                        </select>
+                    </label>
+
+                    <button class="px-3 py-2 bg-blue-500 text-white" type="submit">Create association</button>
+                </form>
+            </div>
+        </div>
     </div>
 </template>
 <script>
@@ -163,10 +188,24 @@ export default {
         return {
             currentTab: 'general',
             item: false,
-            newImage: null
+            newImage: null,
+            project: ''
         }
     },
     components: { AddAttribute },
+    computed: {
+        availableProjects() {
+            const projects = []
+
+            this.projects.forEach((project) => {
+                if(!this.item.projects.filter(p => p.id === project.id).length) {
+                   projects.push(project)
+                }
+            })
+
+            return projects
+        }
+    },
     methods: {
         async submit() {
             axios.patch('/items/' + this.item.id, {
@@ -211,12 +250,25 @@ export default {
         attributeAdded(payload) {
             this.item.attributes.push(payload)
         },
+        associateProject() {
+            const projectIsAssociated = this.item.projects.find(el => el.id === this.project)
+            if (projectIsAssociated) return
 
-        setProject(event) {
-            event.preventDefault()
+            const projectToBeAssociated = this.projects.find(el => el.id === this.project)
+            this.item.projects.push(projectToBeAssociated)
 
-            event.target.toggleAttribute('selected')
-        }
+            axios.post(`/api/add-project/${this.item.id}`, { project: this.project }).then(() => this.project = '')
+
+            window.toast.fire({ title: 'Project ' + projectToBeAssociated.name + ' associated', icon: 'success' })
+        },
+        removeProject(project, index) {
+            this.item.projects.splice(index, 1)
+
+            axios.post('/api/delete-project/' + this.item.id, { project: project.id })
+
+            window.toast.fire({ title: 'Project disassociated', icon: 'success' })
+        },
+
     }
 }
 </script>

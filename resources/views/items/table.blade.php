@@ -4,5 +4,6 @@
         :manufacturers="{{ $manufacturers->toJson() }}"
         :cases="{{ $itemCases->toJson() }}"
         :categories="{{ $availableCategories->toJson() }}"
+        :projects="{{ $projects->toJson() }}"
     ></items-table>
 </div>

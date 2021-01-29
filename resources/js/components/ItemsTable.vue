@@ -8,16 +8,16 @@
             </button>
 
             <div class="hidden flex-1 sm:flex justify-end">
-                <a class="button field is-info" style="margin-right: 1rem"
-                   :href="selected ? `/items/${selected.id}/edit` : '#'"
-                   :disabled="!selected">
-                    <zondicon icon="browser-window-open" class="w-4 fill-current text-white mr-1"></zondicon>
-                    <span>Edit</span>
-                </a>
+<!--                <a class="button field is-info" style="margin-right: 1rem"-->
+<!--                   :href="selected ? `/items/${selected.id}/edit` : '#'"-->
+<!--                   :disabled="!selected">-->
+<!--                    <zondicon icon="browser-window-open" class="w-4 fill-current text-white mr-1"></zondicon>-->
+<!--                    <span>Edit</span>-->
+<!--                </a>-->
                 <button class="button field is-info" style="margin-right: 1rem" @click="editSelected"
                         :disabled="!selected">
                     <zondicon icon="edit-pencil" class="w-4 fill-current text-white mr-1"></zondicon>
-                    <span>Quick Edit</span>
+                    <span>Edit</span>
                 </button>
                 <button class="button field" :class="{ 'is-success': isRecordValid, 'is-warning': !isRecordValid }"
                         style="margin-right: 1rem" @click="toggleValidateRecord"
@@ -72,6 +72,7 @@
                                 :manufacturers="manufacturers"
                                 :item-cases="cases"
                                 :available-categories="categories"
+                                :projects="projects"
                             ></edit-item>
                         </modal>
                         <nav class="w-48 context-menu bg-gray-100 rounded overflow-hidden">
@@ -233,7 +234,7 @@
 <script>
 export default {
     name: 'ItemsTable',
-    props: ['items', 'categories', 'cases', 'manufacturers'],
+    props: ['items', 'categories', 'cases', 'manufacturers', 'projects'],
     data() {
         return {
             tableItems: [],
@@ -263,7 +264,6 @@ export default {
 
         if(selectedItem) {
             const itemInTable = this.items.find(el => el.id == selectedItem)
-            console.log(selectedItem, itemInTable)
             if(itemInTable) this.selected = itemInTable
         }
 
