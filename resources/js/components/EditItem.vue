@@ -145,7 +145,7 @@
                 <add-attribute @attribute-added="attributeAdded"></add-attribute>
             </div>
         </div>
-        <div style="min-height: 300px" v-show="currentTab === 'projects'">
+        <div style="min-height: 300px" v-if="currentTab === 'projects'">
             <div class="mb-3 text-center font-bold text-3xl">Projects associated with {{ item.name }}</div>
             <div class="flex items-center justify-start flex-wrap mb-2">
                 <div class="flex items-center bg-gray-300 text-black px-3 py-2 mr-2 max-w-1/2"

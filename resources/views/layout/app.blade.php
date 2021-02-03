@@ -22,10 +22,7 @@
                  class="menu absolute top-0 left-0 mt-10 bg-black z-10 sm:relative sm:mt-0 sm:bg-transparent sm:flex items-center justify-center">
                 <a class="flex px-4 py-3 sm:py-2 cursor-pointer text-gray-300 focus:bg-blue-400 hover:bg-gray-400 {{ ! request()->is('/') ?: 'text-gray-700 bg-gray-400' }}"
                    href="/">Home</a>
-                <a class="flex px-4 py-3 sm:py-2 cursor-pointer text-gray-300 focus:bg-blue-400 hover:bg-gray-400 {{ ! request()->is('item-cases') ?: 'text-gray-700 bg-gray-400' }}"
-                   href="/item-cases">Item Cases</a>
-                <a class="flex px-4 py-3 sm:py-2 cursor-pointer text-gray-300 focus:bg-blue-400 hover:bg-gray-400 {{ ! request()->is('manufacturers') ?: 'text-gray-700 bg-gray-400' }}"
-                   href="/manufacturers">Manufacturers</a>
+
                 <div class="relative flex px-4 py-3 sm:py-2 cursor-pointer text-gray-300 focus:bg-blue-400 hover:bg-gray-400 hover:text-gray-800 {{ ! request()->is('categories') ?: 'text-gray-700 bg-gray-400' }}"
                     @click.prevent="showCategoriesDropdown = !showCategoriesDropdown"
                     @mouseleave="showCategoriesDropdown = false"
@@ -44,22 +41,26 @@
                         @endforeach
                     </div>
                 </div>
-
+                <a class="flex px-4 py-3 sm:py-2 cursor-pointer text-gray-300 focus:bg-blue-400 hover:bg-gray-400 {{ ! request()->is('item-cases') ?: 'text-gray-700 bg-gray-400' }}"
+                   href="/item-cases">Item Cases</a>
+                <a class="flex px-4 py-3 sm:py-2 cursor-pointer text-gray-300 focus:bg-blue-400 hover:bg-gray-400 {{ ! request()->is('manufacturers') ?: 'text-gray-700 bg-gray-400' }}"
+                   href="/manufacturers">Manufacturers</a>
                 <a class="flex px-4 py-3 sm:py-2 cursor-pointer text-gray-300 focus:bg-blue-400 hover:bg-gray-400 {{ ! request()->is('projects') ?: 'text-gray-700 bg-gray-400' }}"
                    href="/projects">Projects</a>
+                <a class="flex px-4 py-3 sm:py-2 cursor-pointer text-gray-300 focus:bg-blue-400 hover:bg-gray-400 {{ ! request()->is('projects') ?: 'text-gray-700 bg-gray-400' }}"
+                   href="/gallery">Gallery</a>
             </div>
             <div class="sm:hidden px-5 py-2 max-w-24" @click="toggleMenu">
                 <zondicon icon="menu" class="w-6 h-8"></zondicon>
             </div>
             <div class="flex-1 w-1/3 bg-red-900 h-full flex items-center">
                 @if(request()->routeIs('categories.show') && isset($category))
-                    <div class="w-full flex items-center justify-between font-extrabold text-sm sm:text-2xl px-3">
+                    <div class="w-full font-extrabold text-sm sm:text-2xl pl-8 pr-3">
                         <span>{{ $category->name }}</span>
-                        <span>{{ $category->items->count() }} items</span>
                     </div>
                 @endif
             </div>
-            <a class="block px-4 py-3" href="#search" @click="$modal.show('search');">
+            <a class="block hover:bg-gray-400 px-4 py-3" href="#search" @click="$modal.show('search');">
                 <zondicon icon="search"
                           class="fill-current w-6 h-6"></zondicon>
             </a>
@@ -148,14 +149,6 @@
         })
     </script>
 @endif
-
-<script>
-    let table = document.querySelector('#items-table')
-
-    if (table) {
-        const dt = new DataTable(table, { paging: false })
-    }
-</script>
 
 </body>
 

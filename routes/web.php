@@ -14,6 +14,8 @@ Route::get('/storage-locations', 'StorageLocationController@index');
 
 Route::resource('/projects', 'ProjectController');
 
+Route::get('/gallery', 'GalleryController@show');
+
 Route::get('/datasheet', function () {
 
     $path = request('file');

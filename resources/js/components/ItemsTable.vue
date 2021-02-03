@@ -1,37 +1,23 @@
 <template>
     <div>
-        <div id="table-menu" class="relative flex">
-            <button class="button field is-danger" @click="selected = null"
+        <div id="table-menu" class="relative hidden sm:flex justify-start items-start">
+            <button class="button field is-info" style="margin-right: 1rem" @click="editSelected"
                     :disabled="!selected">
-                <zondicon icon="close" class="w-4 fill-current text-white mr-1"></zondicon>
-                <span>Clear selected</span>
+                <zondicon icon="edit-pencil" class="w-4 fill-current text-white mr-1"></zondicon>
+                <span>Edit</span>
             </button>
-
-            <div class="hidden flex-1 sm:flex justify-end">
-<!--                <a class="button field is-info" style="margin-right: 1rem"-->
-<!--                   :href="selected ? `/items/${selected.id}/edit` : '#'"-->
-<!--                   :disabled="!selected">-->
-<!--                    <zondicon icon="browser-window-open" class="w-4 fill-current text-white mr-1"></zondicon>-->
-<!--                    <span>Edit</span>-->
-<!--                </a>-->
-                <button class="button field is-info" style="margin-right: 1rem" @click="editSelected"
-                        :disabled="!selected">
-                    <zondicon icon="edit-pencil" class="w-4 fill-current text-white mr-1"></zondicon>
-                    <span>Edit</span>
-                </button>
-                <button class="button field" :class="{ 'is-success': isRecordValid, 'is-warning': !isRecordValid }"
-                        style="margin-right: 1rem" @click="toggleValidateRecord"
-                        :disabled="!selected">
-                    <zondicon :icon="isRecordValid ? 'checkmark-outline' : 'exclamation-outline'"
-                              class="w-4 fill-current text-white mr-1"></zondicon>
-                    <span v-text="isRecordValid ? 'Approved' : 'Mark as valid'"></span>
-                </button>
-                <button class="button field is-danger" @click="removeSelected"
-                        :disabled="!selected">
-                    <zondicon icon="trash" class="w-4 fill-current text-white mr-1"></zondicon>
-                    <span>Delete</span>
-                </button>
-            </div>
+            <button class="button field" :class="{ 'is-success': isRecordValid, 'is-warning': !isRecordValid }"
+                    style="margin-right: 1rem" @click="toggleValidateRecord"
+                    :disabled="!selected">
+                <zondicon :icon="isRecordValid ? 'checkmark-outline' : 'exclamation-outline'"
+                          class="w-4 fill-current text-white mr-1"></zondicon>
+                <span v-text="isRecordValid ? 'Approved' : 'Mark as valid'"></span>
+            </button>
+            <button class="button field is-danger" @click="removeSelected"
+                    :disabled="!selected">
+                <zondicon icon="trash" class="w-4 fill-current text-white mr-1"></zondicon>
+                <span>Delete</span>
+            </button>
         </div>
 
         <b-table
@@ -99,11 +85,9 @@
                     </div>
                 </b-table-column>
                 <b-table-column field="name" label="Name / Alias" sortable>
-                    <a :href="props.row.path" class="flex items-center justify-between">
+                    <a href="#" class="flex items-center justify-between">
                         <span class="mr-1 sm:mr-0">{{ props.row.name }}</span>
-                        <zondicon :icon="props.row.valid ? 'checkmark-outline' : 'exclamation-outline'"
-                                  class="w-5 h-5 fill-current mr-1"
-                                  :class="{'text-green-500': props.row.valid, 'text-yellow-500': ! props.row.valid}"></zondicon>
+
                     </a>
                 </b-table-column>
 
@@ -134,6 +118,11 @@
                 </b-table-column>
                 <b-table-column field="price" label="Price" sortable numeric>
                     {{ props.row.price }}
+                </b-table-column>
+                <b-table-column>
+                    <zondicon :icon="props.row.valid ? 'checkmark-outline' : 'exclamation-outline'"
+                              class="w-5 h-5 fill-current mr-1"
+                              :class="{'text-green-500': props.row.valid, 'text-yellow-500': ! props.row.valid}"></zondicon>
                 </b-table-column>
                 <b-table-column field="datasheet" label="Datasheet">
                     <a :href="props.row.datasheet_path" target="_blank"
@@ -186,13 +175,7 @@
         </b-table>
 
         <visible class="hidden sm:block" when-hidden="#table-menu">
-            <div class="flex items-center mt-4">
-                <button class="button field is-danger" @click="selected = null"
-                        :disabled="!selected">
-                    <zondicon icon="close" class="w-4 fill-current text-white mr-1"></zondicon>
-                    <span>Clear selected</span>
-                </button>
-
+            <div class="flex items-center justify-start mt-4">
                 <div class="flex-1 flex justify-end">
                     <a class="button field is-info" style="margin-right: 1rem"
                        :href="selected ? `/items/${selected.id}/edit` : '#'"
@@ -262,9 +245,12 @@ export default {
 
         const selectedItem = this.findGetParameter('item')
 
-        if(selectedItem) {
+        if (selectedItem) {
             const itemInTable = this.items.find(el => el.id == selectedItem)
-            if(itemInTable) this.selected = itemInTable
+            if (itemInTable) {
+                this.selected = itemInTable
+
+            }
         }
 
         setTimeout(() => {
@@ -281,7 +267,13 @@ export default {
                     menu.style.display = 'block'
                 })
             })
-        }, 1000)
+
+            /* scroll to selected item */
+
+            if (this.selected) {
+                this.$el.querySelector('.table-wrapper').scrollTop = this.$el.querySelector('.item-row.is-selected').offsetTop - 50
+            }
+        }, 500)
     },
     beforeDestroy() {
         document.removeEventListener('keyup', this.close)

@@ -1,7 +1,7 @@
 @extends('layout.app')
 
 @section('content')
-    <div class="p-6">
+    <div class="mt-3">
         @if(count($category->subcategories))
             <div class="w-full flex flex-wrap">
                 @foreach($category->subcategories as $subcategory)
@@ -16,7 +16,7 @@
         @endif
 
         @if($category->items->count())
-            <div class="mt-12">
+            <div class="mt-3">
                 @include('items.table', ['items' => $category->items])
             </div>
         @else
@@ -33,6 +33,7 @@
 @section('footer')
     <script>
         window.currentCategory = {!! $category->toJson() !!}
-        window.addEventListener('load', () => window.scrollTo(0, 0))
+        window.scrollTo(0, 0)
+        // document.addEventListener('DOMContentLoaded', () => )
     </script>
 @endsection
