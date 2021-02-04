@@ -69,7 +69,11 @@
                 <zondicon icon="add-solid" class="fill-current w-5 mr-2"></zondicon>
                 <span class="hidden font-bold sm:block">Create</span>
             </a>
-
+            <a class="flex px-4 py-3 sm:py-2 cursor-pointer bg-red-700 text-gray-300 focus:bg-blue-400 hover:bg-gray-400"
+               href="/settings">
+                <zondicon icon="wrench" class="fill-current w-5 mr-2"></zondicon>
+                <span class="hidden font-bold sm:block">Settings</span>
+            </a>
         </div>
     </header>
 

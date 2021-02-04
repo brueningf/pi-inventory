@@ -16,6 +16,7 @@ Route::resource('/projects', 'ProjectController');
 
 Route::get('/gallery', 'GalleryController@show');
 
+Route::get('/settings', 'SettingsController@show');
 Route::get('/datasheet', function () {
 
     $path = request('file');
