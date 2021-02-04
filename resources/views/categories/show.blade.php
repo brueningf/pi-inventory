@@ -33,7 +33,6 @@
 @section('footer')
     <script>
         window.currentCategory = {!! $category->toJson() !!}
-        window.scrollTo(0, 0)
-        // document.addEventListener('DOMContentLoaded', () => )
+
     </script>
 @endsection

@@ -33,7 +33,9 @@ $link-focus-border: $primary;
     @import "~buefy/src/scss/components/table";
 }
 
-
+[v-cloak] {
+    display: none;
+}
 
 @import "tailwindcss/base";
 @import "tailwindcss/components";

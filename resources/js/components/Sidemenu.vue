@@ -16,10 +16,7 @@
     </div>
 </template>
 <script>
-    import SidemenuItem from './SidemenuItem.vue'
-
     export default {
-        components: { SidemenuItem },
         mounted() {
             this.categories = this.$attrs.categories
         },

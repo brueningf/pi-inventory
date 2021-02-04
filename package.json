@@ -1,34 +1,41 @@
 {
     "private": true,
     "scripts": {
-        "dev": "npm run development",
-        "development": "cross-env NODE_ENV=development node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
-        "watch": "npm run development -- --watch",
-        "watch-poll": "npm run watch -- --watch-poll",
-        "hot": "cross-env NODE_ENV=development node_modules/webpack-dev-server/bin/webpack-dev-server.js --inline --hot --config=node_modules/laravel-mix/setup/webpack.config.js",
-        "prod": "npm run production",
-        "production": "cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --no-progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js"
+        "development": "mix",
+        "watch": "mix watch",
+        "watch-poll": "mix watch -- --watch-options-poll=1000",
+        "hot": "mix watch --hot",
+        "production": "mix --production"
     },
     "devDependencies": {
+        "autoprefixer": "^10.2.4",
         "axios": "^0.19",
         "browser-sync": "^2.26.7",
         "browser-sync-webpack-plugin": "^2.0.1",
         "cross-env": "^7.0",
-        "laravel-mix": "^5.0.1",
+        "laravel-mix": "^6.0.11",
+        "postcss": "^8.2.4",
         "resolve-url-loader": "^3.1.0",
         "sass": "^1.23.7",
         "sass-loader": "^8.0.0",
+        "tailwindcss": "^2.0.2",
         "tailwindcss-plugins": "^0.3.0",
+        "vue-loader": "^15.9.6",
         "vue-template-compiler": "^2.6.11"
     },
     "dependencies": {
+        "algoliasearch": "^4.8.4",
         "buefy": "^0.8.19",
+        "express": "^4.17.1",
         "in-viewport": "^3.6.0",
         "node-sass": "^4.13.1",
         "simple-datatables": "^2.1.10",
         "sweetalert2": "^9.10.13",
-        "tailwindcss": "^1.1.4",
         "vue": "^2.6.11",
-        "vue-zondicons": "^0.1.10"
+        "vue-instantsearch": "^3.4.3",
+        "vue-router": "^3.5.1",
+        "vue-server-renderer": "^2.6.12",
+        "vue-zondicons": "^0.1.10",
+        "webpack-merge": "^5.7.3"
     }
 }

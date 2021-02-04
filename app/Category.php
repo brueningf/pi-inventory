@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Cache;
 
 class Category extends Model
 {
@@ -11,6 +12,17 @@ class Category extends Model
     protected $appends = ['path'];
 
     protected $guarded = [];
+
+
+    public function cacheKey()
+    {
+        return sprintf(
+            "%s/%s-%s",
+            $this->getTable(),
+            $this->getKey(),
+            $this->updated_at->timestamp
+        );
+    }
 
     public function path()
     {
@@ -33,6 +45,13 @@ class Category extends Model
     public function getPathAttribute()
     {
         return $this->path();
+    }
+
+    public function getCachedItemsCountAttribute()
+    {
+        return Cache::remember($this->cacheKey() . ':items_count', 15, function () {
+            return $this->items->count();
+        });
     }
 
     public function hasParent()

@@ -21,12 +21,10 @@
     </div>
 </template>
 <script>
-    import SidemenuItem from './SidemenuItem.vue'
 
     export default {
         name: 'sidemenu-item',
         props: ['category'],
-        components: { SidemenuItem },
         data() {
             return {
                 showSubcategories: false

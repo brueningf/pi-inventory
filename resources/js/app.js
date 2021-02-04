@@ -4,11 +4,15 @@ import Vue from 'vue/dist/vue.js'
 import Zondicon from 'vue-zondicons'
 import Stock from './components/Stock.vue'
 import Sidemenu from './components/Sidemenu.vue'
+import SidemenuItem from './components/SidemenuItem.vue'
 import ItemsTable from './components/ItemsTable'
 import EditItem from './components/EditItem'
 import { ConfigProgrammatic, Table } from 'buefy'
 import Modal from './plugins/modal/ModalPlugin'
 import Visible from './components/Visible'
+// import Search from './components/Search'
+
+import InstantSearch from 'vue-instantsearch';
 
 ConfigProgrammatic.setOptions({
     defaultIconPack: 'fas'
@@ -16,13 +20,16 @@ ConfigProgrammatic.setOptions({
 
 Vue.use(Table)
 Vue.use(Modal)
+Vue.use(InstantSearch);
 
 Vue.component('edit-item', EditItem)
 Vue.component('zondicon', Zondicon)
 Vue.component('stock', Stock)
 Vue.component('sidemenu', Sidemenu)
+Vue.component('sidemenu-item', SidemenuItem)
 Vue.component('items-table', ItemsTable)
 Vue.component('visible', Visible)
+// Vue.component('search', Search)
 
 
 let app = new Vue({
@@ -30,7 +37,11 @@ let app = new Vue({
     data: {
         toast: window.toast,
         showMenu: true,
-        showCategoriesDropdown: false
+        showCategoriesDropdown: false,
+        searchClient: algoliasearch(
+            '51X1TPTCA7',
+            'ee6c824fbff3c1629b18316873d4966b'
+        )
     },
     mounted() {
         if (this.isMobile()) this.showMenu = false

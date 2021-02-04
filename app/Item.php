@@ -3,14 +3,19 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Laravel\Scout\Searchable;
 
 class Item extends Model {
+
+    use Searchable;
 
     protected $guarded = [];
 
     protected $with = ['category', 'storageLocations', 'itemCase', 'attributes', 'projects'];
 
     protected $appends = ['total_stock', 'status', 'image_path', 'datasheet_path', 'path', 'active_projects'];
+
+    protected $touches = ['category'];
 
     public function path()
     {
@@ -100,5 +105,15 @@ class Item extends Model {
     public function projects()
     {
         return $this->belongsToMany(Project::class);
+    }
+
+    /**
+     * Get the name of the index associated with the model.
+     *
+     * @return string
+     */
+    public function searchableAs()
+    {
+        return 'posts_index';
     }
 }

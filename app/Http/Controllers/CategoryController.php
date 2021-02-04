@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Category;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 
 class CategoryController extends Controller {
 
@@ -51,12 +52,20 @@ class CategoryController extends Controller {
     /**
      * Display the specified resource.
      *
-     * @param \App\Category $category
+     * @param $id
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function show(Category $category)
+    public function show($id)
     {
-        $category->with('items');
+        $cacheId = "category-{$id}";
+
+        if (Cache::has($cacheId)) {
+            $category = Cache::get($cacheId);
+        } else {
+            $category = Cache::remember($cacheId, now()->addMonth(), function () use ($id) {
+                return Category::find($id)->load('items');
+            });
+        }
 
         return view('categories.show', compact('category'));
     }
