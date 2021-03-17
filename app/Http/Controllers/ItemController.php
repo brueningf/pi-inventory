@@ -105,10 +105,10 @@ class ItemController extends Controller {
             $attributes['image'] = request('image')->storePublicly('items');
         }
 
-        $item->update($attributes);
+        $result = $item->update($attributes);
 
         if ($request->wantsJson()) {
-            return response('Ok, updated');
+            return response('Ok, processed was ' . $result);
         }
 
         return redirect()->back()->with('success', 'Item was updated.');

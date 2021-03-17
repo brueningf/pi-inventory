@@ -4,7 +4,17 @@ use App\Http\Controllers\StorageLocationController;
 use App\Item;
 use App\ItemAttribute;
 use App\Project;
+use App\StorageLocation;
 use Illuminate\Http\Request;
+
+Route::get('/storage-locations-data', function () {
+    $lists = [];
+
+    $lists[] = StorageLocation::select('location')->where('location', '!=', 'Not specified')->distinct()->get();
+    $lists[] = StorageLocation::select('level')->whereNotNull('level')->distinct()->get();
+
+    return $lists;
+});
 
 Route::resource('/storage-locations', 'StorageLocationController');
 Route::delete('/attributes/{attribute}', function (ItemAttribute $attribute) {

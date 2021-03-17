@@ -10,7 +10,7 @@
                 @click="currentTab = 'projects'">Projects
         </button>
         <div v-show="currentTab === 'general'">
-            <form class="w-full tw-only" @submit.prevent="submit" v-if="item">
+            <form :id="`item-edit-form-${item.id}`" class="w-full tw-only" @submit.prevent="submit" v-if="item">
                 <div class="hidden sm:block mb-3 text-center font-bold text-xl" v-text="item.name"></div>
                 <div class="flex flex-wrap mb-6">
                     <div class="w-full sm:w-1/2 pr-3 pb-2 text-left sm:pb-3">
@@ -212,7 +212,7 @@ export default {
                 name: this.item.name,
                 'provider_code': this.item.provider_code,
                 'marking_code': this.item.marking_code,
-                'price': this.item.price,
+                'price': Number(this.item.price).toFixed(2),
                 'description': this.item.description,
                 'datasheet': this.item.datasheet,
                 'valid': this.item.valid,
@@ -220,6 +220,10 @@ export default {
                 'item_case_id': this.item.item_case_id,
                 'manufacturer_id': this.item.manufacturer_id,
             }).then((response) => {
+                if (this.item.category_id !== window.currentCategory.id) {
+                    this.$emit('remove-item')
+                }
+
                 toast.fire({ title: 'Item ' + this.item.name + ' was updated.', icon: 'success' })
             }).catch((error) => {
                 toast.fire({ title: 'Request failed.', icon: 'error' })

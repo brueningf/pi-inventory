@@ -34,6 +34,7 @@
             @drop="drop"
             @dragover="dragover"
             @dragleave="dragleave"
+            @select="updateSelect"
             detailed
             focusable
             sticky-header
@@ -59,6 +60,7 @@
                                 :item-cases="cases"
                                 :available-categories="categories"
                                 :projects="projects"
+                                @remove-item="removeItem(props.index)"
                             ></edit-item>
                         </modal>
                         <nav class="w-48 context-menu bg-gray-100 rounded overflow-hidden">
@@ -119,7 +121,7 @@
                 <b-table-column field="price" label="Price" sortable numeric>
                     {{ props.row.price }}
                 </b-table-column>
-                <b-table-column>
+                <b-table-column field="valid" label="Valid" sortable>
                     <zondicon :icon="props.row.valid ? 'checkmark-outline' : 'exclamation-outline'"
                               class="w-5 h-5 fill-current mr-1"
                               :class="{'text-green-500': props.row.valid, 'text-yellow-500': ! props.row.valid}"></zondicon>
@@ -302,6 +304,10 @@ export default {
         stockChange(index) {
             console.log(index)
         },
+        updateSelect(el) {
+            window.history.replaceState({}, '', window.location.toString().replace(/item=[0-9]+$/, 'item=' + el.id))
+            // window.location = window.location.replace(/item=(d+)$/, el.id)
+        },
         removeSelected(index) {
             swal.fire({
                 icon: 'warning',
@@ -326,6 +332,9 @@ export default {
                     })
                 }
             })
+        },
+        removeItem(index) {
+            this.tableItems.splice(index, 1)
         },
         dragstart(payload) {
             this.draggingRow = payload.row

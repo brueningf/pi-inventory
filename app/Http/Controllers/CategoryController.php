@@ -52,20 +52,20 @@ class CategoryController extends Controller {
     /**
      * Display the specified resource.
      *
-     * @param $id
+     * @param Category $category
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function show($id)
+    public function show(Category $category)
     {
-        $cacheId = "category-{$id}";
-
-        if (Cache::has($cacheId)) {
-            $category = Cache::get($cacheId);
-        } else {
-            $category = Cache::remember($cacheId, now()->addMonth(), function () use ($id) {
-                return Category::find($id)->load('items');
-            });
-        }
+//        $cacheId = "category-{$id}";
+//
+//        if (Cache::has($cacheId)) {
+//            $category = Cache::get($cacheId);
+//        } else {
+//            $category = Cache::remember($cacheId, now()->addMonth(), function () use ($id) {
+//                return Category::find($id)->load('items');
+//            });
+//        }
 
         return view('categories.show', compact('category'));
     }

@@ -1,8 +1,6 @@
 @extends('layout.app')
 
 @section('content')
-
-
     <div class="p-2 sm:p-6 mt-5">
         <div>
             <div class="flex items-center justify-between px-4 py-3 text-gray-300 bg-gray-700">
@@ -24,7 +22,7 @@
                             <div class="font-semibold">
                                 {{ $item->name }}
                             </div>
-                            <div class="text-blue-700">
+                            <div class="text-gray-300 truncate">
                                 {{ $item->description }}
                             </div>
                         </div>
@@ -45,7 +43,7 @@
                             <div class="font-semibold">
                                 {{ $item->name }}
                             </div>
-                            <div class="text-blue-700">
+                            <div class="text-gray-300 truncate">
                                 {{ $item->description }}
                             </div>
                         </div>
@@ -53,20 +51,5 @@
                 </div>
             @endforeach
         </div>
-
-        <h3 class="text-xl font-bold mt-6">Manufacturer</h3>
-        <div class="w-full flex flex-wrap mt-6 pb-16 block">
-            @foreach ($manufacturers as $manufacturer)
-                <div class="w-1/2 sm:w-1/5 mt-3 pr-3">
-                    <a href="{{ $manufacturer->path() }}"
-                       class="w-full block p-2 font-bold text-center border rounded hover:bg-blue-100">
-                        {{ $manufacturer->name }}
-                    </a>
-                </div>
-            @endforeach
-        </div>
     </div>
-
-
-
 @endsection
