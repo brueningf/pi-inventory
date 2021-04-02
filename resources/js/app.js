@@ -10,9 +10,9 @@ import EditItem from './components/EditItem'
 import { ConfigProgrammatic, Table } from 'buefy'
 import Modal from './plugins/modal/ModalPlugin'
 import Visible from './components/Visible'
-// import Search from './components/Search'
+import Search from './components/Search'
 
-import InstantSearch from 'vue-instantsearch';
+// import InstantSearch from 'vue-instantsearch';
 
 ConfigProgrammatic.setOptions({
     defaultIconPack: 'fas'
@@ -20,7 +20,7 @@ ConfigProgrammatic.setOptions({
 
 Vue.use(Table)
 Vue.use(Modal)
-Vue.use(InstantSearch);
+// Vue.use(InstantSearch);
 
 Vue.component('edit-item', EditItem)
 Vue.component('zondicon', Zondicon)
@@ -29,7 +29,7 @@ Vue.component('sidemenu', Sidemenu)
 Vue.component('sidemenu-item', SidemenuItem)
 Vue.component('items-table', ItemsTable)
 Vue.component('visible', Visible)
-// Vue.component('search', Search)
+Vue.component('search', Search)
 
 
 let app = new Vue({

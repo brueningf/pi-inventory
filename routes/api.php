@@ -1,11 +1,12 @@
 <?php
 
-use App\Http\Controllers\StorageLocationController;
 use App\Item;
 use App\ItemAttribute;
-use App\Project;
 use App\StorageLocation;
-use Illuminate\Http\Request;
+
+Route::get('/search/{query}', function ($query) {
+    return Item::where('name', 'LIKE', "%{$query}%")->limit(5)->get();
+});
 
 Route::get('/storage-locations-data', function () {
     $lists = [];

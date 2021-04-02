@@ -55,8 +55,8 @@
             </div>
             <div class="flex-1 w-1/3 bg-red-900 h-full flex items-center">
                 @if(request()->routeIs('categories.show') && isset($category))
-                    <div class="w-full font-extrabold text-sm sm:text-2xl pl-8 pr-3">
-                        <span>{{ $category->name }} {{ !$category->items->count() ? '' : "/ {$category->items->count()} items" }}</span>
+                    <div class="w-full font-extrabold text-sm md:text-lg xl:text-xl pl-8 pr-3">
+                        {{ $category->name }} {{ !$category->items->count() ? '' : "/ {$category->items->count()} items" }}
                     </div>
                 @endif
             </div>
@@ -117,48 +117,7 @@
     </modal>
 
     <modal name="search">
-        <div class="text-black p-8 h-64" style="min-height: 30vh">
-{{--            <form action="/search" method="POST" class="flex items-center justify-center py-1 relative">--}}
-{{--                {{ csrf_field() }}--}}
-{{--                <input id="search" style="padding: 1rem 1rem 1rem 2rem" type="search" name="q"--}}
-{{--                       placeholder="Search items" autofocus>--}}
-{{--                <button type="submit">--}}
-{{--                    <zondicon icon="search"--}}
-{{--                              class="fill-current text-red-700 w-5 pointer-events-none absolute inset-y-0 left-0 mt-5 ml-2"></zondicon>--}}
-{{--                </button>--}}
-{{--            </form>--}}
-
-            <ais-instant-search
-                :search-client="searchClient"
-                index-name="{{ (new App\Item)->searchableAs() }}"
-            >
-                <ais-configure :hits-per-page.camel="5"></ais-configure>
-                <ais-search-box>
-                    <div slot-scope="{ currentRefinement, isSearchStalled, refine }">
-                        <input
-                            type="search"
-                            :value="currentRefinement"
-                            @input="refine($event.currentTarget.value)"
-                            autofocus
-                        >
-                        <span :hidden="!isSearchStalled">Loading...</span>
-                    </div>
-                </ais-search-box>
-                <ais-hits>
-                    <div slot-scope="{ items }" class="my-5">
-                        <a class="block flex bg-gray-200 hover:bg-blue-200 px-3 py-2" v-for="item in items" :key="item.objectID" :href="item.path">
-                           <div class="w-1/5">
-                               <img :src="item.image_path" class="object-contain w-full h-10">
-                           </div>
-                           <div class="w-4/5">
-                               <ais-highlight :hit="item" attribute="name"></ais-highlight>
-                               <p v-text="item.description"></p>
-                           </div>
-                        </a>
-                    </div>
-                </ais-hits>
-            </ais-instant-search>
-        </div>
+        <search></search>
     </modal>
 
 </div>

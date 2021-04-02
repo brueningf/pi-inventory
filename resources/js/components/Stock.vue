@@ -39,7 +39,7 @@
             <tbody>
             <stock-location
                 v-for="(storage, index) in locations"
-                :key="index"
+                :key="storage.id"
                 :storage="storage"
                 @update="update(storage.stock, storage.id)"
                 @remove="remove(storage.id, index)"
