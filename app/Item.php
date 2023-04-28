@@ -3,11 +3,8 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-use Laravel\Scout\Searchable;
 
 class Item extends Model {
-
-    use Searchable;
 
     protected $guarded = [];
 
@@ -107,13 +104,4 @@ class Item extends Model {
         return $this->belongsToMany(Project::class);
     }
 
-    /**
-     * Get the name of the index associated with the model.
-     *
-     * @return string
-     */
-    public function searchableAs()
-    {
-        return 'posts_index';
-    }
 }

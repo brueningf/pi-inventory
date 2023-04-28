@@ -5,14 +5,14 @@ use App\ItemAttribute;
 use App\StorageLocation;
 
 Route::get('/search/{query}', function ($query) {
-    return Item::where('name', 'LIKE', "%{$query}%")->limit(5)->get();
+    return Item::where('name', 'LIKE', "%{$query}%")->orWhere('marking_code', 'LIKE', "%{$query}%")->limit(5)->get();
 });
 
 Route::get('/storage-locations-data', function () {
     $lists = [];
 
-    $lists[] = StorageLocation::select('location')->where('location', '!=', 'Not specified')->distinct()->get();
-    $lists[] = StorageLocation::select('level')->whereNotNull('level')->distinct()->get();
+    $lists[] = StorageLocation::select('location')->where('location', '!=', 'Not specified')->distinct()->orderBy("location")->get();
+    $lists[] = StorageLocation::select('level')->whereNotNull('level')->distinct()->orderBy("level")->get();
 
     return $lists;
 });

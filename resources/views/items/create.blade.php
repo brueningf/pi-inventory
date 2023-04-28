@@ -74,6 +74,10 @@
                 <label for="provider_code">Provider code</label>
                 <input type="text" name="provider_code" placeholder="e.g. STMM001">
             </div>
+            <div class="w-1/2 md:w-1/4 md:mt-6 px-3">
+                <label for="marking_code">Marking code</label>
+                <input type="text" name="marking_code" placeholder="">
+            </div>
             <div class="w-1/2 md:w-1/4 md:px-0 md:mt-6 px-3">
                 <label for="price">$ Price per unit *</label>
                 <input type="number" min="0.00" max="10000.00" step="0.01" name="price" placeholder="0.00" required/>
