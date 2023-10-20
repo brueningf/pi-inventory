@@ -1,44 +1,19 @@
 <?php
 
-use App\Item;
-use App\ItemAttribute;
-use App\StorageLocation;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Route;
 
-Route::get('/search/{query}', function ($query) {
-    return Item::where('name', 'LIKE', "%{$query}%")->orWhere('marking_code', 'LIKE', "%{$query}%")->limit(5)->get();
-});
+/*
+|--------------------------------------------------------------------------
+| API Routes
+|--------------------------------------------------------------------------
+|
+| Here is where you can register API routes for your application. These
+| routes are loaded by the RouteServiceProvider and all of them will
+| be assigned to the "api" middleware group. Make something great!
+|
+*/
 
-Route::get('/storage-locations-data', function () {
-    $lists = [];
-
-    $lists[] = StorageLocation::select('location')->where('location', '!=', 'Not specified')->distinct()->orderBy("location")->get();
-    $lists[] = StorageLocation::select('level')->whereNotNull('level')->distinct()->orderBy("level")->get();
-
-    return $lists;
-});
-
-Route::resource('/storage-locations', 'StorageLocationController');
-Route::delete('/attributes/{attribute}', function (ItemAttribute $attribute) {
-    $attribute->delete();
-
-    return response('Ok, attribute deleted');
-});
-
-Route::post('/add-attribute/{item}', function (Item $item) {
-    $attribute = $item->attributes()->save(new ItemAttribute(['name' => request('name'), 'value' => \request('value')]));
-
-    return response($attribute);
-});
-
-
-Route::post('/add-project/{item}', function (Item $item) {
-    $item->projects()->attach(request()->project);
-
-    return response('Associated', 201);
-});
-
-Route::post('/delete-project/{item}', function (Item $item) {
-    $item->projects()->detach(request()->project);
-
-    return response('Ok, disassociated');
+Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+    return $request->user();
 });
